@@ -1,0 +1,96 @@
+/* Contenedor principal */
+.language-switcher {
+    display: flex;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    margin-right: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.language-switcher:hover {
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+::ng-deep .mat-button-toggle-group {
+    border: none !important;
+    background-color: transparent !important;
+}
+
+::ng-deep .mat-button-toggle {
+    background-color: transparent !important;
+    color: white !important;
+    min-width: 48px;
+    height: 36px;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+::ng-deep .mat-button-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Botón activo */
+::ng-deep .mat-button-toggle.mat-button-toggle-checked {
+    background-color: #00bcd4 !important;
+    color: #0a0a8f !important;
+    font-weight: 500;
+}
+
+/* Efecto de ripple personalizado */
+::ng-deep .mat-button-toggle::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%, -50%);
+    transform-origin: 50% 50%;
+}
+
+::ng-deep .mat-button-toggle:focus::after {
+    animation: ripple 0.6s ease-out;
+}
+
+/* Texto dentro de los botones */
+::ng-deep .mat-button-toggle-label-content {
+    line-height: 36px !important;
+    padding: 0 12px !important;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 768px) {
+    ::ng-deep .mat-button-toggle {
+        min-width: 40px;
+    }
+
+    ::ng-deep .mat-button-toggle-label-content {
+        padding: 0 8px !important;
+        font-size: 12px;
+    }
+}
+
+/* Animación de ripple */
+@keyframes ripple {
+    0% {
+        transform: scale(0, 0);
+        opacity: 1;
+    }
+    20% {
+        transform: scale(25, 25);
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(40, 40);
+    }
+}
