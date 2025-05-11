@@ -1,1 +1,63 @@
-<p>device-card works!</p>
+<mat-card class="device-card">
+    <mat-card-header>
+        <div mat-card-avatar class="device-icon" [ngStyle]="{'background-color': statusColor}">
+            <mat-icon>sensors</mat-icon>
+        </div>
+        <mat-card-title>{{ device.name }}</mat-card-title>
+        <mat-card-subtitle>{{ device.type }} - {{ device.location }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+        <div class="reading-container">
+            <div class="reading" [ngStyle]="{'color': readingColor}">
+                {{ device.currentReading }} {{ device.unit }}
+            </div>
+            <div class="reading-label">
+                {{ 'DASHBOARD.CURRENT_READING' | translate }}
+            </div>
+        </div>
+
+        <div class="device-info">
+            <div class="info-item">
+                <mat-icon>battery_std</mat-icon>
+                <div class="battery-level">
+                    <div class="battery-label">{{ 'DASHBOARD.BATTERY' | translate }}</div>
+                    <mat-progress-bar
+                            mode="determinate"
+                            [value]="device.batteryLevel"
+                            [color]="getBatteryColor() === 'green' ? 'primary' :
+                    getBatteryColor() === 'orange' ? 'accent' : 'warn'">
+                    </mat-progress-bar>
+                    <div class="battery-percentage">{{ device.batteryLevel }}%</div>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <mat-icon>event</mat-icon>
+                <div>
+                    <div class="info-label">{{ 'DASHBOARD.NEXT_MAINTENANCE' | translate }}</div>
+                    <div class="info-value">{{ device.nextMaintenance | date }}</div>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <mat-icon>warning</mat-icon>
+                <div>
+                    <div class="info-label">{{ 'DASHBOARD.THRESHOLD' | translate }}</div>
+                    <div class="info-value">{{ device.threshold }} {{ device.unit }}</div>
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+        <button mat-button color="primary">{{ 'DASHBOARD.DETAILS' | translate }}</button>
+        <button mat-button color="accent">{{ 'DASHBOARD.HISTORY' | translate }}</button>
+    </mat-card-actions>
+
+    <mat-card-footer>
+        <div class="status-indicator" [ngStyle]="{'background-color': statusColor}">
+            {{ 'STATUS.' + device.status.toUpperCase() | translate }}
+        </div>
+    </mat-card-footer>
+</mat-card>

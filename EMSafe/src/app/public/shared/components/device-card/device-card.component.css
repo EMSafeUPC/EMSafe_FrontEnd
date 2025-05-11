@@ -1,0 +1,91 @@
+.device-card {
+    margin: 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.device-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.device-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border-radius: 50%;
+}
+
+.reading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 16px 0;
+    padding: 16px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+}
+
+.reading {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.reading-label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 4px;
+}
+
+.device-info {
+    margin: 16px 0;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.info-item mat-icon {
+    margin-right: 12px;
+    color: #666;
+}
+
+.info-label {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.info-value {
+    font-size: 1rem;
+}
+
+.battery-level {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.battery-label {
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.battery-percentage {
+    font-size: 0.8rem;
+    text-align: right;
+    margin-top: 2px;
+}
+
+.status-indicator {
+    padding: 8px;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
