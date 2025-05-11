@@ -9,6 +9,10 @@
     flex: 1 1 auto;
 }
 
+.user-controls mat-icon {
+    color: #fff !important;
+}
+
 .logo-container {
     display: flex;
     align-items: center;
