@@ -1,0 +1,18 @@
+{
+  "MENU": {
+    "DASHBOARD": "Dashboard",
+    "DEVICES": "Devices",
+    "DEVICE_HISTORY": "Device History",
+    "DEVICE_MANAGEMENT": "Device Management",
+    "ALARMS": "Alarms",
+    "ALARM_HISTORY": "Alarm History",
+    "ALARM_SETTINGS": "Alarm Settings",
+    "RADIATION_MAP": "Radiation Map"
+  },
+  "USER": {
+    "PROFILE": "My Profile",
+    "SETTINGS": "Settings",
+    "LOGOUT": "Logout",
+    "LOGIN": "Login"
+  }
+}

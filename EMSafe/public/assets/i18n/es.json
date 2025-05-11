@@ -1,0 +1,18 @@
+{
+  "MENU": {
+    "DASHBOARD": "Panel de Control",
+    "DEVICES": "Dispositivos",
+    "DEVICE_HISTORY": "Historial de Dispositivos",
+    "DEVICE_MANAGEMENT": "Gestión de Dispositivos",
+    "ALARMS": "Alarmas",
+    "ALARM_HISTORY": "Historial de Alarmas",
+    "ALARM_SETTINGS": "Configuración de Alarmas",
+    "RADIATION_MAP": "Mapa de Radiación"
+  },
+  "USER": {
+    "PROFILE": "Mi Perfil",
+    "SETTINGS": "Configuración",
+    "LOGOUT": "Cerrar Sesión",
+    "LOGIN": "Iniciar Sesión"
+  }
+}
