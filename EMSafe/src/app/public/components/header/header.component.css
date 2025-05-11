@@ -1,0 +1,47 @@
+.header {
+    background-color: #0a0a8f;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    height: 64px;
+}
+
+.mat-spacer {
+    flex: 1 1 auto;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+}
+
+.logo-image {
+    height: 40px;
+    width: auto;
+    display: block;
+    margin-right: 8px;
+    object-fit: contain;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+}
+
+.logo-container h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.user-controls {
+    display: flex;
+    align-items: center;
+    margin-left: 16px;
+}
+
+.sidebar-toggle {
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .logo-container h1 {
+        font-size: 1.2rem;
+    }
+}
