@@ -1,1 +1,36 @@
-<p>stats-card works!</p>
+<mat-card class="stats-card">
+    <mat-card-header>
+        <div mat-card-avatar class="stats-icon">
+            <mat-icon>{{ icon }}</mat-icon>
+        </div>
+        <mat-card-title>{{ title }}</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+        <div class="summary-section" *ngIf="summary">
+            <div class="summary-item" *ngIf="summary.averageRadiation !== undefined">
+                <div class="summary-value">{{ summary.averageRadiation }} μSv/h</div>
+                <div class="summary-label">{{ 'STATS.AVG_RADIATION' | translate }}</div>
+            </div>
+
+            <div class="summary-item" *ngIf="summary.maxRadiation !== undefined">
+                <div class="summary-value">{{ summary.maxRadiation }} μSv/h</div>
+                <div class="summary-label">{{ 'STATS.MAX_RADIATION' | translate }}</div>
+            </div>
+
+            <div class="summary-item" *ngIf="summary.activeDevices !== undefined">
+                <div class="summary-value">{{ summary.activeDevices }}</div>
+                <div class="summary-label">{{ 'STATS.ACTIVE_DEVICES' | translate }}</div>
+            </div>
+
+            <div class="summary-item" *ngIf="summary.alarms !== undefined">
+                <div class="summary-value">{{ summary.alarms }}</div>
+                <div class="summary-label">{{ 'STATS.ALARMS' | translate }}</div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <canvas #chartCanvas></canvas>
+        </div>
+    </mat-card-content>
+</mat-card>
