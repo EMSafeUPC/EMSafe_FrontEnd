@@ -1,1 +1,136 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1>{{ 'DASHBOARD.TITLE' | translate }}</h1>
+        <div class="last-updated">
+            {{ 'DASHBOARD.LAST_UPDATED' | translate }}: {{ lastUpdated }}
+        </div>
+    </div>
+
+    <!-- Tarjetas de estadísticas -->
+    <div class="stats-cards">
+        <div class="stat-card">
+            <div class="stat-card-header">
+                <span>{{ 'DASHBOARD.ACTIVE_DEVICES' | translate }}</span>
+                <mat-icon class="stat-icon active">sensors</mat-icon>
+            </div>
+            <div class="stat-card-value">{{ getActiveDevicesCount() }}/{{ devices.length }}</div>
+            <div class="stat-card-footer">
+                {{ devices.length - getActiveDevicesCount() }} {{ 'DASHBOARD.INACTIVE_DEVICES' | translate }}
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-card-header">
+                <span>{{ 'DASHBOARD.AVG_RADIATION' | translate }}</span>
+                <mat-icon class="stat-icon info">speed</mat-icon>
+            </div>
+            <div class="stat-card-value">{{ getLatestStats().averageRadiation || 0 }} μSv/h</div>
+            <div class="stat-card-footer">
+        <span [class.positive]="radiationTrend >= 0" [class.negative]="radiationTrend < 0">
+          {{ radiationTrend > 0 ? '+' : '' }}{{ radiationTrend }}% {{ 'DASHBOARD.SINCE_YESTERDAY' | translate }}
+        </span>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-card-header">
+                <span>{{ 'DASHBOARD.ACTIVE_ALARMS' | translate }}</span>
+                <mat-icon class="stat-icon warning">warning</mat-icon>
+            </div>
+            <div class="stat-card-value">{{ activeAlarms.length }}</div>
+            <div class="stat-card-footer">
+                {{ getCriticalAlarmsCount() }} {{ 'DASHBOARD.CRITICAL' | translate }},
+                {{ activeAlarms.length - getCriticalAlarmsCount() }} {{ 'DASHBOARD.WARNING' | translate }}
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-card-header">
+                <span>{{ 'DASHBOARD.BATTERY_AVG' | translate }}</span>
+                <mat-icon class="stat-icon battery">battery_std</mat-icon>
+            </div>
+            <div class="stat-card-value">{{ getAverageBatteryLevel() }}%</div>
+            <div class="stat-card-footer">
+                {{ getLowBatteryDevicesCount() }} {{ 'DASHBOARD.LOW_BATTERY_DEVICES' | translate }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Gráfico de radiación -->
+    <div class="chart-container">
+        <div class="chart-header">
+            <h2>{{ 'DASHBOARD.RADIATION_LEVELS' | translate }} (24h)</h2>
+            <p>{{ 'DASHBOARD.MONITORING_DESCRIPTION' | translate }}</p>
+        </div>
+        <div class="chart-content">
+            <app-stats-card
+                    [data]="dailyStats"
+                    chartType="line"
+                    chartLabel="{{ 'DASHBOARD.AVG_RADIATION' | translate }}"
+                    [chartColors]="['rgba(0, 188, 212, 1)']"
+            ></app-stats-card>
+        </div>
+    </div>
+
+    <!-- Secciones inferiores -->
+    <div class="dashboard-sections">
+        <div class="section-card">
+            <div class="section-header">
+                <h2>{{ 'DASHBOARD.RECENT_ALERTS' | translate }}</h2>
+                <p>{{ 'DASHBOARD.RECENT_ALERTS_DESCRIPTION' | translate }}</p>
+            </div>
+            <div class="section-content">
+                <div *ngFor="let alarm of activeAlarms.slice(0, 3)" class="alert-item">
+                    <div class="alert-icon" [ngClass]="{'critical': alarm.level === 'critical', 'warning': alarm.level === 'warning'}">
+                        <mat-icon>{{ alarm.level === 'critical' ? 'error' : 'warning' }}</mat-icon>
+                    </div>
+                    <div class="alert-details">
+                        <div class="alert-title">{{ 'ALARM.LEVEL.' + alarm.level.toUpperCase() | translate }}</div>
+                        <div class="alert-description">{{ alarm.deviceName }} - {{ alarm.reading }} {{ alarm.unit }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-card">
+            <div class="section-header">
+                <h2>{{ 'DASHBOARD.RECENT_DEVICES' | translate }}</h2>
+                <p>{{ 'DASHBOARD.DEVICE_STATUS_DESCRIPTION' | translate }}</p>
+            </div>
+            <div class="section-content">
+                <div *ngFor="let device of devices.slice(0, 3)" class="device-item">
+                    <div class="device-status" [ngClass]="{'active': device.status === 'active', 'maintenance': device.status === 'maintenance', 'inactive': device.status === 'inactive', 'alert': device.status === 'alert'}"></div>
+                    <div class="device-details">
+                        <div class="device-name">{{ device.name }}</div>
+                        <div class="device-reading">{{ device.currentReading }} {{ device.unit }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pestañas para todos los dispositivos y alarmas -->
+    <mat-tab-group animationDuration="0ms" class="dashboard-tabs">
+        <mat-tab label="{{ 'DASHBOARD.ALL_DEVICES' | translate }}">
+            <div class="tab-content">
+                <div class="cards-grid">
+                    <app-device-card
+                            *ngFor="let device of devices"
+                            [device]="device"
+                    ></app-device-card>
+                </div>
+            </div>
+        </mat-tab>
+
+        <mat-tab label="{{ 'DASHBOARD.ALL_ALARMS' | translate }}">
+            <div class="tab-content">
+                <div class="cards-grid">
+                    <app-alarm-card
+                            *ngFor="let alarm of alarms"
+                            [alarm]="alarm"
+                    ></app-alarm-card>
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>

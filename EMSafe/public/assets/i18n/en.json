@@ -14,5 +14,65 @@
     "SETTINGS": "Settings",
     "LOGOUT": "Logout",
     "LOGIN": "Login"
+  },
+  "DASHBOARD": {
+    "TITLE": "Dashboard",
+    "LAST_UPDATED": "Last updated",
+    "ACTIVE_DEVICES": "Active Devices",
+    "INACTIVE_DEVICES": "inactive devices",
+    "ACTIVE_ALARMS": "Active Alerts",
+    "AVG_RADIATION": "Average Level",
+    "MAX_RADIATION": "Maximum Radiation",
+    "BATTERY_AVG": "Average Battery",
+    "LOW_BATTERY_DEVICES": "devices with low battery",
+    "RADIATION_LEVELS": "Radiation Levels",
+    "MONITORING_DESCRIPTION": "Monitoring of average levels in the last 24 hours",
+    "RADIATION_TRENDS": "Radiation Trends",
+    "DEVICE_STATUS": "Device Status",
+    "RECENT_ALERTS": "Recent Alerts",
+    "RECENT_ALERTS_DESCRIPTION": "Latest alerts detected in the system",
+    "RECENT_DEVICES": "Recent Devices",
+    "DEVICE_STATUS_DESCRIPTION": "Current status of devices",
+    "ALL_DEVICES": "All Devices",
+    "ALL_ALARMS": "All Alarms",
+    "CURRENT_READING": "Current Reading",
+    "BATTERY": "Battery",
+    "NEXT_MAINTENANCE": "Next Maintenance",
+    "THRESHOLD": "Threshold",
+    "DETAILS": "Details",
+    "HISTORY": "History",
+    "SINCE_YESTERDAY": "since yesterday",
+    "CRITICAL": "critical",
+    "WARNING": "warning"
+  },
+  "STATUS": {
+    "ACTIVE": "Active",
+    "MAINTENANCE": "Maintenance",
+    "INACTIVE": "Inactive",
+    "ALERT": "Alert"
+  },
+  "ALARM": {
+    "LEVEL": {
+      "INFO": "Information",
+      "WARNING": "Warning",
+      "CRITICAL": "Critical"
+    },
+    "TYPE": {
+      "RADIATION_THRESHOLD": "Radiation Threshold",
+      "SYSTEM": "System",
+      "CONNECTIVITY": "Connectivity"
+    },
+    "THRESHOLD": "Threshold",
+    "ACKNOWLEDGED_BY": "Acknowledged by",
+    "RESOLVED_AT": "Resolved at",
+    "ACKNOWLEDGE": "Acknowledge",
+    "RESOLVE": "Resolve",
+    "DETAILS": "Details"
+  },
+  "STATS": {
+    "AVG_RADIATION": "Average Radiation",
+    "MAX_RADIATION": "Maximum Radiation",
+    "ACTIVE_DEVICES": "Active Devices",
+    "ALARMS": "Alarms"
   }
 }
