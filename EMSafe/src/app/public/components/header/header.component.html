@@ -1,0 +1,36 @@
+<mat-toolbar class="header">
+    <mat-toolbar-row>
+        <button mat-icon-button (click)="toggleSidebar()" class="sidebar-toggle">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <div class="logo-container">
+            <img src="/assets/logoblanco.png" alt="Logo" class="logo-image" />
+            <h1>EMSafe</h1>
+        </div>
+        <div class="mat-spacer"></div>
+
+        <div class="user-controls">
+            <app-language-switcher></app-language-switcher>
+
+            <button mat-icon-button [matMenuTriggerFor]="userMenu" aria-label="User menu">
+                <mat-icon>account_circle</mat-icon>
+            </button>
+
+            <mat-menu #userMenu="matMenu">
+                <button mat-menu-item routerLink="/profile">
+                    <mat-icon>person</mat-icon>
+                    <span>{{ 'USER.PROFILE' | translate }}</span>
+                </button>
+                <button mat-menu-item routerLink="/settings">
+                    <mat-icon>settings</mat-icon>
+                    <span>{{ 'USER.SETTINGS' | translate }}</span>
+                </button>
+                <mat-divider></mat-divider>
+                <button mat-menu-item>
+                    <mat-icon>exit_to_app</mat-icon>
+                    <span>{{ 'USER.LOGOUT' | translate }}</span>
+                </button>
+            </mat-menu>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>

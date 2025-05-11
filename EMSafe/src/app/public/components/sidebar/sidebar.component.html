@@ -1,0 +1,45 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav [opened]="opened" [mode]="'side'" class="sidenav">
+        <div class="sidebar-header">
+            <div class="logo">
+                <img src="/assets/logoblanco.png" alt="EM Logo" class="logo-image" />
+            </div>
+        </div>
+        <div class="sidebar-content">
+            <div class="menu-items">
+                @for (item of menuItems; track item.name) {
+                    <a
+                            class="menu-item"
+                            [routerLink]="item.route"
+                            routerLinkActive="active-link"
+                    >
+                        <mat-icon>{{ item.icon }}</mat-icon>
+                        <span>{{ item.name | translate }}</span>
+                    </a>
+                }
+            </div>
+            <div class="user-actions">
+                <a
+                        class="menu-item"
+                        [routerLink]="'/login'"
+                        routerLinkActive="active-link"
+                >
+                    <mat-icon>login</mat-icon>
+                    <span>{{ 'USER.LOGIN' | translate }}</span>
+                </a>
+                <a
+                        class="menu-item"
+                        [routerLink]="'/profile'"
+                        routerLinkActive="active-link"
+                >
+                    <mat-icon>person</mat-icon>
+                    <span>{{ 'USER.PROFILE' | translate }}</span>
+                </a>
+            </div>
+        </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content [style.marginLeft.px]="opened ? 250 : 0">
+        <ng-content></ng-content>
+    </mat-sidenav-content>
+</mat-sidenav-container>
