@@ -14,5 +14,65 @@
     "SETTINGS": "Configuración",
     "LOGOUT": "Cerrar Sesión",
     "LOGIN": "Iniciar Sesión"
+  },
+  "DASHBOARD": {
+    "TITLE": "Panel de Control",
+    "LAST_UPDATED": "Última actualización",
+    "ACTIVE_DEVICES": "Dispositivos Activos",
+    "INACTIVE_DEVICES": "Dispositivos Inactivos",
+    "ACTIVE_ALARMS": "Alertas Activas",
+    "AVG_RADIATION": "Nivel Promedio",
+    "MAX_RADIATION": "Radiación Máxima",
+    "BATTERY_AVG": "Batería Promedio",
+    "LOW_BATTERY_DEVICES": "Dispositivos con Batería Baja",
+    "RADIATION_LEVELS": "Niveles de Radiación",
+    "MONITORING_DESCRIPTION": "Monitoreo de niveles promedio en las últimas 24 horas",
+    "RADIATION_TRENDS": "Tendencias de Radiación",
+    "DEVICE_STATUS": "Estado de los Dispositivos",
+    "RECENT_ALERTS": "Alertas Recientes",
+    "RECENT_ALERTS_DESCRIPTION": "Últimas alertas detectadas en el sistema",
+    "RECENT_DEVICES": "Dispositivos Recientes",
+    "DEVICE_STATUS_DESCRIPTION": "Estado actual de los dispositivos",
+    "ALL_DEVICES": "Todos los Dispositivos",
+    "ALL_ALARMS": "Todas las Alarmas",
+    "CURRENT_READING": "Lectura Actual",
+    "BATTERY": "Batería",
+    "NEXT_MAINTENANCE": "Próximo Mantenimiento",
+    "THRESHOLD": "Umbral",
+    "DETAILS": "Detalles",
+    "HISTORY": "Historial",
+    "SINCE_YESTERDAY": "desde ayer",
+    "CRITICAL": "crítico",
+    "WARNING": "advertencia"
+  },
+  "STATUS": {
+    "ACTIVE": "Activo",
+    "MAINTENANCE": "Mantenimiento",
+    "INACTIVE": "Inactivo",
+    "ALERT": "Alerta"
+  },
+  "ALARM": {
+    "LEVEL": {
+      "INFO": "Información",
+      "WARNING": "Advertencia",
+      "CRITICAL": "Crítico"
+    },
+    "TYPE": {
+      "RADIATION_THRESHOLD": "Umbral de Radiación",
+      "SYSTEM": "Sistema",
+      "CONNECTIVITY": "Conectividad"
+    },
+    "THRESHOLD": "Umbral",
+    "ACKNOWLEDGED_BY": "Reconocido por",
+    "RESOLVED_AT": "Resuelto en",
+    "ACKNOWLEDGE": "Reconocer",
+    "RESOLVE": "Resolver",
+    "DETAILS": "Detalles"
+  },
+  "STATS": {
+    "AVG_RADIATION": "Radiación Promedio",
+    "MAX_RADIATION": "Radiación Máxima",
+    "ACTIVE_DEVICES": "Dispositivos Activos",
+    "ALARMS": "Alarmas"
   }
 }
