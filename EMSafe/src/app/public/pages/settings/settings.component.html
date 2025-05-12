@@ -1,1 +1,150 @@
-<p>settings works!</p>
+<div class="settings-container">
+    <div class="page-header">
+        <h1>{{ 'SETTINGS.TITLE' | translate }}</h1>
+        <p>{{ 'SETTINGS.SUBTITLE' | translate }}</p>
+    </div>
+
+    <div class="settings-content">
+        <!-- Tarjeta de preferencias -->
+        <mat-card class="settings-card">
+            <mat-card-header>
+                <mat-icon mat-card-avatar>settings</mat-icon>
+                <mat-card-title>{{ 'SETTINGS.PREFERENCES' | translate }}</mat-card-title>
+            </mat-card-header>
+
+            <mat-card-content>
+                <form [formGroup]="preferencesForm" (ngSubmit)="savePreferences()" class="settings-form">
+                    <div class="form-row">
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{ 'SETTINGS.LANGUAGE' | translate }}</mat-label>
+                            <mat-select formControlName="language">
+                                <mat-option *ngFor="let lang of languages" [value]="lang.code">
+                                    {{ lang.name }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-icon matPrefix>language</mat-icon>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-row">
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{ 'SETTINGS.THEME' | translate }}</mat-label>
+                            <mat-select formControlName="theme">
+                                <mat-option value="light">{{ 'SETTINGS.THEME_LIGHT' | translate }}</mat-option>
+                                <mat-option value="dark">{{ 'SETTINGS.THEME_DARK' | translate }}</mat-option>
+                                <mat-option value="system">{{ 'SETTINGS.THEME_SYSTEM' | translate }}</mat-option>
+                            </mat-select>
+                            <mat-icon matPrefix>palette</mat-icon>
+                        </mat-form-field>
+                    </div>
+
+                    <h3>{{ 'SETTINGS.NOTIFICATIONS' | translate }}</h3>
+
+                    <div class="notification-options">
+                        <mat-slide-toggle formControlName="emailNotifications" color="primary">
+                            {{ 'SETTINGS.EMAIL_NOTIFICATIONS' | translate }}
+                        </mat-slide-toggle>
+
+                        <mat-slide-toggle formControlName="pushNotifications" color="primary">
+                            {{ 'SETTINGS.PUSH_NOTIFICATIONS' | translate }}
+                        </mat-slide-toggle>
+
+                        <mat-slide-toggle formControlName="smsNotifications" color="primary">
+                            {{ 'SETTINGS.SMS_NOTIFICATIONS' | translate }}
+                        </mat-slide-toggle>
+                    </div>
+
+                    <div class="form-actions">
+                        <button
+                                mat-flat-button
+                                color="primary"
+                                type="submit"
+                                [disabled]="preferencesForm.pristine || savingPreferences">
+                            <mat-spinner *ngIf="savingPreferences" diameter="20" class="spinner"></mat-spinner>
+                            <span *ngIf="!savingPreferences">{{ 'SETTINGS.SAVE_PREFERENCES' | translate }}</span>
+                        </button>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+
+        <!-- Tarjeta de seguridad de la cuenta -->
+        <mat-card class="settings-card">
+            <mat-card-header>
+                <mat-icon mat-card-avatar>security</mat-icon>
+                <mat-card-title>{{ 'SETTINGS.ACCOUNT_SECURITY' | translate }}</mat-card-title>
+            </mat-card-header>
+
+            <mat-card-content>
+                <div class="security-section">
+                    <h3>{{ 'SETTINGS.LOGIN_HISTORY' | translate }}</h3>
+                    <p class="section-description">{{ 'SETTINGS.LOGIN_HISTORY_DESC' | translate }}</p>
+
+                    <div class="login-history">
+                        <div *ngFor="let login of loginHistory" class="login-entry">
+                            <div class="login-info">
+                                <div class="login-device">
+                                    <mat-icon>{{ getDeviceIcon(login.device) }}</mat-icon>
+                                    <span>{{ login.device }}</span>
+                                </div>
+                                <div class="login-location">
+                                    <mat-icon>location_on</mat-icon>
+                                    <span>{{ login.location }}</span>
+                                </div>
+                            </div>
+                            <div class="login-time">
+                                {{ login.time | date:'medium' }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <mat-divider class="section-divider"></mat-divider>
+
+                <div class="security-section">
+                    <h3>{{ 'SETTINGS.SESSIONS' | translate }}</h3>
+                    <p class="section-description">{{ 'SETTINGS.SESSIONS_DESC' | translate }}</p>
+
+                    <div class="active-sessions">
+                        <div *ngFor="let session of activeSessions" class="session-entry">
+                            <div class="session-info">
+                                <div class="session-device">
+                                    <mat-icon>{{ getDeviceIcon(session.device) }}</mat-icon>
+                                    <span>{{ session.device }}</span>
+                                </div>
+                                <div class="session-details">
+                                    <div>{{ session.browser }}</div>
+                                    <div class="session-location">
+                                        <mat-icon>location_on</mat-icon>
+                                        <span>{{ session.location }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="session-actions">
+                                <span class="current-session" *ngIf="session.current">{{ 'SETTINGS.CURRENT_SESSION' | translate }}</span>
+                                <button
+                                        mat-stroked-button
+                                        color="warn"
+                                        *ngIf="!session.current"
+                                        (click)="terminateSession(session.id)">
+                                    {{ 'SETTINGS.TERMINATE' | translate }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="terminate-all">
+                        <button
+                                mat-flat-button
+                                color="warn"
+                                (click)="terminateAllSessions()"
+                                [disabled]="terminatingAllSessions">
+                            <mat-spinner *ngIf="terminatingAllSessions" diameter="20" class="spinner"></mat-spinner>
+                            <span *ngIf="!terminatingAllSessions">{{ 'SETTINGS.TERMINATE_ALL' | translate }}</span>
+                        </button>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
