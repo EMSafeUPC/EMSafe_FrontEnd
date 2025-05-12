@@ -362,6 +362,7 @@
     {
       "id": 1,
       "username": "admin",
+      "password": "admin123",
       "name": "Admin User",
       "email": "admin@example.com",
       "role": "administrator",
@@ -380,6 +381,7 @@
     {
       "id": 2,
       "username": "operator1",
+      "password": "operator123",
       "name": "John Operator",
       "email": "john@example.com",
       "role": "operator",
@@ -398,6 +400,7 @@
     {
       "id": 3,
       "username": "technician2",
+      "password": "tech123",
       "name": "Maria Technician",
       "email": "maria@example.com",
       "role": "technician",
@@ -416,6 +419,7 @@
     {
       "id": 4,
       "username": "viewer3",
+      "password": "viewer123",
       "name": "Alex Viewer",
       "email": "alex@example.com",
       "role": "viewer",
