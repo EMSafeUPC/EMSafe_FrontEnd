@@ -1,1 +1,135 @@
-<p>login works!</p>
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-header">
+            <div class="logo">
+                <mat-icon class="logo-icon">radio_button_checked</mat-icon>
+                <span class="logo-text">EMSafe</span>
+            </div>
+            <h1>{{ (isLoggedIn ? 'LOGIN.SESSION_ACTIVE' : 'LOGIN.TITLE') | translate }}</h1>
+            <p *ngIf="!isLoggedIn">{{ 'LOGIN.SUBTITLE' | translate }}</p>
+        </div>
+
+        <!-- Formulario de login cuando no hay sesión activa -->
+        <form *ngIf="!isLoggedIn" [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+            <div class="form-field">
+                <mat-form-field appearance="outline">
+                    <mat-label>{{ 'LOGIN.USERNAME' | translate }}</mat-label>
+                    <input
+                            matInput
+                            formControlName="username"
+                            type="text"
+                            autocomplete="username"
+                            [placeholder]="'LOGIN.USERNAME_PLACEHOLDER' | translate">
+                    <mat-icon matPrefix>person</mat-icon>
+                    <mat-error>
+                        {{ 'LOGIN.USERNAME_REQUIRED' | translate }}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="form-field">
+                <mat-form-field appearance="outline">
+                    <mat-label>{{ 'LOGIN.PASSWORD' | translate }}</mat-label>
+                    <input
+                            matInput
+                            formControlName="password"
+                            [type]="hidePassword ? 'password' : 'text'"
+                            autocomplete="current-password"
+                            [placeholder]="'LOGIN.PASSWORD_PLACEHOLDER' | translate">
+                    <mat-icon matPrefix>lock</mat-icon>
+                    <button
+                            mat-icon-button
+                            matSuffix
+                            type="button"
+                            (click)="hidePassword = !hidePassword"
+                            [attr.aria-label]="'LOGIN.TOGGLE_PASSWORD_VISIBILITY' | translate"
+                            [attr.aria-pressed]="!hidePassword">
+                        <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                    </button>
+                    <mat-error>
+                        {{ 'LOGIN.PASSWORD_REQUIRED' | translate }}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="form-options">
+                <mat-checkbox formControlName="rememberMe" color="primary">
+                    {{ 'LOGIN.REMEMBER_ME' | translate }}
+                </mat-checkbox>
+                <a routerLink="/forgot-password" class="forgot-password">
+                    {{ 'LOGIN.FORGOT_PASSWORD' | translate }}
+                </a>
+            </div>
+
+            <div *ngIf="errorMessage" class="error-message">
+                <mat-icon>error</mat-icon>
+                <span>{{ errorMessage | translate }}</span>
+            </div>
+
+            <div class="form-actions">
+                <button
+                        mat-flat-button
+                        color="primary"
+                        type="submit"
+                        [disabled]="loginForm.invalid || isLoading"
+                        class="login-button">
+                    <mat-spinner *ngIf="isLoading" diameter="20" class="spinner"></mat-spinner>
+                    <span *ngIf="!isLoading">{{ 'LOGIN.SIGN_IN' | translate }}</span>
+                </button>
+            </div>
+        </form>
+
+        <!-- Información de sesión activa -->
+        <div *ngIf="isLoggedIn" class="active-session">
+            <div class="user-info">
+                <div class="user-avatar">
+                    <mat-icon class="avatar-icon">account_circle</mat-icon>
+                </div>
+                <div class="user-details">
+                    <h2>{{ currentUser?.name }}</h2>
+                    <p class="user-role">{{ 'USER.ROLE.' + (currentUser?.role | uppercase) | translate }}</p>
+                    <p class="user-email">{{ currentUser?.email }}</p>
+                </div>
+            </div>
+
+            <mat-divider class="session-divider"></mat-divider>
+
+            <div class="session-message">
+                <p>{{ 'LOGIN.SESSION_MESSAGE' | translate }}</p>
+            </div>
+
+            <div class="session-actions">
+                <button
+                        mat-flat-button
+                        color="primary"
+                        (click)="goToDashboard()"
+                        class="dashboard-button">
+                    <mat-icon>dashboard</mat-icon>
+                    {{ 'LOGIN.GO_TO_DASHBOARD' | translate }}
+                </button>
+
+                <button
+                        mat-stroked-button
+                        color="warn"
+                        (click)="logout()"
+                        [disabled]="loggingOut"
+                        class="logout-button">
+                    <mat-spinner *ngIf="loggingOut" diameter="20" class="spinner"></mat-spinner>
+                    <span *ngIf="!loggingOut">
+                        <mat-icon>exit_to_app</mat-icon>
+                        {{ 'LOGIN.LOGOUT' | translate }}
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="login-footer">
+        <p>{{ 'LOGIN.COPYRIGHT' | translate: {year: currentYear} }}</p>
+        <div class="footer-links">
+            <a href="#">{{ 'LOGIN.PRIVACY_POLICY' | translate }}</a>
+            <span class="separator">|</span>
+            <a href="#">{{ 'LOGIN.TERMS_OF_SERVICE' | translate }}</a>
+        </div>
+    </div>
+</div>
