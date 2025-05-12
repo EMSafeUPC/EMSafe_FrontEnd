@@ -1,1 +1,166 @@
-<p>profile works!</p>
+<div class="profile-container">
+    <div class="page-header">
+        <h1>{{ 'PROFILE.TITLE' | translate }}</h1>
+        <p>{{ 'PROFILE.SUBTITLE' | translate }}</p>
+    </div>
+
+    <div class="profile-content">
+        <!-- Tarjeta de información personal -->
+        <mat-card class="profile-card">
+            <mat-card-header>
+                <div mat-card-avatar class="profile-avatar">
+                    <mat-icon *ngIf="!profileImage" class="avatar-icon">account_circle</mat-icon>
+                    <img *ngIf="profileImage" [src]="profileImage" alt="{{ user?.name }}" class="avatar-image">
+                </div>
+                <mat-card-title>{{ user?.name }}</mat-card-title>
+                <mat-card-subtitle>{{ 'USER.ROLE.' + (user?.role | uppercase) | translate }}</mat-card-subtitle>
+            </mat-card-header>
+
+            <mat-card-content>
+                <div class="last-login">
+                    <mat-icon>access_time</mat-icon>
+                    <span>{{ 'PROFILE.LAST_LOGIN' | translate }}: {{ user?.lastLogin | date:'medium' }}</span>
+                </div>
+
+                <mat-divider class="section-divider"></mat-divider>
+
+                <!-- Formulario de información personal -->
+                <form [formGroup]="personalInfoForm" (ngSubmit)="savePersonalInfo()" class="profile-form">
+                    <h2>{{ 'PROFILE.PERSONAL_INFO' | translate }}</h2>
+
+                    <div class="form-row">
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{ 'PROFILE.NAME' | translate }}</mat-label>
+                            <input matInput formControlName="name">
+                            <mat-icon matPrefix>person</mat-icon>
+                            <mat-error *ngIf="personalInfoForm.get('name')?.hasError('required')">
+                                {{ 'PROFILE.NAME_REQUIRED' | translate }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-row">
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{ 'PROFILE.EMAIL' | translate }}</mat-label>
+                            <input matInput formControlName="email" type="email">
+                            <mat-icon matPrefix>email</mat-icon>
+                            <mat-error *ngIf="personalInfoForm.get('email')?.hasError('required')">
+                                {{ 'PROFILE.EMAIL_REQUIRED' | translate }}
+                            </mat-error>
+                            <mat-error *ngIf="personalInfoForm.get('email')?.hasError('email')">
+                                {{ 'PROFILE.EMAIL_INVALID' | translate }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-row">
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{ 'PROFILE.USERNAME' | translate }}</mat-label>
+                            <input matInput formControlName="username" readonly>
+                            <mat-icon matPrefix>account_box</mat-icon>
+                            <mat-hint>{{ 'PROFILE.USERNAME_HINT' | translate }}</mat-hint>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-actions">
+                        <button
+                                mat-flat-button
+                                color="primary"
+                                type="submit"
+                                [disabled]="personalInfoForm.invalid || personalInfoForm.pristine || savingPersonalInfo">
+                            <mat-spinner *ngIf="savingPersonalInfo" diameter="20" class="spinner"></mat-spinner>
+                            <span *ngIf="!savingPersonalInfo">{{ 'PROFILE.SAVE_CHANGES' | translate }}</span>
+                        </button>
+                    </div>
+                </form>
+
+                <mat-divider class="section-divider"></mat-divider>
+
+                <!-- Formulario de cambio de contraseña -->
+                <form [formGroup]="passwordForm" (ngSubmit)="changePassword()" class="profile-form">
+                    <h2>{{ 'PROFILE.CHANGE_PASSWORD' | translate }}</h2>
+
+                    <div class="form-row">
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{ 'PROFILE.CURRENT_PASSWORD' | translate }}</mat-label>
+                            <input
+                                    matInput
+                                    formControlName="currentPassword"
+                                    [type]="hideCurrentPassword ? 'password' : 'text'">
+                            <mat-icon matPrefix>lock</mat-icon>
+                            <button
+                                    mat-icon-button
+                                    matSuffix
+                                    type="button"
+                                    (click)="hideCurrentPassword = !hideCurrentPassword">
+                                <mat-icon>{{ hideCurrentPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                            </button>
+                            <mat-error *ngIf="passwordForm.get('currentPassword')?.hasError('required')">
+                                {{ 'PROFILE.CURRENT_PASSWORD_REQUIRED' | translate }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-row">
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{ 'PROFILE.NEW_PASSWORD' | translate }}</mat-label>
+                            <input
+                                    matInput
+                                    formControlName="newPassword"
+                                    [type]="hideNewPassword ? 'password' : 'text'">
+                            <mat-icon matPrefix>lock_open</mat-icon>
+                            <button
+                                    mat-icon-button
+                                    matSuffix
+                                    type="button"
+                                    (click)="hideNewPassword = !hideNewPassword">
+                                <mat-icon>{{ hideNewPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                            </button>
+                            <mat-error *ngIf="passwordForm.get('newPassword')?.hasError('required')">
+                                {{ 'PROFILE.NEW_PASSWORD_REQUIRED' | translate }}
+                            </mat-error>
+                            <mat-error *ngIf="passwordForm.get('newPassword')?.hasError('minlength')">
+                                {{ 'PROFILE.PASSWORD_MIN_LENGTH' | translate }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-row">
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{ 'PROFILE.CONFIRM_PASSWORD' | translate }}</mat-label>
+                            <input
+                                    matInput
+                                    formControlName="confirmPassword"
+                                    [type]="hideConfirmPassword ? 'password' : 'text'">
+                            <mat-icon matPrefix>lock_open</mat-icon>
+                            <button
+                                    mat-icon-button
+                                    matSuffix
+                                    type="button"
+                                    (click)="hideConfirmPassword = !hideConfirmPassword">
+                                <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                            </button>
+                            <mat-error *ngIf="passwordForm.get('confirmPassword')?.hasError('required')">
+                                {{ 'PROFILE.CONFIRM_PASSWORD_REQUIRED' | translate }}
+                            </mat-error>
+                            <mat-error *ngIf="passwordForm.hasError('passwordMismatch')">
+                                {{ 'PROFILE.PASSWORD_MISMATCH' | translate }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-actions">
+                        <button
+                                mat-flat-button
+                                color="primary"
+                                type="submit"
+                                [disabled]="passwordForm.invalid || changingPassword">
+                            <mat-spinner *ngIf="changingPassword" diameter="20" class="spinner"></mat-spinner>
+                            <span *ngIf="!changingPassword">{{ 'PROFILE.CHANGE_PASSWORD' | translate }}</span>
+                        </button>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
