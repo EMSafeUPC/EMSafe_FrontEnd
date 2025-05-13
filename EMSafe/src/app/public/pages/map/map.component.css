@@ -15,7 +15,6 @@ h2 {
     width: 100%;
     max-width: 120px;
     height: 40px;
-    borde:none;
     padding: 10px;
 }
 
@@ -267,7 +266,3 @@ h2 {
 .dot.red {
     background-color: #f44336;
 }
-
-
-
-
