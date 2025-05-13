@@ -67,6 +67,7 @@
 .user-button span {
     margin: 0 4px;
     font-size: 1rem;
+    color: #fff !important;
 }
 
 @media (max-width: 768px) {
