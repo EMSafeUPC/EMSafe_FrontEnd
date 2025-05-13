@@ -4,9 +4,9 @@ import { MatSidenavModule } from "@angular/material/sidenav"
 import { MatListModule } from "@angular/material/list"
 import { MatIconModule } from "@angular/material/icon"
 import { MatDividerModule } from "@angular/material/divider"
-import { RouterModule } from "@angular/router"
+import {NavigationEnd, Router, RouterModule} from "@angular/router"
 import { TranslateModule } from "@ngx-translate/core"
-import type { Subscription } from "rxjs"
+import {filter, type Subscription } from "rxjs"
 import  { SidebarService } from "../../../core/services/sidebar.service"
 
 @Component({
@@ -27,6 +27,8 @@ import  { SidebarService } from "../../../core/services/sidebar.service"
 export class SidebarComponent implements OnInit, OnDestroy {
   opened = true
   private sidebarSubscription?: Subscription
+  private routerSubscription?: Subscription
+
 
   menuItems = [
     {
@@ -56,17 +58,24 @@ export class SidebarComponent implements OnInit, OnDestroy {
     },
   ]
 
-  constructor(private sidebarService: SidebarService) {}
+  constructor(private sidebarService: SidebarService, private router: Router) {}
 
   ngOnInit() {
+    this.routerSubscription = this.router.events
+        .pipe(filter(event => event instanceof NavigationEnd))
+        .subscribe((event: NavigationEnd) => {
+          this.opened = !event.urlAfterRedirects.startsWith("/login")
+        })
     this.sidebarSubscription = this.sidebarService.sidebarOpened$.subscribe((isOpen) => {
       this.opened = isOpen
     })
+
   }
 
   ngOnDestroy() {
     if (this.sidebarSubscription) {
       this.sidebarSubscription.unsubscribe()
+      this.routerSubscription?.unsubscribe()
     }
   }
 }
