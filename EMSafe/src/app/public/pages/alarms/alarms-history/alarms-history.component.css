@@ -1,0 +1,144 @@
+.history-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 24px;
+  font-family: "Roboto", sans-serif;
+}
+
+/* Header */
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.header-row h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: #1a237e;
+}
+.export-btn {
+  text-transform: none;
+}
+
+/* Filtros superiores */
+.top-filters {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.search-field {
+  flex: 1;
+}
+.date-btn {
+  text-transform: none;
+}
+
+/* Contenedor del toggle */
+.status-toggle {
+  display: inline-flex !important;
+  gap: 4px !important;
+  background: #ffffff !important;
+  padding: 4px !important;
+  border-radius: 6px !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1) !important;
+  margin-bottom: 24px !important;
+}
+
+/* Botones NO seleccionados */
+.status-toggle .mat-button-toggle-button {
+  background: #f0f0f0 !important;
+  color: #424242 !important;
+  text-transform: none !important;
+  border-radius: 4px !important;
+  padding: 6px 12px !important;
+  transition: background 0.2s !important;
+}
+
+/* Hover en no seleccionados */
+.status-toggle .mat-button-toggle-button:hover {
+  background: #e0e0e0 !important;
+}
+
+/* Botón SELECCIONADO */
+.status-toggle .mat-button-toggle-checked {
+  background-color: #00acc1 !important;
+  color: #ffffff !important;
+  font-weight: bold !important;
+}
+
+/* Ajuste de la etiqueta interna */
+.status-toggle .mat-button-toggle-label-content {
+  font-size: 0.95rem !important;
+}
+
+/* Subtítulo de tabla */
+.table-title {
+  margin: 0 0 8px;
+  font-size: 1.4rem;
+  color: #3949ab;
+}
+
+/* Tabla */
+.table-wrapper {
+  overflow: auto;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+.full-width {
+  width: 100%;
+}
+.mat-header-cell {
+  background: #e8eaf6;
+  color: #303f9f;
+  font-weight: 600;
+}
+.mat-row:nth-child(even) {
+  background: #fafafa;
+}
+
+/* Badges */
+.badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  color: #fff;
+  text-transform: capitalize;
+}
+.badge-active {
+  background-color: #e53935;
+}
+.badge-resolved {
+  background-color: #43a047;
+}
+
+/* Paginador */
+.paginator-container {
+  display: flex;
+  justify-content: flex-end;
+}
+.mat-paginator {
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+/*==========================================================
+  Overrides SOLO para este componente
+==========================================================*/
+:host ::ng-deep .status-toggle .mat-button-toggle-button {
+  background: #f0f0f0 !important;
+  color: #424242 !important;
+}
+
+:host ::ng-deep .status-toggle .mat-button-toggle-button:hover {
+  background: #e0e0e0 !important;
+}
+
+:host
+  ::ng-deep
+  .status-toggle
+  .mat-button-toggle-button.mat-button-toggle-checked {
+  background-color: #00acc1 !important;
+  color: #ffffff !important;
+}
