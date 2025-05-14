@@ -146,11 +146,9 @@ mat-form-field, mat-checkbox {
     font-size: 15px;
     border: none;
     border-radius:7px;
-    margin-left: 100px;
+    margin-left: 60px;
     padding:9px 0px;
-
 }
-
 
 .Principal {
     padding: 1rem;
