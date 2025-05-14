@@ -165,5 +165,33 @@
     "ERROR_TERMINATING_SESSION": "Error al terminar la sesión",
     "ERROR_TERMINATING_SESSIONS": "Error al terminar las sesiones",
     "USER_NOT_FOUND": "Usuario no encontrado"
+  },
+  "ALARM_HISTORY": {
+    "TITLE": "Historial de Alarmas",
+    "EXPORT": "Exportar",
+    "SEARCH_PLACEHOLDER": "Buscar alarmas...",
+    "DATE_RANGE": "Rango de fechas",
+    "FILTER": {
+      "ALL": "Todas",
+      "ACTIVE": "Activas",
+      "RESOLVED": "Resueltas"
+    },
+    "TABLE": {
+      "TITLE": "Registro de Alarmas",
+      "ID": "ID",
+      "DEVICE": "Dispositivo",
+      "LEVEL": "Nivel (μSv/h)",
+      "DATE": "Fecha",
+      "STATUS": "Estado",
+      "ACTIONS": "Acciones",
+      "DETAILS": "Detalles"
+    },
+    "STATUS": {
+      "ACTIVE": "Activa",
+      "RESOLVED": "Resuelta"
+    },
+    "PAGINATOR": {
+      "LABEL": "Paginador de Historial de Alarmas"
+    }
   }
 }

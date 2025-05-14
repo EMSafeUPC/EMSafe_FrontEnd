@@ -1,31 +1,33 @@
 <div class="history-container">
   <!-- Header con título y botón Exportar -->
   <div class="header-row">
-    <h1>Historial de Alarmas</h1>
+    <h1>{{ "ALARM_HISTORY.TITLE" | translate }}</h1>
     <button
       mat-flat-button
       color="primary"
       class="export-btn"
       (click)="exportar()"
     >
-      <mat-icon>file_download</mat-icon> Exportar
+      <mat-icon>file_download</mat-icon>
+      {{ "ALARM_HISTORY.EXPORT" | translate }}
     </button>
   </div>
 
-  <!-- Filtros superiores: buscador y Date Range (dummy) -->
+  <!-- Filtros superiores: buscador y Rango de fechas -->
   <div class="top-filters">
     <mat-form-field appearance="outline" class="search-field">
       <mat-icon matPrefix>search</mat-icon>
       <input
         matInput
-        placeholder="Buscar alarmas..."
+        placeholder="{{ 'ALARM_HISTORY.SEARCH_PLACEHOLDER' | translate }}"
         [(ngModel)]="searchText"
         (ngModelChange)="onSearchChange($event)"
       />
     </mat-form-field>
 
     <button mat-stroked-button class="date-btn">
-      <mat-icon>date_range</mat-icon> Rango de fechas
+      <mat-icon>date_range</mat-icon>
+      {{ "ALARM_HISTORY.DATE_RANGE" | translate }}
     </button>
   </div>
 
@@ -35,38 +37,52 @@
     class="status-toggle"
     (change)="onFiltroChange($event.value)"
   >
-    <mat-button-toggle value="all">Todas</mat-button-toggle>
-    <mat-button-toggle value="active">Activas</mat-button-toggle>
-    <mat-button-toggle value="resolved">Resueltas</mat-button-toggle>
+    <mat-button-toggle value="all">
+      {{ "ALARM_HISTORY.FILTER.ALL" | translate }}
+    </mat-button-toggle>
+    <mat-button-toggle value="active">
+      {{ "ALARM_HISTORY.FILTER.ACTIVE" | translate }}
+    </mat-button-toggle>
+    <mat-button-toggle value="resolved">
+      {{ "ALARM_HISTORY.FILTER.RESOLVED" | translate }}
+    </mat-button-toggle>
   </mat-button-toggle-group>
 
   <!-- Subtítulo de la tabla -->
-  <h2 class="table-title">Registro de Alarmas</h2>
+  <h2 class="table-title">{{ "ALARM_HISTORY.TABLE.TITLE" | translate }}</h2>
 
   <!-- Tabla -->
   <div class="table-wrapper mat-elevation-z2">
     <table mat-table [dataSource]="dataSource" class="full-width">
       <!-- ID -->
       <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <th mat-header-cell *matHeaderCellDef>
+          {{ "ALARM_HISTORY.TABLE.ID" | translate }}
+        </th>
         <td mat-cell *matCellDef="let r">#{{ r.id }}</td>
       </ng-container>
 
       <!-- Dispositivo -->
       <ng-container matColumnDef="deviceName">
-        <th mat-header-cell *matHeaderCellDef>Dispositivo</th>
+        <th mat-header-cell *matHeaderCellDef>
+          {{ "ALARM_HISTORY.TABLE.DEVICE" | translate }}
+        </th>
         <td mat-cell *matCellDef="let r">{{ r.deviceName }}</td>
       </ng-container>
 
       <!-- Nivel -->
       <ng-container matColumnDef="level">
-        <th mat-header-cell *matHeaderCellDef>Nivel (μSv/h)</th>
+        <th mat-header-cell *matHeaderCellDef>
+          {{ "ALARM_HISTORY.TABLE.LEVEL" | translate }}
+        </th>
         <td mat-cell *matCellDef="let r">{{ r.level }}</td>
       </ng-container>
 
       <!-- Fecha -->
       <ng-container matColumnDef="timestamp">
-        <th mat-header-cell *matHeaderCellDef>Fecha</th>
+        <th mat-header-cell *matHeaderCellDef>
+          {{ "ALARM_HISTORY.TABLE.DATE" | translate }}
+        </th>
         <td mat-cell *matCellDef="let r">
           {{ r.timestamp | date : "d/MM/yyyy, h:mm:ss a" }}
         </td>
@@ -74,7 +90,9 @@
 
       <!-- Estado -->
       <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef>Estado</th>
+        <th mat-header-cell *matHeaderCellDef>
+          {{ "ALARM_HISTORY.TABLE.STATUS" | translate }}
+        </th>
         <td mat-cell *matCellDef="let r">
           <span
             class="badge"
@@ -82,16 +100,24 @@
               r.status === 'active' ? 'badge-active' : 'badge-resolved'
             "
           >
-            {{ r.status === "active" ? "Activa" : "Resuelta" }}
+            {{
+              r.status === "active"
+                ? ("ALARM_HISTORY.STATUS.ACTIVE" | translate)
+                : ("ALARM_HISTORY.STATUS.RESOLVED" | translate)
+            }}
           </span>
         </td>
       </ng-container>
 
       <!-- Acciones -->
       <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <th mat-header-cell *matHeaderCellDef>
+          {{ "ALARM_HISTORY.TABLE.ACTIONS" | translate }}
+        </th>
         <td mat-cell *matCellDef="let r">
-          <button mat-button color="accent">Detalles</button>
+          <button mat-button color="accent">
+            {{ "ALARM_HISTORY.TABLE.DETAILS" | translate }}
+          </button>
         </td>
       </ng-container>
 
@@ -103,6 +129,11 @@
 
   <!-- Paginador -->
   <div class="paginator-container">
-    <mat-paginator [pageSize]="5" showFirstLastButtons></mat-paginator>
+    <mat-paginator
+      [pageSize]="5"
+      showFirstLastButtons
+      [attr.aria-label]="'ALARM_HISTORY.PAGINATOR.LABEL' | translate"
+    >
+    </mat-paginator>
   </div>
 </div>
