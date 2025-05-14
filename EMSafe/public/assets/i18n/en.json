@@ -165,5 +165,38 @@
     "ERROR_TERMINATING_SESSION": "Error terminating session",
     "ERROR_TERMINATING_SESSIONS": "Error terminating sessions",
     "USER_NOT_FOUND": "User not found"
+  },
+  "RADIATION_MAP": {
+    "TITLE": "Radiation Map",
+    "UPDATE": "Update",
+    "SHARE": "Share"
+  },
+  "LEGEND": {
+    "LEGEND": "Legend",
+    "NORMAL": "Normal (0.05 - 0.30 µSv/h)",
+    "ELEVATED": "Elevated (0.31 - 0.70 µSv/h)",
+    "HIGH": "High (0.71 - 1.00 µSv/h)",
+    "CRITICAL": "Critical (>1.00 µSv/h)"
+  },
+  "FILTERS": {
+    "FILTERS": "Filters",
+    "TYPES": "Data Type",
+    "DESCRIPTION": "Customize the map display",
+    "ALL_DATA": "All the data",
+    "DEVICES": "Devices",
+    "ALL_DEVICES": "All devices",
+    "ONLY": "Only assets",
+    "ALERTS": "With alerts",
+    "APPLY": "Apply Filters"
+  },
+  "AREAS": {
+    "LOCATION": "Areas Near Your Location",
+    "LOCATION-MIRAFLORES": "Miraflores",
+    "LOCATION-SAN-ISIDRO": "San Isidro",
+    "LOCATION-CENTRO": "Lima Center",
+    "DESCRIPTION-MIRAFLORES": "1.2 km distance - 0.45 µSv/h",
+    "DESCRIPTION-SAN-ISIDRO": "2.5 km distance - 0.85 µSv/h",
+    "DESCRIPTION-CENTRO": "3.8 km distance - 0.22 µSv/h",
+    "BUTTON-MAP": "View Map"
   }
 }
