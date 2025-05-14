@@ -193,5 +193,12 @@
     "PAGINATOR": {
       "LABEL": "Paginador de Historial de Alarmas"
     }
+  },
+
+  "DEVICE_HISTORY": {
+    "TITLE": "Historial de Dispositivos",
+    "VIEW_TABLE": "Vista de Tabla",
+    "VIEW_CARDS": "Vista de Tarjetas",
+    "RECORDS_TITLE": "Registros de Dispositivos"
   }
 }

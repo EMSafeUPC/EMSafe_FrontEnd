@@ -193,5 +193,12 @@
     "PAGINATOR": {
       "LABEL": "Alarm History Paginator"
     }
+  },
+
+  "DEVICE_HISTORY": {
+    "TITLE": "Device History",
+    "VIEW_TABLE": "Table View",
+    "VIEW_CARDS": "Card View",
+    "RECORDS_TITLE": "Device Records"
   }
 }
