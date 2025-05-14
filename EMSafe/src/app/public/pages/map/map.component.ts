@@ -6,6 +6,8 @@ import { MatFormField, MatLabel } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import * as L from 'leaflet';
+import {TranslatePipe} from "@ngx-translate/core";
+import {MatButton} from "@angular/material/button";
 
 
 @Component({
@@ -17,7 +19,9 @@ import * as L from 'leaflet';
     MatFormField,
     MatLabel,
     MatSelect,
-    MatCardModule
+    MatCardModule,
+    TranslatePipe,
+    MatButton
   ],
   styleUrls: ['./map.component.css']
 })
@@ -83,7 +87,8 @@ export class MapComponent implements OnInit {
         fillOpacity: 0.8,
       }).addTo(this.map);
 
-      circle.bindPopup(<strong>${p.texto}</strong><br/>Nivel: ${p.nivel});
+      circle.bindPopup(`<strong>${p.texto}</strong><br/>Nivel: ${p.nivel}`);
+
     });
   }
 }
