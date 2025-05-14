@@ -193,5 +193,40 @@
     "PAGINATOR": {
       "LABEL": "Paginador de Historial de Alarmas"
     }
+  },
+
+  "DEVICE_HISTORY": {
+    "TITLE": "Historial de Dispositivos",
+    "VIEW_TABLE": "Vista de Tabla",
+    "VIEW_CARDS": "Vista de Tarjetas",
+    "RECORDS_TITLE": "Registros de Dispositivos"
+  },
+
+  "DEVICE_MANAGEMENT": {
+    "TITLE": "Gestión de Dispositivos",
+    "DELETE_BOTTOM": "Eliminar",
+    "ADD_BOTTOM": "Agregar"
+  },
+
+  "RADIATION_MAP": {
+    "TITLE": "Mapa de Zonas de Radiación - Lima, Perú",
+    "Filter": "Filtro",
+    "LEGEND": "Leyenda",
+    "FILTERS": "Filtros",
+    "LEVEL_NORMAL": "Normal",
+    "LEVEL_ELEVATED": "Elevado",
+    "LEVEL_HIGH": "Alto",
+    "LEVEL_CRITICAL": "Crítico",
+    "CUSTOMIZE_VIEW": "Personaliza la visualización del mapa",
+    "DATA_TYPE": "Tipo de datos",
+    "NEARBY_ZONES": "Zonas Cercanas a Tu Ubicación",
+    "VIEW_ON_MAP": "Ver en mapa",
+    "UPDATE": "Actualizar",
+    "SHARE": "Compartir",
+    "DEVICES": "Dispositivos",
+    "ALL_DEVICES": "Todos los dispositivos",
+    "ONLY_ACTIVE": "Solo activos",
+    "WITH_ALERTS": "Con alertas",
+    "APPLY_FILTERS": "Aplicar Filtros"
   }
 }
