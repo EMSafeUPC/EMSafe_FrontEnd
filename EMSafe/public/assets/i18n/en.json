@@ -165,5 +165,33 @@
     "ERROR_TERMINATING_SESSION": "Error terminating session",
     "ERROR_TERMINATING_SESSIONS": "Error terminating sessions",
     "USER_NOT_FOUND": "User not found"
+  },
+  "ALARM_HISTORY": {
+    "TITLE": "Alarm History",
+    "EXPORT": "Export",
+    "SEARCH_PLACEHOLDER": "Search alarms...",
+    "DATE_RANGE": "Date Range",
+    "FILTER": {
+      "ALL": "All",
+      "ACTIVE": "Active",
+      "RESOLVED": "Resolved"
+    },
+    "TABLE": {
+      "TITLE": "Alarm Records",
+      "ID": "ID",
+      "DEVICE": "Device",
+      "LEVEL": "Level (μSv/h)",
+      "DATE": "Date",
+      "STATUS": "Status",
+      "ACTIONS": "Actions",
+      "DETAILS": "Details"
+    },
+    "STATUS": {
+      "ACTIVE": "Active",
+      "RESOLVED": "Resolved"
+    },
+    "PAGINATOR": {
+      "LABEL": "Alarm History Paginator"
+    }
   }
 }
