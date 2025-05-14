@@ -165,5 +165,38 @@
     "ERROR_TERMINATING_SESSION": "Error al terminar la sesión",
     "ERROR_TERMINATING_SESSIONS": "Error al terminar las sesiones",
     "USER_NOT_FOUND": "Usuario no encontrado"
+  },
+  "RADIATION_MAP": {
+    "TITLE": "Mapa de Radiación",
+    "UPDATE": "Actualizar",
+    "SHARE": "Compartir"
+  },
+  "LEGEND": {
+    "LEGEND": "Legenda",
+    "NORMAL": "Normal (0.05 - 0.30 µSv/h)",
+    "ELEVATED": "Elevado (0.31 - 0.70 µSv/h)",
+    "HIGH": "Alto (0.71 - 1.00 µSv/h)",
+    "CRITICAL": "Critico (>1.00 µSv/h)"
+  },
+  "FILTERS": {
+    "FILTERS": "Filtros",
+    "TYPES": "Tipo de Datos",
+    "DESCRIPTION": "Personaliza la visualización del mapa",
+    "ALL_DATA": "Todo los Datos",
+    "DEVICES": "Dispositivos",
+    "ALL_DEVICES": "Todo los dispositivos",
+    "ONLY": "Solo activos",
+    "ALERTS": "Con alertas",
+    "APPLY": "Aplicar Filtros"
+  },
+  "AREAS": {
+    "LOCATION":"Zonas Cercanas a Tu Ubicación",
+    "LOCATION-MIRAFLORES": "Miraflores",
+    "LOCATION-SAN-ISIDRO": "San Isidro",
+    "LOCATION-CENTRO": "Centro de Lima",
+    "DESCRIPTION-MIRAFLORES": "1.2 km de distancia - 0.45 µSv/h",
+    "DESCRIPTION-SAN-ISIDRO": "2.5 km de distancia - 0.85 µSv/h",
+    "DESCRIPTION-CENTRO": "3.8 km de distancia - 0.22 µSv/h",
+    "BUTTON-MAP": "Ver Mapa"
   }
 }
