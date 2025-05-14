@@ -4,7 +4,9 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import { MatOption } from '@angular/material/core';
 import { MatFormField, MatLabel } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
+import { MatCardModule } from '@angular/material/card';
 import * as L from 'leaflet';
+
 
 @Component({
   selector: 'app-map',
@@ -14,7 +16,8 @@ import * as L from 'leaflet';
     MatCheckbox,
     MatFormField,
     MatLabel,
-    MatSelect
+    MatSelect,
+    MatCardModule
   ],
   styleUrls: ['./map.component.css']
 })
@@ -80,7 +83,7 @@ export class MapComponent implements OnInit {
         fillOpacity: 0.8,
       }).addTo(this.map);
 
-      circle.bindPopup(`<strong>${p.texto}</strong><br/>Nivel: ${p.nivel}`);
+      circle.bindPopup(<strong>${p.texto}</strong><br/>Nivel: ${p.nivel});
     });
   }
 }
