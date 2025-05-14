@@ -1,1 +1,36 @@
-<p>devices-management works!</p>
+<div class="title">
+    <h1>{{ 'DEVICE_MANAGEMENT.TITLE' | translate }}</h1>
+    <button mat-raised-button color="primary" class="add-button">
+        <mat-icon>add</mat-icon>
+        {{ 'DEVICE_MANAGEMENT.ADD_BOTTOM' | translate }}
+    </button>
+</div>
+
+<div class="card-container">
+    <div class="device-card" *ngFor="let item of devicesDataSource">
+        <div class="card-header">
+            <h3>{{ item.dispositivo }}</h3>
+            <span class="estado-indicador" [ngClass]="item.estado"></span>
+        </div>
+
+        <div class="card-body">
+            <div><strong>ID:</strong> {{ item.id }}</div>
+            <div><strong>Ubicación:</strong> {{ item.ubicacion }}</div>
+            <div><strong>Última lectura:</strong> {{ item.nivel }} µSv/h</div>
+            <div><strong>Fecha:</strong> {{ item.fecha | date: 'dd/MM/yyyy' }}</div>
+            <div><strong>Estado:</strong> {{ item.estado | titlecase }}</div>
+        </div>
+
+        <div class="card-footer">
+            <button mat-raised-button color="warn" class="delete-button" (click)="deleteDevice(item)">
+                <mat-icon>delete</mat-icon> {{ 'DEVICE_MANAGEMENT.DELETE_BOTTOM' | translate }}
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
