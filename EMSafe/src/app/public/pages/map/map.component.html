@@ -1,11 +1,11 @@
 <div class="location-container">
 
     <div class="Principal">
-        <h2>Mapa de Zonas de Radiación - Lima, Perú</h2>
+        <h2>{{'RADIATION_MAP.TITLE' | translate}}</h2>
 
         <div class="controls">
-            <button class="button1" mat-raised-button (click)="ngOnInit()">Actualizar</button>
-            <button class="button2" mat-raised-button>Compartir</button>
+            <button class="button1" mat-raised-button (click)="ngOnInit()">{{'RADIATION_MAP.UPDATE' | translate}}</button>
+            <button class="button2" mat-raised-button>{{'RADIATION_MAP.SHARE' | translate}}</button>
         </div>
     </div>
 
@@ -15,74 +15,73 @@
 
         <div class="sidebar">
             <div class="legend">
-                <h3>Leyenda</h3>
+                <h3>{{'LEGEND.LEGEND' | translate }}</h3>
                 <hr class="custom-line">
                 <ul>
-                    <li><span class="dot green"></span> Normal (0.05 - 0.30 µSv/h)</li>
-                    <li><span class="dot yellow"></span> Elevado (0.31 - 0.70 µSv/h)</li>
-                    <li><span class="dot orange"></span> Alto (0.71 - 1.00 µSv/h)</li>
-                    <li><span class="dot red"></span> Crítico (>1.00 µSv/h)</li>
+                    <li><span class="dot green"></span> {{'LEGEND.NORMAL' | translate}}</li>
+                    <li><span class="dot yellow"></span> {{'LEGEND.ELEVATED' | translate}}</li>
+                    <li><span class="dot orange"></span> {{'LEGEND.HIGH' | translate}}</li>
+                    <li><span class="dot red"></span>{{'LEGEND.CRITICAL' | translate}} </li>
                 </ul>
             </div>
 
             <div class="filters">
-                <h3>Filtros</h3>
-                <p>Personaliza la visualización del mapa</p>
+                <h3>{{'FILTERS.FILTERS' | translate}}</h3>
+                <p>{{'FILTERS.DESCRIPTION' | translate}}</p>
                 <hr class="custom-line">
-                <h2 >Tipo de datos</h2>
+                <h2 >{{'FILTERS.TYPES' | translate}}</h2>
                 <mat-form-field appearance="fill" class="fill">
-                    <mat-label>Tipo de datos</mat-label>
+                    <mat-label>{{'FILTERS.ALL_DATA' | translate}}</mat-label>
                     <mat-select>
-                        <mat-option>Todos los datos</mat-option>
+                        <mat-option>{{'FILTERS.ALL_DATA' | translate}}</mat-option>
                     </mat-select>
                 </mat-form-field>
 
-                <label>Dispositivos</label>
+                <label>{{'FILTERS.DEVICES' | translate}}</label>
                 <div class="check">
-                    <mat-checkbox checked  class="mat-check">Todos los dispositivos</mat-checkbox>
-                    <mat-checkbox class="mat-check">Solo activos</mat-checkbox>
-                    <mat-checkbox class="mat-check">Con alertas</mat-checkbox>
+                    <mat-checkbox checked  class="mat-check">{{'FILTERS.ALL_DEVICES' | translate}}</mat-checkbox>
+                    <mat-checkbox class="mat-check">{{'FILTERS.ONLY' | translate}}</mat-checkbox>
+                    <mat-checkbox class="mat-check">{{'FILTERS.ALERTS' | translate}}</mat-checkbox>
                 </div>
 
-                <button mat-raised-button class="button-filter">Aplicar Filtros</button>
+                <button mat-raised-button class="button-filter">{{'FILTERS.APPLY' | translate}}</button>
             </div>
         </div>
     </div>
     <div class="zonas-wrapper">
         <div class="zonas-cercanas-container">
-            <h3>Zonas Cercanas a Tu Ubicación</h3>
-
+            <h3>{{'AREAS.LOCATION' |  translate}}</h3>
             <div class="zona-item">
                 <div class="zona-info">
                     <span class="dot yellow"></span>
                     <div>
-                        <strong>Miraflores</strong><br />
-                        <small>1.2 km de distancia - 0.45 µSv/h</small>
+                        <strong>{{'AREAS.LOCATION-MIRAFLORES' |  translate}}</strong><br />
+                        <small>{{'AREAS.DESCRIPTION-MIRAFLORES' |  translate}}</small>
                     </div>
                 </div>
-                <button mat-stroked-button class="button-baja">Ver en mapa</button>
+                <button mat-stroked-button class="button-baja">{{'AREAS.BUTTON-MAP' | translate}}</button>
             </div>
 
             <div class="zona-item">
                 <div class="zona-info">
                     <span class="dot orange"></span>
                     <div>
-                        <strong>San Isidro</strong><br />
-                        <small>2.5 km de distancia - 0.85 µSv/h</small>
+                        <strong>{{'AREAS.LOCATION-SAN-ISIDRO' |  translate}}</strong><br />
+                        <small>{{'AREAS.DESCRIPTION-SAN-ISIDRO' |  translate}}</small>
                     </div>
                 </div>
-                <button mat-stroked-button class="button-baja">Ver en mapa</button>
+                <button mat-stroked-button class="button-baja">{{'AREAS.BUTTON-MAP' | translate}}</button>
             </div>
 
             <div class="zona-item">
                 <div class="zona-info">
                     <span class="dot green"></span>
                     <div>
-                        <strong>Centro de Lima</strong><br />
-                        <small>3.8 km de distancia - 0.22 µSv/h</small>
+                        <strong>{{'AREAS.LOCATION-CENTRO' |  translate}}</strong><br />
+                        <small>{{'AREAS.DESCRIPTION-CENTRO' | translate}}</small>
                     </div>
                 </div>
-                <button mat-stroked-button class="button-baja">Ver en mapa</button>
+                <button mat-stroked-button class="button-baja">{{'AREAS.BUTTON-MAP' | translate}}</button>
             </div>
         </div>
     </div>
