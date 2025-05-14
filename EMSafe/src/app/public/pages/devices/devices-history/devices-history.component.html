@@ -1,1 +1,87 @@
-<p>devices-history works!</p>
+<div class="title">
+    <h1>{{ 'DEVICE_HISTORY.TITLE' | translate }}</h1>
+</div>
+
+<!-- Botones de cambio de vista -->
+<div class="view-toggle">
+    <button mat-button
+            [ngClass]="{ 'active-view': currentView === 'tabla' }"
+            (click)="currentView = 'tabla'">
+        {{ 'DEVICE_HISTORY.VIEW_TABLE' | translate }}
+    </button>
+
+    <button mat-button
+            [ngClass]="{ 'active-view': currentView === 'tarjetas' }"
+            (click)="currentView = 'tarjetas'">
+        {{ 'DEVICE_HISTORY.VIEW_CARDS' | translate }}
+    </button>
+</div>
+
+<!-- Vista de TABLA -->
+<div class="contenedor-central" *ngIf="currentView === 'tabla'">
+    <div class="tabla-contenedor">
+        <h2>{{ 'DEVICE_HISTORY.RECORDS_TITLE' | translate }}</h2>
+
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z1">
+
+            <!-- ID Column -->
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> ID </th>
+                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>
+
+            <!-- Dispositivo Column -->
+            <ng-container matColumnDef="dispositivo">
+                <th mat-header-cell *matHeaderCellDef> Dispositivo </th>
+                <td mat-cell *matCellDef="let element"> {{element.dispositivo}} </td>
+            </ng-container>
+
+            <!-- Ubicación Column -->
+            <ng-container matColumnDef="ubicacion">
+                <th mat-header-cell *matHeaderCellDef> Ubicación </th>
+                <td mat-cell *matCellDef="let element"> {{element.ubicacion}} </td>
+            </ng-container>
+
+            <!-- Fecha Column -->
+            <ng-container matColumnDef="fecha">
+                <th mat-header-cell *matHeaderCellDef> Fecha </th>
+                <td mat-cell *matCellDef="let element"> {{element.fecha | date:'dd/MM/yyyy' }} </td>
+            </ng-container>
+
+            <!-- Nivel Column -->
+            <ng-container matColumnDef="nivel">
+                <th mat-header-cell *matHeaderCellDef> Nivel (µSv/h) </th>
+                <td mat-cell *matCellDef="let element"> {{element.nivel}} </td>
+            </ng-container>
+
+            <!-- Estado Column -->
+            <ng-container matColumnDef="estado">
+                <th mat-header-cell *matHeaderCellDef> Estado </th>
+                <td mat-cell *matCellDef="let element">
+                    <span [ngClass]="element.estado" class="estado-indicador"></span> {{element.estado | titlecase}}
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+</div>
+
+<!-- Vista de TARJETAS -->
+<div *ngIf="currentView === 'tarjetas'" class="card-container">
+    <div class="device-card" *ngFor="let item of dataSource">
+        <div class="card-header">
+            <h3>{{ item.dispositivo }}</h3>
+            <span class="estado-indicador" [ngClass]="item.estado"></span>
+        </div>
+        <div class="card-body">
+            <div><strong>ID:</strong> {{ item.id }}</div>
+            <div><strong>Ubicación:</strong> {{ item.ubicacion }}</div>
+            <div><strong>Última lectura:</strong> {{ item.nivel }} µSv/h</div>
+            <div><strong>Fecha:</strong> {{ item.fecha | date: 'dd/MM/yyyy' }}</div>
+            <div><strong>Estado:</strong> {{ item.estado | titlecase }}</div>
+        </div>
+    </div>
+</div>
+
