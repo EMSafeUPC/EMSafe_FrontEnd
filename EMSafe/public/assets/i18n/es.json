@@ -1,171 +1,4 @@
 {
-  "MENU": {
-    "DASHBOARD": "Panel de Control",
-    "DEVICES": "Dispositivos",
-    "DEVICE_HISTORY": "Historial de Dispositivos",
-    "DEVICE_MANAGEMENT": "Gestión de Dispositivos",
-    "ALARMS": "Alarmas",
-    "ALARM_HISTORY": "Historial de Alarmas",
-    "ALARM_SETTINGS": "Configuración de Alarmas",
-    "RADIATION_MAP": "Mapa de Radiación"
-  },
-  "USER": {
-    "PROFILE": "Mi Perfil",
-    "SETTINGS": "Configuración",
-    "LOGOUT": "Cerrar Sesión",
-    "LOGIN": "Iniciar Sesión",
-    "ROLE": {
-      "ADMINISTRATOR": "Administrador",
-      "OPERATOR": "Operador",
-      "TECHNICIAN": "Técnico",
-      "VIEWER": "Visualizador"
-    }
-  },
-  "DASHBOARD": {
-    "TITLE": "Panel de Control",
-    "LAST_UPDATED": "Última actualización",
-    "ACTIVE_DEVICES": "Dispositivos Activos",
-    "INACTIVE_DEVICES": "Dispositivos Inactivos",
-    "ACTIVE_ALARMS": "Alertas Activas",
-    "AVG_RADIATION": "Nivel Promedio",
-    "MAX_RADIATION": "Radiación Máxima",
-    "BATTERY_AVG": "Batería Promedio",
-    "LOW_BATTERY_DEVICES": "Dispositivos con Batería Baja",
-    "RADIATION_LEVELS": "Niveles de Radiación",
-    "MONITORING_DESCRIPTION": "Monitoreo de niveles promedio en las últimas 24 horas",
-    "RADIATION_TRENDS": "Tendencias de Radiación",
-    "DEVICE_STATUS": "Estado de los Dispositivos",
-    "RECENT_ALERTS": "Alertas Recientes",
-    "RECENT_ALERTS_DESCRIPTION": "Últimas alertas detectadas en el sistema",
-    "RECENT_DEVICES": "Dispositivos Recientes",
-    "DEVICE_STATUS_DESCRIPTION": "Estado actual de los dispositivos",
-    "ALL_DEVICES": "Todos los Dispositivos",
-    "ALL_ALARMS": "Todas las Alarmas",
-    "CURRENT_READING": "Lectura Actual",
-    "BATTERY": "Batería",
-    "NEXT_MAINTENANCE": "Próximo Mantenimiento",
-    "THRESHOLD": "Umbral",
-    "DETAILS": "Detalles",
-    "HISTORY": "Historial",
-    "SINCE_YESTERDAY": "desde ayer",
-    "CRITICAL": "crítico",
-    "WARNING": "advertencia"
-  },
-  "STATUS": {
-    "ACTIVE": "Activo",
-    "MAINTENANCE": "Mantenimiento",
-    "INACTIVE": "Inactivo",
-    "ALERT": "Alerta"
-  },
-  "ALARM": {
-    "LEVEL": {
-      "INFO": "Información",
-      "WARNING": "Advertencia",
-      "CRITICAL": "Crítico"
-    },
-    "TYPE": {
-      "RADIATION_THRESHOLD": "Umbral de Radiación",
-      "SYSTEM": "Sistema",
-      "CONNECTIVITY": "Conectividad"
-    },
-    "THRESHOLD": "Umbral",
-    "ACKNOWLEDGED_BY": "Reconocido por",
-    "RESOLVED_AT": "Resuelto en",
-    "ACKNOWLEDGE": "Reconocer",
-    "RESOLVE": "Resolver",
-    "DETAILS": "Detalles"
-  },
-  "STATS": {
-    "AVG_RADIATION": "Radiación Promedio",
-    "MAX_RADIATION": "Radiación Máxima",
-    "ACTIVE_DEVICES": "Dispositivos Activos",
-    "ALARMS": "Alarmas"
-  },
-  "LOGIN": {
-    "TITLE": "Iniciar Sesión",
-    "SUBTITLE": "Ingresa tus credenciales para acceder al sistema",
-    "USERNAME": "Usuario",
-    "USERNAME_PLACEHOLDER": "Ingresa tu nombre de usuario",
-    "USERNAME_REQUIRED": "El nombre de usuario es obligatorio",
-    "PASSWORD": "Contraseña",
-    "PASSWORD_PLACEHOLDER": "Ingresa tu contraseña",
-    "PASSWORD_REQUIRED": "La contraseña es obligatoria",
-    "REMEMBER_ME": "Recordarme",
-    "FORGOT_PASSWORD": "¿Olvidaste tu contraseña?",
-    "SIGN_IN": "Iniciar Sesión",
-    "TOGGLE_PASSWORD_VISIBILITY": "Mostrar/ocultar contraseña",
-    "COPYRIGHT": "© {{year}} EMSafe. Todos los derechos reservados.",
-    "PRIVACY_POLICY": "Política de Privacidad",
-    "TERMS_OF_SERVICE": "Términos de Servicio",
-    "SESSION_ACTIVE": "Sesión Activa",
-    "SESSION_MESSAGE": "Ya has iniciado sesión en el sistema",
-    "GO_TO_DASHBOARD": "Ir al Panel de Control",
-    "LOGOUT": "Cerrar Sesión",
-    "ERROR": {
-      "INVALID_CREDENTIALS": "Usuario o contraseña incorrectos",
-      "ACCOUNT_LOCKED": "Tu cuenta ha sido bloqueada. Contacta al administrador.",
-      "GENERAL": "Ha ocurrido un error. Por favor, inténtalo de nuevo más tarde."
-    }
-  },
-  "PROFILE": {
-    "TITLE": "Mi Perfil",
-    "SUBTITLE": "Gestiona tu información personal",
-    "PERSONAL_INFO": "Información Personal",
-    "NAME": "Nombre",
-    "NAME_REQUIRED": "El nombre es obligatorio",
-    "EMAIL": "Correo Electrónico",
-    "EMAIL_REQUIRED": "El correo electrónico es obligatorio",
-    "EMAIL_INVALID": "El correo electrónico no es válido",
-    "USERNAME": "Nombre de Usuario",
-    "USERNAME_HINT": "El nombre de usuario no se puede cambiar",
-    "SAVE_CHANGES": "Guardar Cambios",
-    "CHANGE_PASSWORD": "Cambiar Contraseña",
-    "CURRENT_PASSWORD": "Contraseña Actual",
-    "CURRENT_PASSWORD_REQUIRED": "La contraseña actual es obligatoria",
-    "NEW_PASSWORD": "Nueva Contraseña",
-    "NEW_PASSWORD_REQUIRED": "La nueva contraseña es obligatoria",
-    "PASSWORD_MIN_LENGTH": "La contraseña debe tener al menos 8 caracteres",
-    "CONFIRM_PASSWORD": "Confirmar Contraseña",
-    "CONFIRM_PASSWORD_REQUIRED": "Debes confirmar la contraseña",
-    "PASSWORD_MISMATCH": "Las contraseñas no coinciden",
-    "LAST_LOGIN": "Último inicio de sesión",
-    "PERSONAL_INFO_SAVED": "Información personal guardada correctamente",
-    "PASSWORD_CHANGED": "Contraseña cambiada correctamente",
-    "ERROR_SAVING": "Error al guardar la información personal",
-    "ERROR_CHANGING_PASSWORD": "Error al cambiar la contraseña",
-    "CURRENT_PASSWORD_INCORRECT": "La contraseña actual es incorrecta",
-    "USER_NOT_FOUND": "Usuario no encontrado"
-  },
-  "SETTINGS": {
-    "TITLE": "Configuración",
-    "SUBTITLE": "Personaliza tu experiencia y gestiona la seguridad de tu cuenta",
-    "PREFERENCES": "Preferencias",
-    "LANGUAGE": "Idioma",
-    "THEME": "Tema",
-    "THEME_LIGHT": "Claro",
-    "THEME_DARK": "Oscuro",
-    "THEME_SYSTEM": "Sistema",
-    "NOTIFICATIONS": "Notificaciones",
-    "EMAIL_NOTIFICATIONS": "Notificaciones por correo electrónico",
-    "PUSH_NOTIFICATIONS": "Notificaciones push",
-    "SMS_NOTIFICATIONS": "Notificaciones SMS",
-    "SAVE_PREFERENCES": "Guardar Preferencias",
-    "ACCOUNT_SECURITY": "Seguridad de la Cuenta",
-    "LOGIN_HISTORY": "Historial de Inicios de Sesión",
-    "LOGIN_HISTORY_DESC": "Últimos inicios de sesión en tu cuenta",
-    "SESSIONS": "Sesiones Activas",
-    "SESSIONS_DESC": "Dispositivos donde tu cuenta está actualmente conectada",
-    "CURRENT_SESSION": "Sesión Actual",
-    "TERMINATE": "Terminar",
-    "TERMINATE_ALL": "Terminar Todas las Sesiones",
-    "PREFERENCES_SAVED": "Preferencias guardadas correctamente",
-    "SESSION_TERMINATED": "Sesión terminada correctamente",
-    "ALL_SESSIONS_TERMINATED": "Todas las sesiones terminadas correctamente",
-    "ERROR_SAVING_PREFERENCES": "Error al guardar las preferencias",
-    "ERROR_TERMINATING_SESSION": "Error al terminar la sesión",
-    "ERROR_TERMINATING_SESSIONS": "Error al terminar las sesiones",
-    "USER_NOT_FOUND": "Usuario no encontrado"
-  },
   "ALARM_HISTORY": {
     "TITLE": "Historial de Alarmas",
     "EXPORT": "Exportar",
@@ -194,20 +27,17 @@
       "LABEL": "Paginador de Historial de Alarmas"
     }
   },
-
   "DEVICE_HISTORY": {
     "TITLE": "Historial de Dispositivos",
     "VIEW_TABLE": "Vista de Tabla",
     "VIEW_CARDS": "Vista de Tarjetas",
     "RECORDS_TITLE": "Registros de Dispositivos"
   },
-
   "DEVICE_MANAGEMENT": {
     "TITLE": "Gestión de Dispositivos",
     "DELETE_BOTTOM": "Eliminar",
     "ADD_BOTTOM": "Agregar"
   },
-
   "RADIATION_MAP": {
     "TITLE": "Mapa de Zonas de Radiación - Lima, Perú",
     "FILTER": "Filtrar",

@@ -1,0 +1,87 @@
+.title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #0a0a8f;
+    margin-top: 30px;
+    margin-bottom: 1px;
+    margin-left: 27px;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.device-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease-in-out;
+}
+
+.device-card:hover {
+    transform: scale(1.03);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.estado-indicador {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.estado-indicador.normal {
+    background-color: green;
+}
+
+.estado-indicador.advertencia {
+    background-color: orange;
+}
+
+.estado-indicador.crítico {
+    background-color: red;
+}
+
+.card-footer {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.delete-button {
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    box-shadow: 0 2px 6px rgba(255, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+    border-radius: 6px;
+}
+
+.delete-button:hover {
+    background-color: #d32f2f;
+}
+
+.add-button {
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    gap: 6px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 255, 0.2);
+    border-radius: 6px;
+}
