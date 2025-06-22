@@ -166,37 +166,99 @@
     "ERROR_TERMINATING_SESSIONS": "Error al terminar las sesiones",
     "USER_NOT_FOUND": "Usuario no encontrado"
   },
+  "ALARM_HISTORY": {
+    "TITLE": "Historial de Alarmas",
+    "EXPORT": "Exportar",
+    "SEARCH_PLACEHOLDER": "Buscar alarmas...",
+    "DATE_RANGE": "Rango de fechas",
+    "FILTER": {
+      "ALL": "Todas",
+      "ACTIVE": "Activas",
+      "RESOLVED": "Resueltas"
+    },
+    "TABLE": {
+      "TITLE": "Registro de Alarmas",
+      "ID": "ID",
+      "DEVICE": "Dispositivo",
+      "LEVEL": "Nivel (μSv/h)",
+      "DATE": "Fecha",
+      "STATUS": "Estado",
+      "ACTIONS": "Acciones",
+      "DETAILS": "Detalles"
+    },
+    "STATUS": {
+      "ACTIVE": "Activa",
+      "RESOLVED": "Resuelta"
+    },
+    "PAGINATOR": {
+      "LABEL": "Paginador de Historial de Alarmas"
+    }
+  },
+
+  "DEVICE_HISTORY": {
+    "TITLE": "Historial de Dispositivos",
+    "VIEW_TABLE": "Vista de Tabla",
+    "VIEW_CARDS": "Vista de Tarjetas",
+    "RECORDS_TITLE": "Registros de Dispositivos"
+  },
+
+  "DEVICE_MANAGEMENT": {
+    "TITLE": "Gestión de Dispositivos",
+    "DELETE_BOTTOM": "Eliminar",
+    "ADD_BOTTOM": "Agregar"
+  },
+
   "RADIATION_MAP": {
-    "TITLE": "Mapa de Radiación",
+    "TITLE": "Mapa de Zonas de Radiación - Lima, Perú",
+    "FILTER": "Filtrar",
+    "SHARE": "Compartir",
+    "SHARE_SUCCESS": "Reporte generado exitosamente",
+    "SHARE_ERROR": "Error al generar reporte",
+    "LEGEND": "Leyenda",
+    "NORMAL": "Normal",
+    "ELEVATED": "Elevado",
+    "HIGH": "Alto",
+    "CRITICAL": "Crítico",
+    "ALL_LEVELS": "Todos los niveles",
+    "DATA_TYPE": "Tipo de datos",
+    "NEARBY_ZONES": "Zonas Cercanas",
+    "VIEW_ON_MAP": "Ver en mapa",
     "UPDATE": "Actualizar",
-    "SHARE": "Compartir"
+    "DEVICES": "Dispositivos",
+    "ALL_DEVICES": "Todos los dispositivos",
+    "ONLY_ACTIVE": "Solo activos",
+    "WITH_ALERTS": "Con alertas",
+    "APPLY_FILTERS": "Aplicar Filtros",
+    "DISTANCE_UNIT": "km de distancia",
+    "CUSTOMIZE_VIEW": "Personalizar vista",
+    "NO_ZONES_FOUND": "No se encontraron zonas cercanas"
   },
   "LEGEND": {
-    "LEGEND": "Legenda",
-    "NORMAL": "Normal (0.05 - 0.30 µSv/h)",
-    "ELEVATED": "Elevado (0.31 - 0.70 µSv/h)",
-    "HIGH": "Alto (0.71 - 1.00 µSv/h)",
-    "CRITICAL": "Critico (>1.00 µSv/h)"
+    "LEGEND": "Leyenda",
+    "NORMAL": "Normal",
+    "ELEVATED": "Elevado",
+    "HIGH": "Alto",
+    "CRITICAL": "Crítico"
   },
   "FILTERS": {
     "FILTERS": "Filtros",
-    "TYPES": "Tipo de Datos",
     "DESCRIPTION": "Personaliza la visualización del mapa",
-    "ALL_DATA": "Todo los Datos",
+    "TYPES": "Tipos de Datos",
+    "ALL_DATA": "Todos los Datos",
     "DEVICES": "Dispositivos",
-    "ALL_DEVICES": "Todo los dispositivos",
-    "ONLY": "Solo activos",
-    "ALERTS": "Con alertas",
+    "ALL_DEVICES": "Todos los Dispositivos",
+    "ONLY": "Solo Activos",
+    "ALERTS": "Con Alertas",
     "APPLY": "Aplicar Filtros"
   },
   "AREAS": {
-    "LOCATION":"Zonas Cercanas a Tu Ubicación",
+    "LOCATION": "Áreas Cercanas a Tu Ubicación",
     "LOCATION-MIRAFLORES": "Miraflores",
+    "DESCRIPTION-MIRAFLORES": "1.2 km de distancia - 0.45 μSv/h",
     "LOCATION-SAN-ISIDRO": "San Isidro",
+    "DESCRIPTION-SAN-ISIDRO": "2.5 km de distancia - 0.85 μSv/h",
     "LOCATION-CENTRO": "Centro de Lima",
-    "DESCRIPTION-MIRAFLORES": "1.2 km de distancia - 0.45 µSv/h",
-    "DESCRIPTION-SAN-ISIDRO": "2.5 km de distancia - 0.85 µSv/h",
-    "DESCRIPTION-CENTRO": "3.8 km de distancia - 0.22 µSv/h",
-    "BUTTON-MAP": "Ver Mapa"
+    "DESCRIPTION-CENTRO": "3.8 km de distancia - 0.22 μSv/h",
+    "BUTTON-MAP": "Ver en Mapa"
   }
 }
