@@ -1,0 +1,230 @@
+.register-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1a237e 0%, #25126c 100%);
+    padding: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.register-card {
+    width: 100%;
+    max-width: 450px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.register-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.logo-icon {
+    font-size: 36px;
+    height: 36px;
+    width: 36px;
+    color: #1a237e;
+    margin-right: 10px;
+}
+
+.logo-text {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a237e;
+    letter-spacing: 1px;
+}
+
+.register-header h1 {
+    margin: 0 0 10px;
+    font-size: 24px;
+    font-weight: 500;
+    color: #333;
+}
+
+.register-header p {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.register-form {
+    margin-top: 30px;
+}
+
+.form-field {
+    margin-bottom: 20px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+::ng-deep .mat-mdc-form-field {
+    width: 100%;
+}
+
+::ng-deep .mat-mdc-form-field .mat-mdc-form-field-flex {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+::ng-deep .mat-mdc-form-field.mat-focused .mat-mdc-form-field-flex {
+    background-color: white;
+}
+
+::ng-deep .mat-mdc-form-field .mdc-notched-outline {
+    border-color: #e0e0e0;
+}
+
+::ng-deep .mat-mdc-form-field.mat-focused .mdc-notched-outline {
+    border-color: #1a237e;
+    border-width: 2px;
+}
+
+::ng-deep .mat-mdc-form-field .mat-mdc-form-field-icon-prefix {
+    color: #666;
+}
+
+.error-message {
+    display: flex;
+    align-items: center;
+    background-color: #ffebee;
+    color: #d32f2f;
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.error-message mat-icon {
+    margin-right: 10px;
+    font-size: 18px;
+    height: 18px;
+    width: 18px;
+}
+
+.form-actions {
+    margin-top: 30px;
+}
+
+.register-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    position: relative;
+    border-radius: 8px;
+    background-color: #1a237e;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.register-button:hover:not(:disabled) {
+    background-color: #3f51b5;
+}
+
+.register-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.spinner {
+    margin: 0 auto;
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #666;
+}
+
+.login-link p {
+    margin: 0;
+}
+
+.link-primary {
+    color: #1a237e;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.link-primary:hover {
+    color: #3f51b5;
+    text-decoration: underline;
+}
+
+.register-footer {
+    margin-top: 30px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 12px;
+}
+
+.register-footer p {
+    margin: 0 0 10px 0;
+}
+
+.footer-links {
+    margin-top: 10px;
+}
+
+.footer-link {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.2s;
+    font-size: 12px;
+}
+
+.footer-link:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+.separator {
+    margin: 0 10px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .register-card {
+        padding: 30px 20px;
+        margin: 10px;
+    }
+
+    .register-container {
+        padding: 10px;
+    }
+
+    .logo-text {
+        font-size: 20px;
+    }
+
+    .register-header h1 {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 360px) {
+    .register-card {
+        padding: 20px 15px;
+    }
+}

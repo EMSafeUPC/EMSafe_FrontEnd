@@ -1,0 +1,117 @@
+<div class="register-container">
+    <div class="register-card">
+        <div class="register-header">
+            <div class="logo">
+                <mat-icon class="logo-icon">radio_button_checked</mat-icon>
+                <span class="logo-text">EMSafe</span>
+            </div>
+            <h1>{{ 'REGISTER.TITLE' | translate }}</h1>
+            <p>{{ 'REGISTER.SUBTITLE' | translate }}</p>
+        </div>
+
+        <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="register-form">
+            <div class="form-field">
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>{{ 'REGISTER.NAME' | translate }}</mat-label>
+                    <input
+                            matInput
+                            formControlName="name"
+                            type="text"
+                            autocomplete="name"
+                            [placeholder]="'REGISTER.NAME_PLACEHOLDER' | translate">
+                    <mat-icon matPrefix>person</mat-icon>
+                    <mat-error>{{ 'REGISTER.NAME_REQUIRED' | translate }}</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="form-field">
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>{{ 'REGISTER.EMAIL' | translate }}</mat-label>
+                    <input
+                            matInput
+                            formControlName="email"
+                            type="email"
+                            autocomplete="email"
+                            [placeholder]="'REGISTER.EMAIL_PLACEHOLDER' | translate">
+                    <mat-icon matPrefix>email</mat-icon>
+                    <mat-error>{{ 'REGISTER.EMAIL_REQUIRED' | translate }}</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="form-field">
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>{{ 'REGISTER.PASSWORD' | translate }}</mat-label>
+                    <input
+                            matInput
+                            formControlName="password"
+                            [type]="hidePassword ? 'password' : 'text'"
+                            autocomplete="new-password"
+                            [placeholder]="'REGISTER.PASSWORD_PLACEHOLDER' | translate">
+                    <mat-icon matPrefix>lock</mat-icon>
+                    <button
+                            mat-icon-button
+                            matSuffix
+                            type="button"
+                            (click)="hidePassword = !hidePassword">
+                        <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                    </button>
+                    <mat-error>{{ 'REGISTER.PASSWORD_REQUIRED' | translate }}</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="form-field">
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>{{ 'REGISTER.CONFIRM_PASSWORD' | translate }}</mat-label>
+                    <input
+                            matInput
+                            formControlName="confirmPassword"
+                            [type]="hideConfirmPassword ? 'password' : 'text'"
+                            autocomplete="new-password"
+                            [placeholder]="'REGISTER.CONFIRM_PASSWORD_PLACEHOLDER' | translate">
+                    <mat-icon matPrefix>lock</mat-icon>
+                    <button
+                            mat-icon-button
+                            matSuffix
+                            type="button"
+                            (click)="hideConfirmPassword = !hideConfirmPassword">
+                        <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                    </button>
+                    <mat-error>{{ 'REGISTER.CONFIRM_PASSWORD_REQUIRED' | translate }}</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div *ngIf="errorMessage" class="error-message">
+                <mat-icon>error</mat-icon>
+                <span>{{ errorMessage }}</span>
+            </div>
+
+            <div class="login-link">
+                <p>
+                    {{ 'REGISTER.ALREADY_HAVE_ACCOUNT' | translate }}
+                    <a routerLink="/login" class="link-primary">{{ 'REGISTER.LOGIN_HERE' | translate }}</a>
+                </p>
+            </div>
+
+            <div class="form-actions">
+                <button
+                        mat-flat-button
+                        color="primary"
+                        type="submit"
+                        [disabled]="isLoading"
+                        class="register-button">
+                    <mat-spinner *ngIf="isLoading" diameter="20" class="spinner"></mat-spinner>
+                    <span *ngIf="!isLoading">{{ 'REGISTER.REGISTER_BUTTON' | translate }}</span>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="register-footer">
+        <p>{{ 'REGISTER.COPYRIGHT' | translate: {year: currentYear} }}</p>
+        <div class="footer-links">
+            <a href="#" class="footer-link">{{ 'REGISTER.PRIVACY_POLICY' | translate }}</a>
+            <span class="separator">|</span>
+            <a href="#" class="footer-link">{{ 'REGISTER.TERMS_OF_SERVICE' | translate }}</a>
+        </div>
+    </div>
+</div>
