@@ -1,90 +1,75 @@
 <div class="location-container">
 
     <div class="Principal">
-        <h2>{{'RADIATION_MAP.TITLE' | translate}}</h2>
+        <h2>{{ 'RADIATION_MAP.TITLE' | translate }}</h2>
 
         <div class="controls">
-            <button class="button1" mat-raised-button (click)="ngOnInit()">{{'RADIATION_MAP.UPDATE' | translate}}</button>
-            <button class="button2" mat-raised-button>{{'RADIATION_MAP.SHARE' | translate}}</button>
+            <button class="button1" mat-raised-button (click)="refreshPoints()">{{ 'RADIATION_MAP.UPDATE' | translate }}</button>
+            <button class="button2" mat-raised-button (click)="shareMap()">{{ 'RADIATION_MAP.SHARE' | translate }}</button>
         </div>
     </div>
 
 
     <div class="map-and-sidebar">
-        <div id="leaflet-map" class="leaflet-map"></div>
+            <div id="leaflet-map" class="leaflet-map"></div>
 
         <div class="sidebar">
             <div class="legend">
-                <h3>{{'LEGEND.LEGEND' | translate }}</h3>
+                <h3>{{ 'RADIATION_MAP.LEGEND' | translate }}</h3>
                 <hr class="custom-line">
                 <ul>
-                    <li><span class="dot green"></span> {{'LEGEND.NORMAL' | translate}}</li>
-                    <li><span class="dot yellow"></span> {{'LEGEND.ELEVATED' | translate}}</li>
-                    <li><span class="dot orange"></span> {{'LEGEND.HIGH' | translate}}</li>
-                    <li><span class="dot red"></span>{{'LEGEND.CRITICAL' | translate}} </li>
+                    <li><span class="dot green"></span> {{ 'RADIATION_MAP.NORMAL' | translate }}</li>
+                    <li><span class="dot yellow"></span> {{ 'RADIATION_MAP.ELEVATED' | translate }}</li>
+                    <li><span class="dot orange"></span> {{ 'RADIATION_MAP.HIGH' | translate }}</li>
+                    <li><span class="dot red"></span> {{ 'RADIATION_MAP.CRITICAL' | translate }}</li>
                 </ul>
             </div>
 
             <div class="filters">
-                <h3>{{'FILTERS.FILTERS' | translate}}</h3>
-                <p>{{'FILTERS.DESCRIPTION' | translate}}</p>
+                <h3>{{ 'RADIATION_MAP.FILTER' | translate }}</h3>
+                <p>{{ 'RADIATION_MAP.CUSTOMIZE_VIEW' | translate }}</p>
                 <hr class="custom-line">
-                <h2 >{{'FILTERS.TYPES' | translate}}</h2>
+                <h2>{{ 'RADIATION_MAP.DATA_TYPE' | translate }}</h2>
                 <mat-form-field appearance="fill" class="fill">
-                    <mat-label>{{'FILTERS.ALL_DATA' | translate}}</mat-label>
-                    <mat-select>
-                        <mat-option>{{'FILTERS.ALL_DATA' | translate}}</mat-option>
+                    <mat-label>{{ 'RADIATION_MAP.DATA_TYPE' | translate }}</mat-label>
+                    <mat-select [(ngModel)]="selectedLevel" (selectionChange)="onLevelChange($event)">
+                        <mat-option value="ALL_LEVELS">{{ 'RADIATION_MAP.ALL_LEVELS' | translate }}</mat-option>
+                        <mat-option value="NORMAL">{{ 'RADIATION_MAP.NORMAL' | translate }}</mat-option>
+                        <mat-option value="ELEVATED">{{ 'RADIATION_MAP.ELEVATED' | translate }}</mat-option>
+                        <mat-option value="HIGH">{{ 'RADIATION_MAP.HIGH' | translate }}</mat-option>
+                        <mat-option value="CRITICAL">{{ 'RADIATION_MAP.CRITICAL' | translate }}</mat-option>
                     </mat-select>
                 </mat-form-field>
 
-                <label>{{'FILTERS.DEVICES' | translate}}</label>
+                <label>{{ 'RADIATION_MAP.DEVICES' | translate }}</label>
                 <div class="check">
-                    <mat-checkbox checked  class="mat-check">{{'FILTERS.ALL_DEVICES' | translate}}</mat-checkbox>
-                    <mat-checkbox class="mat-check">{{'FILTERS.ONLY' | translate}}</mat-checkbox>
-                    <mat-checkbox class="mat-check">{{'FILTERS.ALERTS' | translate}}</mat-checkbox>
+                    <mat-checkbox [(ngModel)]="onlyActive">{{ 'RADIATION_MAP.ONLY_ACTIVE' | translate }}</mat-checkbox>
+                    <mat-checkbox [(ngModel)]="withAlerts">{{ 'RADIATION_MAP.WITH_ALERTS' | translate }}</mat-checkbox>
                 </div>
 
-                <button mat-raised-button class="button-filter">{{'FILTERS.APPLY' | translate}}</button>
+                <button mat-raised-button class="button-filter" (click)="applyFilters()">{{ 'RADIATION_MAP.APPLY_FILTERS' | translate }}</button>
             </div>
         </div>
     </div>
     <div class="zonas-wrapper">
-        <div class="zonas-cercanas-container">
-            <h3>{{'AREAS.LOCATION' |  translate}}</h3>
-            <div class="zona-item">
-                <div class="zona-info">
-                    <span class="dot yellow"></span>
-                    <div>
-                        <strong>{{'AREAS.LOCATION-MIRAFLORES' |  translate}}</strong><br />
-                        <small>{{'AREAS.DESCRIPTION-MIRAFLORES' |  translate}}</small>
-                    </div>
-                </div>
-                <button mat-stroked-button class="button-baja">{{'AREAS.BUTTON-MAP' | translate}}</button>
+        <h3>{{ 'RADIATION_MAP.NEARBY_ZONES' | translate }}</h3>
+        <hr>
+        
+        <div class="zona-item" *ngFor="let zone of nearbyZones">
+            <span class="dot" [ngClass]="{
+                'green': zone.averageRadiation < 0.3,
+                'yellow': zone.averageRadiation >= 0.3 && zone.averageRadiation < 0.6,
+                'orange': zone.averageRadiation >= 0.6 && zone.averageRadiation < 1.0,
+                'red': zone.averageRadiation >= 1.0
+            }"></span>
+            <div class="zona-info">
+                <div class="zona-nombre">{{ zone.name }}</div>
+                <div class="zona-datos">{{ zone.distance | number:'1.1-1' }} {{ 'RADIATION_MAP.DISTANCE_UNIT' | translate }} - {{ zone.averageRadiation | number:'1.2-2' }} μSv/h</div>
             </div>
-
-            <div class="zona-item">
-                <div class="zona-info">
-                    <span class="dot orange"></span>
-                    <div>
-                        <strong>{{'AREAS.LOCATION-SAN-ISIDRO' |  translate}}</strong><br />
-                        <small>{{'AREAS.DESCRIPTION-SAN-ISIDRO' |  translate}}</small>
-                    </div>
-                </div>
-                <button mat-stroked-button class="button-baja">{{'AREAS.BUTTON-MAP' | translate}}</button>
-            </div>
-
-            <div class="zona-item">
-                <div class="zona-info">
-                    <span class="dot green"></span>
-                    <div>
-                        <strong>{{'AREAS.LOCATION-CENTRO' |  translate}}</strong><br />
-                        <small>{{'AREAS.DESCRIPTION-CENTRO' | translate}}</small>
-                    </div>
-                </div>
-                <button mat-stroked-button class="button-baja">{{'AREAS.BUTTON-MAP' | translate}}</button>
-            </div>
+            <a class="ver-mapa" (click)="showZoneOnMap(zone)">{{ 'RADIATION_MAP.VIEW_ON_MAP' | translate }}</a>
+        </div>
+        <div *ngIf="nearbyZones.length === 0" class="no-zones">
+            {{ 'RADIATION_MAP.NO_ZONES_FOUND' | translate }}
         </div>
     </div>
-
-
 </div>
