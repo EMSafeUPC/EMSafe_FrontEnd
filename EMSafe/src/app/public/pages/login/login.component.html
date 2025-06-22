@@ -56,14 +56,18 @@
                 <mat-checkbox formControlName="rememberMe" color="primary">
                     {{ 'LOGIN.REMEMBER_ME' | translate }}
                 </mat-checkbox>
-                <a routerLink="/forgot-password" class="forgot-password">
-                    {{ 'LOGIN.FORGOT_PASSWORD' | translate }}
-                </a>
             </div>
 
             <div *ngIf="errorMessage" class="error-message">
                 <mat-icon>error</mat-icon>
                 <span>{{ errorMessage | translate }}</span>
+            </div>
+
+            <div class="register-link">
+                <p>
+                    {{ 'LOGIN.NO_ACCOUNT' | translate }}
+                    <a routerLink="/register">{{ 'LOGIN.REGISTER_HERE' | translate }}</a>
+                </p>
             </div>
 
             <div class="form-actions">
@@ -78,6 +82,7 @@
                 </button>
             </div>
         </form>
+
 
         <!-- Información de sesión activa -->
         <div *ngIf="isLoggedIn" class="active-session">
