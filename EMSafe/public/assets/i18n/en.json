@@ -166,37 +166,99 @@
     "ERROR_TERMINATING_SESSIONS": "Error terminating sessions",
     "USER_NOT_FOUND": "User not found"
   },
+  "ALARM_HISTORY": {
+    "TITLE": "Alarm History",
+    "EXPORT": "Export",
+    "SEARCH_PLACEHOLDER": "Search alarms...",
+    "DATE_RANGE": "Date Range",
+    "FILTER": {
+      "ALL": "All",
+      "ACTIVE": "Active",
+      "RESOLVED": "Resolved"
+    },
+    "TABLE": {
+      "TITLE": "Alarm Records",
+      "ID": "ID",
+      "DEVICE": "Device",
+      "LEVEL": "Level (μSv/h)",
+      "DATE": "Date",
+      "STATUS": "Status",
+      "ACTIONS": "Actions",
+      "DETAILS": "Details"
+    },
+    "STATUS": {
+      "ACTIVE": "Active",
+      "RESOLVED": "Resolved"
+    },
+    "PAGINATOR": {
+      "LABEL": "Alarm History Paginator"
+    }
+  },
+
+  "DEVICE_HISTORY": {
+    "TITLE": "Device History",
+    "VIEW_TABLE": "Table View",
+    "VIEW_CARDS": "Card View",
+    "RECORDS_TITLE": "Device Records"
+  },
+
+  "DEVICE_MANAGEMENT": {
+    "TITLE": "Device Management",
+    "DELETE_BOTTOM": "Delete",
+    "ADD_BOTTOM": "Add"
+  },
+
   "RADIATION_MAP": {
-    "TITLE": "Radiation Map",
+    "TITLE": "Radiation Zone Map - Lima, Peru",
+    "FILTER": "Filter",
+    "SHARE": "Share",
+    "SHARE_SUCCESS": "Report generated successfully",
+    "SHARE_ERROR": "Error generating report",
+    "LEGEND": "Legend",
+    "NORMAL": "Normal",
+    "ELEVATED": "Elevated",
+    "HIGH": "High",
+    "CRITICAL": "Critical",
+    "ALL_LEVELS": "All levels",
+    "DATA_TYPE": "Data type",
+    "NEARBY_ZONES": "Nearby Zones",
+    "VIEW_ON_MAP": "View on map",
     "UPDATE": "Update",
-    "SHARE": "Share"
+    "DEVICES": "Devices",
+    "ALL_DEVICES": "All devices",
+    "ONLY_ACTIVE": "Only active",
+    "WITH_ALERTS": "With alerts",
+    "APPLY_FILTERS": "Apply Filters",
+    "DISTANCE_UNIT": "km away",
+    "CUSTOMIZE_VIEW": "Customize view",
+    "NO_ZONES_FOUND": "No nearby zones found"
   },
   "LEGEND": {
     "LEGEND": "Legend",
-    "NORMAL": "Normal (0.05 - 0.30 µSv/h)",
-    "ELEVATED": "Elevated (0.31 - 0.70 µSv/h)",
-    "HIGH": "High (0.71 - 1.00 µSv/h)",
-    "CRITICAL": "Critical (>1.00 µSv/h)"
+    "NORMAL": "Normal",
+    "ELEVATED": "Elevated",
+    "HIGH": "High",
+    "CRITICAL": "Critical"
   },
   "FILTERS": {
     "FILTERS": "Filters",
-    "TYPES": "Data Type",
-    "DESCRIPTION": "Customize the map display",
-    "ALL_DATA": "All the data",
+    "DESCRIPTION": "Customize map visualization",
+    "TYPES": "Data Types",
+    "ALL_DATA": "All Data",
     "DEVICES": "Devices",
-    "ALL_DEVICES": "All devices",
-    "ONLY": "Only assets",
-    "ALERTS": "With alerts",
+    "ALL_DEVICES": "All Devices",
+    "ONLY": "Only Active",
+    "ALERTS": "With Alerts",
     "APPLY": "Apply Filters"
   },
   "AREAS": {
     "LOCATION": "Areas Near Your Location",
     "LOCATION-MIRAFLORES": "Miraflores",
+    "DESCRIPTION-MIRAFLORES": "1.2 km away - 0.45 μSv/h",
     "LOCATION-SAN-ISIDRO": "San Isidro",
-    "LOCATION-CENTRO": "Lima Center",
-    "DESCRIPTION-MIRAFLORES": "1.2 km distance - 0.45 µSv/h",
-    "DESCRIPTION-SAN-ISIDRO": "2.5 km distance - 0.85 µSv/h",
-    "DESCRIPTION-CENTRO": "3.8 km distance - 0.22 µSv/h",
-    "BUTTON-MAP": "View Map"
+    "DESCRIPTION-SAN-ISIDRO": "2.5 km away - 0.85 μSv/h",
+    "LOCATION-CENTRO": "Centro de Lima",
+    "DESCRIPTION-CENTRO": "3.8 km away - 0.22 μSv/h",
+    "BUTTON-MAP": "View on Map"
   }
 }
