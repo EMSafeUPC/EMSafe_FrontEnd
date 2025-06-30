@@ -18,7 +18,36 @@
       "ADMINISTRATOR": "Administrador",
       "OPERATOR": "Operador",
       "TECHNICIAN": "Técnico",
-      "VIEWER": "Visualizador"
+      "VIEWER": "Visualizador",
+      "USER": "Usuario"
+    }
+  },
+  "REGISTER": {
+    "TITLE": "Crear una cuenta",
+    "SUBTITLE": "Completa los datos para registrarte en el sistema",
+    "NAME": "Nombre completo",
+    "NAME_PLACEHOLDER": "Ingresa tu nombre",
+    "NAME_REQUIRED": "El nombre es requerido",
+    "EMAIL": "Correo electrónico",
+    "EMAIL_PLACEHOLDER": "Ingresa tu correo",
+    "EMAIL_REQUIRED": "El correo es requerido",
+    "PASSWORD": "Contraseña",
+    "PASSWORD_PLACEHOLDER": "Ingresa tu contraseña",
+    "PASSWORD_REQUIRED": "La contraseña es requerida",
+    "CONFIRM_PASSWORD": "Confirmar contraseña",
+    "CONFIRM_PASSWORD_PLACEHOLDER": "Confirma tu contraseña",
+    "CONFIRM_PASSWORD_REQUIRED": "La confirmación es requerida",
+    "REGISTER_BUTTON": "Registrarse",
+    "ALREADY_HAVE_ACCOUNT": "¿Ya tienes una cuenta?",
+    "LOGIN_HERE": "Inicia sesión aquí",
+    "COPYRIGHT": "© {{year}} EMSafe. Todos los derechos reservados.",
+    "PRIVACY_POLICY": "Política de privacidad",
+    "TERMS_OF_SERVICE": "Términos del servicio",
+    "ERROR": {
+      "GENERAL": "Error al registrar usuario. Intenta nuevamente.",
+      "FILL_ALL_FIELDS": "Por favor completa todos los campos",
+      "EMAIL_EXISTS": "Este correo ya está registrado",
+      "NAME_EXISTS": "Este nombre ya está tomado como usuario"
     }
   },
   "DASHBOARD": {
@@ -82,30 +111,32 @@
     "ALARMS": "Alarmas"
   },
   "LOGIN": {
-    "TITLE": "Iniciar Sesión",
+    "TITLE": "Iniciar sesión",
     "SUBTITLE": "Ingresa tus credenciales para acceder al sistema",
     "USERNAME": "Usuario",
-    "USERNAME_PLACEHOLDER": "Ingresa tu nombre de usuario",
-    "USERNAME_REQUIRED": "El nombre de usuario es obligatorio",
+    "USERNAME_PLACEHOLDER": "Ingresa tu usuario",
+    "USERNAME_REQUIRED": "El usuario es obligatorio",
     "PASSWORD": "Contraseña",
     "PASSWORD_PLACEHOLDER": "Ingresa tu contraseña",
     "PASSWORD_REQUIRED": "La contraseña es obligatoria",
-    "REMEMBER_ME": "Recordarme",
+    "REMEMBER_ME": "Recuérdame",
     "FORGOT_PASSWORD": "¿Olvidaste tu contraseña?",
-    "SIGN_IN": "Iniciar Sesión",
-    "TOGGLE_PASSWORD_VISIBILITY": "Mostrar/ocultar contraseña",
+    "SIGN_IN": "Iniciar sesión",
+    "TOGGLE_PASSWORD_VISIBILITY": "Mostrar u ocultar contraseña",
     "COPYRIGHT": "© {{year}} EMSafe. Todos los derechos reservados.",
-    "PRIVACY_POLICY": "Política de Privacidad",
-    "TERMS_OF_SERVICE": "Términos de Servicio",
-    "SESSION_ACTIVE": "Sesión Activa",
+    "PRIVACY_POLICY": "Política de privacidad",
+    "TERMS_OF_SERVICE": "Términos del servicio",
+    "SESSION_ACTIVE": "Sesión activa",
     "SESSION_MESSAGE": "Ya has iniciado sesión en el sistema",
-    "GO_TO_DASHBOARD": "Ir al Panel de Control",
-    "LOGOUT": "Cerrar Sesión",
+    "GO_TO_DASHBOARD": "Ir al panel",
+    "LOGOUT": "Cerrar sesión",
     "ERROR": {
       "INVALID_CREDENTIALS": "Usuario o contraseña incorrectos",
       "ACCOUNT_LOCKED": "Tu cuenta ha sido bloqueada. Contacta al administrador.",
-      "GENERAL": "Ha ocurrido un error. Por favor, inténtalo de nuevo más tarde."
-    }
+      "GENERAL": "Ocurrió un error. Por favor, intenta más tarde."
+    },
+    "NO_ACCOUNT": "¿No tienes una cuenta?",
+    "REGISTER_HERE": "Regístrate aquí"
   },
   "PROFILE": {
     "TITLE": "Mi Perfil",
@@ -194,20 +225,17 @@
       "LABEL": "Paginador de Historial de Alarmas"
     }
   },
-
   "DEVICE_HISTORY": {
     "TITLE": "Historial de Dispositivos",
     "VIEW_TABLE": "Vista de Tabla",
     "VIEW_CARDS": "Vista de Tarjetas",
     "RECORDS_TITLE": "Registros de Dispositivos"
   },
-
   "DEVICE_MANAGEMENT": {
     "TITLE": "Gestión de Dispositivos",
     "DELETE_BOTTOM": "Eliminar",
     "ADD_BOTTOM": "Agregar"
   },
-
   "RADIATION_MAP": {
     "TITLE": "Mapa de Zonas de Radiación - Lima, Perú",
     "Filter": "Filtro",
