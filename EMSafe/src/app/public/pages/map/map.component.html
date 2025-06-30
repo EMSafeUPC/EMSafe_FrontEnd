@@ -1,11 +1,11 @@
 <div class="location-container">
 
     <div class="Principal">
-        <h2>Mapa de Zonas de Radiación - Lima, Perú</h2>
+        <h2>{{ 'RADIATION_MAP.TITLE' | translate }}</h2>
 
         <div class="controls">
-            <button class="button1" mat-raised-button (click)="ngOnInit()">Actualizar</button>
-            <button class="button2" mat-raised-button>Compartir</button>
+            <button class="button1" mat-raised-button (click)="ngOnInit()">{{ 'RADIATION_MAP.UPDATE' | translate }}</button>
+            <button class="button2" mat-raised-button>{{ 'RADIATION_MAP.SHARE' | translate }}</button>
         </div>
     </div>
 
@@ -19,42 +19,42 @@
 
         <div class="sidebar">
             <div class="legend">
-                <h3>Leyenda</h3>
+                <h3>{{ 'RADIATION_MAP.LEGEND' | translate }}</h3>
                 <hr class="custom-line">
                 <ul>
-                    <li><span class="dot green"></span> Normal (0.05 - 0.30 µSv/h)</li>
-                    <li><span class="dot yellow"></span> Elevado (0.31 - 0.70 µSv/h)</li>
-                    <li><span class="dot orange"></span> Alto (0.71 - 1.00 µSv/h)</li>
-                    <li><span class="dot red"></span> Crítico (>1.00 µSv/h)</li>
+                    <li><span class="dot green"></span> {{ 'RADIATION_MAP.NORMAL' | translate }}</li>
+                    <li><span class="dot yellow"></span> {{ 'RADIATION_MAP.ELEVATED' | translate }}</li>
+                    <li><span class="dot orange"></span> {{ 'RADIATION_MAP.HIGH' | translate }}</li>
+                    <li><span class="dot red"></span> {{ 'RADIATION_MAP.CRITICAL' | translate }}</li>
                 </ul>
             </div>
 
             <div class="filters">
-                <h3>Filtros</h3>
-                <p>Personaliza la visualización del mapa</p>
+                <h3>{{ 'RADIATION_MAP.FILTER' | translate }}</h3>
+                <p>{{ 'RADIATION_MAP.CUSTOMIZE_VIEW' | translate }}</p>
                 <hr class="custom-line">
-                <h2 >Tipo de datos</h2>
+                <h2 >{{ 'RADIATION_MAP.DATA_TYPE' | translate }}</h2>
                 <mat-form-field appearance="fill" class="fill">
-                    <mat-label>Tipo de datos</mat-label>
+                    <mat-label>{{ 'RADIATION_MAP.DATA_TYPE' | translate }}</mat-label>
                     <mat-select>
-                        <mat-option>Todos los datos</mat-option>
+                        <mat-option>{{ 'RADIATION_MAP.DATA_TYPE' | translate }}</mat-option>
                     </mat-select>
                 </mat-form-field>
 
-                <label>Dispositivos</label>
+                <label>{{ 'RADIATION_MAP.DEVICES' | translate }}</label>
                 <div class="check">
-                    <mat-checkbox checked  class="mat-check">Todos los dispositivos</mat-checkbox>
-                    <mat-checkbox class="mat-check">Solo activos</mat-checkbox>
-                    <mat-checkbox class="mat-check">Con alertas</mat-checkbox>
+                    <mat-checkbox checked  class="mat-check">{{ 'RADIATION_MAP.ALL_DEVICES' | translate }}</mat-checkbox>
+                    <mat-checkbox class="mat-check">{{ 'RADIATION_MAP.ONLY_ACTIVE' | translate }}</mat-checkbox>
+                    <mat-checkbox class="mat-check">{{ 'RADIATION_MAP.WITH_ALERTS' | translate }}</mat-checkbox>
                 </div>
 
-                <button mat-raised-button class="button-filter">Aplicar Filtros</button>
+                <button mat-raised-button class="button-filter">{{ 'RADIATION_MAP.APPLY_FILTERS' | translate }}</button>
             </div>
         </div>
     </div>
     <div class="zonas-wrapper">
         <div class="zonas-cercanas-container">
-            <h3>Zonas Cercanas a Tu Ubicación</h3>
+            <h3>{{ 'RADIATION_MAP.NEARBY_ZONES' | translate }}</h3>
 
             <div class="zona-item">
                 <div class="zona-info">
@@ -64,7 +64,7 @@
                         <small>1.2 km de distancia - 0.45 µSv/h</small>
                     </div>
                 </div>
-                <button mat-stroked-button class="button-baja">Ver en mapa</button>
+                <button mat-stroked-button class="button-baja">{{ 'RADIATION_MAP.VIEW_ON_MAP' | translate }}</button>
             </div>
 
             <div class="zona-item">
@@ -75,7 +75,7 @@
                         <small>2.5 km de distancia - 0.85 µSv/h</small>
                     </div>
                 </div>
-                <button mat-stroked-button class="button-baja">Ver en mapa</button>
+                <button mat-stroked-button class="button-baja">{{ 'RADIATION_MAP.VIEW_ON_MAP' | translate }}</button>
             </div>
 
             <div class="zona-item">
@@ -86,7 +86,7 @@
                         <small>3.8 km de distancia - 0.22 µSv/h</small>
                     </div>
                 </div>
-                <button mat-stroked-button class="button-baja">Ver en mapa</button>
+                <button mat-stroked-button class="button-baja">{{ 'RADIATION_MAP.VIEW_ON_MAP' | translate }}</button>
             </div>
         </div>
     </div>
