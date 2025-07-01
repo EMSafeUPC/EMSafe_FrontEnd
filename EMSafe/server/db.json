@@ -757,6 +757,14 @@
       "email": "test@test1.com",
       "password": "roberto",
       "role": "user"
+    },
+    {
+      "id": "7bc1",
+      "username": "williams",
+      "name": "williams",
+      "email": "williams",
+      "password": "williams",
+      "role": "user"
     }
   ],
   "notifications": [
