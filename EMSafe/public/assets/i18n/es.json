@@ -238,7 +238,7 @@
   },
   "RADIATION_MAP": {
     "TITLE": "Mapa de Zonas de Radiación - Lima, Perú",
-    "Filter": "Filtro",
+    "FILTER": "Filtro",
     "LEGEND": "Leyenda",
     "FILTERS": "Filtros",
     "LEVEL_NORMAL": "Normal",
@@ -247,7 +247,7 @@
     "LEVEL_CRITICAL": "Crítico",
     "CUSTOMIZE_VIEW": "Personaliza la visualización del mapa",
     "DATA_TYPE": "Tipo de datos",
-    "NEARBY_ZONES": "Zonas Cercanas a Tu Ubicación",
+    "NEARBY_ZONES": "Zonas Cercanas",
     "VIEW_ON_MAP": "Ver en mapa",
     "UPDATE": "Actualizar",
     "SHARE": "Compartir",
@@ -255,6 +255,18 @@
     "ALL_DEVICES": "Todos los dispositivos",
     "ONLY_ACTIVE": "Solo activos",
     "WITH_ALERTS": "Con alertas",
-    "APPLY_FILTERS": "Aplicar Filtros"
+    "APPLY_FILTERS": "Aplicar Filtros",
+    "ALL_LEVELS": "Todos los niveles",
+    "SEARCH_PLACEHOLDER": "Buscar zona por nombre",
+    "SEARCH_EXAMPLE": "Ej: Miraflores, Callao, San Isidro...",
+    "LOADING_ZONES": "Cargando zonas...",
+    "NO_RESULTS": "No se encontraron zonas que coincidan con",
+    "LEVEL_LABEL": "Nivel",
+    "DELETE": "Eliminar",
+    "DELETING": "Eliminando...",
+    "CONFIRM_DELETE": "¿Estás seguro de que quieres eliminar el punto de radiación en",
+    "CONFIRM_DELETE_WARNING": "Esta acción no se puede deshacer.",
+    "DELETE_SUCCESS": "Punto de radiación eliminado correctamente",
+    "DELETE_ERROR": "Error al eliminar el punto"
   }
 }

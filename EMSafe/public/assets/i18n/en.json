@@ -247,7 +247,7 @@
     "LEVEL_CRITICAL": "Critical",
     "CUSTOMIZE_VIEW": "Customize map visualization",
     "DATA_TYPE": "Data type",
-    "NEARBY_ZONES": "Zones Near Your Location",
+    "NEARBY_ZONES": "Zones Near",
     "VIEW_ON_MAP": "View on map",
     "UPDATE": "Update",
     "SHARE": "Share",
@@ -255,6 +255,18 @@
     "ALL_DEVICES": "All devices",
     "ONLY_ACTIVE": "Only active",
     "WITH_ALERTS": "With alerts",
-    "APPLY_FILTERS": "Apply Filters"
+    "APPLY_FILTERS": "Apply Filters",
+    "ALL_LEVELS": "All levels",
+    "SEARCH_PLACEHOLDER": "Search zone by name",
+    "SEARCH_EXAMPLE": "Ex: Miraflores, Callao, San Isidro...",
+    "LOADING_ZONES": "Loading zones...",
+    "NO_RESULTS": "No zones found matching",
+    "LEVEL_LABEL": "Level",
+    "DELETE": "Delete",
+    "DELETING": "Deleting...",
+    "CONFIRM_DELETE": "Are you sure you want to delete the radiation point at",
+    "CONFIRM_DELETE_WARNING": "This action cannot be undone.",
+    "DELETE_SUCCESS": "Radiation point deleted successfully",
+    "DELETE_ERROR": "Error deleting point"
   }
 }
