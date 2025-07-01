@@ -1,19 +1,24 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
+import {
+  MatLine,
+  MatLineModule,
+  setLines
+} from "./chunk-ICBKJAN3.js";
 import "./chunk-AXBSHL2C.js";
 import {
   MatCommonModule
-} from "./chunk-V5AKVNZ2.js";
-import "./chunk-AUVCJOGI.js";
-import "./chunk-J7VNODY5.js";
+} from "./chunk-CERAGSMG.js";
 import {
   Directionality
-} from "./chunk-QFJNT4ZM.js";
+} from "./chunk-DN5WAXYA.js";
+import "./chunk-5EIDLVNJ.js";
+import "./chunk-QO7C2YLR.js";
 import {
   coerceNumberProperty
-} from "./chunk-DBTI4LHO.js";
-import "./chunk-BMYUM4DZ.js";
-import "./chunk-N66ATDZJ.js";
-import "./chunk-KPO427FO.js";
+} from "./chunk-I7NO6PAD.js";
+import "./chunk-TRMBJXR7.js";
+import "./chunk-TTI6JTJX.js";
+import "./chunk-MKJD6AO7.js";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -39,11 +44,11 @@ import {
   ɵɵprojection,
   ɵɵprojectionDef,
   ɵɵqueryRefresh
-} from "./chunk-WH663UXJ.js";
-import "./chunk-ZUJ64LXG.js";
+} from "./chunk-2N5VB2Q3.js";
 import {
   require_operators
 } from "./chunk-XCIYP5SE.js";
+import "./chunk-ZUJ64LXG.js";
 import "./chunk-OYTRG5F6.js";
 import {
   __toESM
@@ -153,71 +158,8 @@ var TilePosition = class {
 };
 var ɵTileCoordinator = TileCoordinator;
 
-// node_modules/@angular/material/fesm2022/line-Bm3zUbBF.mjs
-var import_operators = __toESM(require_operators(), 1);
-var MatLine = class _MatLine {
-  static ɵfac = function MatLine_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _MatLine)();
-  };
-  static ɵdir = ɵɵdefineDirective({
-    type: _MatLine,
-    selectors: [["", "mat-line", ""], ["", "matLine", ""]],
-    hostAttrs: [1, "mat-line"]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MatLine, [{
-    type: Directive,
-    args: [{
-      selector: "[mat-line], [matLine]",
-      host: {
-        "class": "mat-line"
-      }
-    }]
-  }], null, null);
-})();
-function setLines(lines, element, prefix = "mat") {
-  lines.changes.pipe((0, import_operators.startWith)(lines)).subscribe(({
-    length
-  }) => {
-    setClass(element, `${prefix}-2-line`, false);
-    setClass(element, `${prefix}-3-line`, false);
-    setClass(element, `${prefix}-multi-line`, false);
-    if (length === 2 || length === 3) {
-      setClass(element, `${prefix}-${length}-line`, true);
-    } else if (length > 3) {
-      setClass(element, `${prefix}-multi-line`, true);
-    }
-  });
-}
-function setClass(element, className, isAdd) {
-  element.nativeElement.classList.toggle(className, isAdd);
-}
-var MatLineModule = class _MatLineModule {
-  static ɵfac = function MatLineModule_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _MatLineModule)();
-  };
-  static ɵmod = ɵɵdefineNgModule({
-    type: _MatLineModule,
-    imports: [MatCommonModule, MatLine],
-    exports: [MatLine, MatCommonModule]
-  });
-  static ɵinj = ɵɵdefineInjector({
-    imports: [MatCommonModule, MatCommonModule]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MatLineModule, [{
-    type: NgModule,
-    args: [{
-      imports: [MatCommonModule, MatLine],
-      exports: [MatLine, MatCommonModule]
-    }]
-  }], null, null);
-})();
-
 // node_modules/@angular/material/fesm2022/grid-list.mjs
-var import_operators2 = __toESM(require_operators(), 1);
+var import_operators = __toESM(require_operators(), 1);
 var _c0 = ["*"];
 var _c1 = [[["", "mat-grid-avatar", ""], ["", "matGridAvatar", ""]], [["", "mat-line", ""], ["", "matLine", ""]], "*"];
 var _c2 = ["[mat-grid-avatar], [matGridAvatar]", "[mat-line], [matLine]", "*"];

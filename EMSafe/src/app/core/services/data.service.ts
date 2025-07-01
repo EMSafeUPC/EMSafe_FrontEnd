@@ -7,7 +7,7 @@ import { map } from "rxjs/operators";
   providedIn: "root",
 })
 export class DataService {
-  private apiUrl = "http://localhost:3000"; // URL de json-server
+  private apiUrl = "http://localhost:9090"; // URL de json-server
 
   constructor(private http: HttpClient) {}
 
@@ -18,7 +18,7 @@ export class DataService {
 
   // Obtener todas las alarmas
   getAlarms(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/alarms`);
+    return this.http.get<any[]>(`${this.apiUrl}/api/v1/alarms`);
   }
 
   // Obtener estadísticas diarias
@@ -46,7 +46,7 @@ export class DataService {
   }
 
   getAlarmHistory(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/alarmHistory`);
+    return this.http.get<any[]>(`${this.apiUrl}/api/v1/alarms`);
   }
 
   // Obtener datos del mapa

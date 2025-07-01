@@ -69,17 +69,41 @@ export class AlarmsHistoryComponent implements OnInit, AfterViewInit {
     this.aplicarFiltro();
   }
 
+  // private aplicarFiltro(): void {
+  //   let filtrados = this.fullData;
+
+  //   // Filtro por estado
+  //   if (this.filtro === "active") {
+  //     filtrados = filtrados.filter((r) => r.status === "active");
+  //   } else if (this.filtro === "resolved") {
+  //     filtrados = filtrados.filter((r) => r.status === "resolved");
+  //   }
+
+  //   // Filtro de búsqueda
+  //   if (this.searchText.trim()) {
+  //     const term = this.searchText.toLowerCase();
+  //     filtrados = filtrados.filter(
+  //       (r) =>
+  //         r.deviceName.toLowerCase().includes(term) ||
+  //         r.id.toString().includes(term)
+  //     );
+  //   }
+
+  //   this.dataSource.data = filtrados;
+  // }
   private aplicarFiltro(): void {
     let filtrados = this.fullData;
 
-    // Filtro por estado
+    // “active” = no resueltos (resolved === false)
     if (this.filtro === "active") {
-      filtrados = filtrados.filter((r) => r.status === "active");
-    } else if (this.filtro === "resolved") {
-      filtrados = filtrados.filter((r) => r.status === "resolved");
+      filtrados = filtrados.filter((r) => !r.resolved);
+    }
+    // “resolved” = sólo los resueltos (resolved === true)
+    else if (this.filtro === "resolved") {
+      filtrados = filtrados.filter((r) => r.resolved);
     }
 
-    // Filtro de búsqueda
+    // búsqueda por id o nombre de dispositivo
     if (this.searchText.trim()) {
       const term = this.searchText.toLowerCase();
       filtrados = filtrados.filter(

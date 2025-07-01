@@ -22,7 +22,7 @@ interface User {
 export class AuthService {
     private currentUserSubject = new BehaviorSubject<User | null>(null)
     currentUser$ = this.currentUserSubject.asObservable()
-    private apiUrl = "http://localhost:3000" // URL de json-server
+    private apiUrl = "http://localhost:9090" // URL de json-server
     private isBrowser: boolean
 
     constructor(

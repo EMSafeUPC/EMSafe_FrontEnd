@@ -1,29 +1,26 @@
 import {
-  _MatInternalFormField
-} from "./chunk-TQPEH7KP.js";
-import {
-  MatRipple,
-  _StructuralStylesLoader
-} from "./chunk-HYRLB5D7.js";
-import {
   CheckboxRequiredValidator,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR
 } from "./chunk-Z4Y4FS47.js";
+import {
+  MatRipple,
+  _StructuralStylesLoader
+} from "./chunk-J5RDEASP.js";
 import "./chunk-VAW3JQGK.js";
+import "./chunk-2O4WY5GE.js";
 import "./chunk-IBYU652R.js";
 import {
   MatCommonModule,
   _IdGenerator
-} from "./chunk-OLG4LBC2.js";
-import "./chunk-2O4WY5GE.js";
-import "./chunk-NBUYI3QW.js";
-import "./chunk-6O5K66DJ.js";
+} from "./chunk-KZS3PQWQ.js";
 import {
   _CdkPrivateStyleLoader
 } from "./chunk-XLV4Y2W7.js";
+import "./chunk-6O5K66DJ.js";
 import "./chunk-BHIOSJSJ.js";
 import "./chunk-RZKRS5GK.js";
+import "./chunk-NBUYI3QW.js";
 import "./chunk-6GGXITPF.js";
 import "./chunk-5MRPC2E5.js";
 import {
@@ -77,14 +74,75 @@ import {
   ɵɵrestoreView,
   ɵɵviewQuery
 } from "./chunk-UXETAPFX.js";
-import "./chunk-WPM5VTLQ.js";
 import "./chunk-PEBH6BBU.js";
+import "./chunk-WPM5VTLQ.js";
 import "./chunk-4S3KYZTJ.js";
 import "./chunk-WDMUDEB6.js";
 
+// node_modules/@angular/material/fesm2022/internal-form-field-grv62mCZ.mjs
+var _c0 = ["mat-internal-form-field", ""];
+var _c1 = ["*"];
+var _MatInternalFormField = class __MatInternalFormField {
+  /** Position of the label relative to the content. */
+  labelPosition;
+  static ɵfac = function _MatInternalFormField_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || __MatInternalFormField)();
+  };
+  static ɵcmp = ɵɵdefineComponent({
+    type: __MatInternalFormField,
+    selectors: [["div", "mat-internal-form-field", ""]],
+    hostAttrs: [1, "mdc-form-field", "mat-internal-form-field"],
+    hostVars: 2,
+    hostBindings: function _MatInternalFormField_HostBindings(rf, ctx) {
+      if (rf & 2) {
+        ɵɵclassProp("mdc-form-field--align-end", ctx.labelPosition === "before");
+      }
+    },
+    inputs: {
+      labelPosition: "labelPosition"
+    },
+    attrs: _c0,
+    ngContentSelectors: _c1,
+    decls: 1,
+    vars: 0,
+    template: function _MatInternalFormField_Template(rf, ctx) {
+      if (rf & 1) {
+        ɵɵprojectionDef();
+        ɵɵprojection(0);
+      }
+    },
+    styles: [".mat-internal-form-field{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;display:inline-flex;align-items:center;vertical-align:middle}.mat-internal-form-field>label{margin-left:0;margin-right:auto;padding-left:4px;padding-right:0;order:0}[dir=rtl] .mat-internal-form-field>label{margin-left:auto;margin-right:0;padding-left:0;padding-right:4px}.mdc-form-field--align-end>label{margin-left:auto;margin-right:0;padding-left:0;padding-right:4px;order:-1}[dir=rtl] .mdc-form-field--align-end .mdc-form-field--align-end label{margin-left:0;margin-right:auto;padding-left:4px;padding-right:0}\n"],
+    encapsulation: 2,
+    changeDetection: 0
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(_MatInternalFormField, [{
+    type: Component,
+    args: [{
+      selector: "div[mat-internal-form-field]",
+      template: "<ng-content></ng-content>",
+      encapsulation: ViewEncapsulation.None,
+      changeDetection: ChangeDetectionStrategy.OnPush,
+      host: {
+        "class": "mdc-form-field mat-internal-form-field",
+        "[class.mdc-form-field--align-end]": 'labelPosition === "before"'
+      },
+      styles: [".mat-internal-form-field{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;display:inline-flex;align-items:center;vertical-align:middle}.mat-internal-form-field>label{margin-left:0;margin-right:auto;padding-left:4px;padding-right:0;order:0}[dir=rtl] .mat-internal-form-field>label{margin-left:auto;margin-right:0;padding-left:0;padding-right:4px}.mdc-form-field--align-end>label{margin-left:auto;margin-right:0;padding-left:0;padding-right:4px;order:-1}[dir=rtl] .mdc-form-field--align-end .mdc-form-field--align-end label{margin-left:0;margin-right:auto;padding-left:4px;padding-right:0}\n"]
+    }]
+  }], null, {
+    labelPosition: [{
+      type: Input,
+      args: [{
+        required: true
+      }]
+    }]
+  });
+})();
+
 // node_modules/@angular/material/fesm2022/checkbox.mjs
-var _c0 = ["input"];
-var _c1 = ["label"];
+var _c02 = ["input"];
+var _c12 = ["label"];
 var _c2 = ["*"];
 var MAT_CHECKBOX_DEFAULT_OPTIONS = new InjectionToken("mat-checkbox-default-options", {
   providedIn: "root",
@@ -442,8 +500,8 @@ var MatCheckbox = class _MatCheckbox {
     selectors: [["mat-checkbox"]],
     viewQuery: function MatCheckbox_Query(rf, ctx) {
       if (rf & 1) {
-        ɵɵviewQuery(_c0, 5);
-        ɵɵviewQuery(_c1, 5);
+        ɵɵviewQuery(_c02, 5);
+        ɵɵviewQuery(_c12, 5);
       }
       if (rf & 2) {
         let _t;

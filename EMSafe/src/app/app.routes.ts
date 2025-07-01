@@ -33,7 +33,7 @@ export const routes: Routes = [
     {
         path: 'alarms/history',
         loadComponent: () => import('./public/pages/alarms/alarms-history/alarms-history.component').then(m => m.AlarmsHistoryComponent),
-        canActivate: [AuthGuard]
+        // canActivate: [AuthGuard]
     },
     {
         path: 'alarms/settings',
