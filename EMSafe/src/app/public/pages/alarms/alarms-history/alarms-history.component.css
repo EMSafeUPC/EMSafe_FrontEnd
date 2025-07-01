@@ -142,3 +142,25 @@
   background-color: #00acc1 !important;
   color: #ffffff !important;
 }
+
+/* ========== nuevo look del botón «Nueva alarma» ========== */
+.add-btn.fancy {
+  --c1: #0a0a8f;
+  --c2: #0a0a8f;
+  background-image: linear-gradient(135deg, var(--c1), var(--c2));
+  color: #fff;
+  font-weight: 600;
+  border-radius: 30px;
+  padding: 8px 22px;
+  transition: transform 0.15s ease-in-out, box-shadow 0.15s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.add-btn.fancy:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+}
+
+.add-btn.fancy .icon {
+  margin-right: 6px;
+}

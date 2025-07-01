@@ -48,7 +48,9 @@ export class DataService {
   getAlarmHistory(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/api/v1/alarms`);
   }
-
+  createAlarm(alarm: any) {
+    return this.http.post<any>(`${this.apiUrl}/api/v1/alarms`, alarm);
+  }
   // Obtener datos del mapa
   getMapData(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/mapData`);

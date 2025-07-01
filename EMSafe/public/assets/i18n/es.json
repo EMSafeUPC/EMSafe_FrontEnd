@@ -202,6 +202,7 @@
     "EXPORT": "Exportar",
     "SEARCH_PLACEHOLDER": "Buscar alarmas...",
     "DATE_RANGE": "Rango de fechas",
+    "BUTTON_STRING": "Nueva Alarma",
     "FILTER": {
       "ALL": "Todas",
       "ACTIVE": "Activas",

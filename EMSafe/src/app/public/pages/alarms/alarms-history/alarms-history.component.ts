@@ -8,8 +8,28 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from "@angular/material/icon";
+import { MatDialog, MatDialogModule } from "@angular/material/dialog";
+
 import { TranslateModule } from "@ngx-translate/core";
 import { DataService } from "../../../../core/services/data.service";
+import { AlarmsHistoryAddDialogComponent } from "./alarms-history-add-dialog/alarms-history-add-dialog.component";
+
+/* Payload de la alarma que envía el modal */
+interface AlarmPayload {
+  device: { id: number };
+  type: string;
+  level: string;
+  reading: number;
+  threshold: number;
+  unit: string;
+  timestamp: string;
+  acknowledged: boolean;
+  acknowledgedBy: string | null;
+  acknowledgedAt: string | null;
+  resolved: boolean;
+  resolvedAt: string | null;
+  notes: string;
+}
 
 @Component({
   selector: "app-alarms-history",
@@ -24,13 +44,14 @@ import { DataService } from "../../../../core/services/data.service";
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    MatDialogModule,
     TranslateModule,
   ],
   templateUrl: "./alarms-history.component.html",
   styleUrls: ["./alarms-history.component.css"],
 })
 export class AlarmsHistoryComponent implements OnInit, AfterViewInit {
-  // Columnas de la tabla
+  /* ─────────── tabla ─────────── */
   displayedColumns = [
     "id",
     "deviceName",
@@ -41,69 +62,62 @@ export class AlarmsHistoryComponent implements OnInit, AfterViewInit {
   ];
   fullData: any[] = [];
   dataSource = new MatTableDataSource<any>([]);
+
+  /* filtros */
   filtro: "all" | "active" | "resolved" = "all";
-  searchText: string = "";
+  searchText = "";
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private dataService: DataService) {}
+  constructor(private dataService: DataService, private dialog: MatDialog) {}
 
-  ngOnInit(): void {
-    this.dataService.getAlarmHistory().subscribe((datos: any[]) => {
-      this.fullData = datos;
-      this.aplicarFiltro();
-    });
-  }
+  /* ─────────── ciclo de vida ─────────── */
+
+ngOnInit(): void {
+  this.dataService.getAlarmHistory().subscribe((datos) => {
+    this.fullData = datos;
+    this.aplicarFiltro();
+
+    /* 💡 en cuanto tengas los datos, vincula de nuevo el paginator */
+    if (this.paginator) {
+      this.dataSource.paginator = this.paginator;
+      this.paginator.firstPage();
+    }
+  });
+}
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
-  }
+    /* etiqueta + opciones */
+    this.paginator._intl.itemsPerPageLabel = "Filas por página";
+    this.paginator.pageSize = 5;
+    (this.paginator as any)._pageSizeOptions = [5, 10, 20];
 
-  onFiltroChange(valor: "all" | "active" | "resolved"): void {
-    this.filtro = valor;
     this.aplicarFiltro();
   }
 
-  onSearchChange(text: string): void {
+  /* ─────────── filtros ─────────── */
+
+  onFiltroChange(v: "all" | "active" | "resolved") {
+    this.filtro = v;
+    this.aplicarFiltro();
+  }
+
+  onSearchChange(text: string) {
     this.searchText = text;
     this.aplicarFiltro();
   }
 
-  // private aplicarFiltro(): void {
-  //   let filtrados = this.fullData;
-
-  //   // Filtro por estado
-  //   if (this.filtro === "active") {
-  //     filtrados = filtrados.filter((r) => r.status === "active");
-  //   } else if (this.filtro === "resolved") {
-  //     filtrados = filtrados.filter((r) => r.status === "resolved");
-  //   }
-
-  //   // Filtro de búsqueda
-  //   if (this.searchText.trim()) {
-  //     const term = this.searchText.toLowerCase();
-  //     filtrados = filtrados.filter(
-  //       (r) =>
-  //         r.deviceName.toLowerCase().includes(term) ||
-  //         r.id.toString().includes(term)
-  //     );
-  //   }
-
-  //   this.dataSource.data = filtrados;
-  // }
   private aplicarFiltro(): void {
     let filtrados = this.fullData;
 
-    // “active” = no resueltos (resolved === false)
-    if (this.filtro === "active") {
+    /* estado */
+    if (this.filtro === "active")
       filtrados = filtrados.filter((r) => !r.resolved);
-    }
-    // “resolved” = sólo los resueltos (resolved === true)
-    else if (this.filtro === "resolved") {
+    else if (this.filtro === "resolved")
       filtrados = filtrados.filter((r) => r.resolved);
-    }
 
-    // búsqueda por id o nombre de dispositivo
+    /* búsqueda */
     if (this.searchText.trim()) {
       const term = this.searchText.toLowerCase();
       filtrados = filtrados.filter(
@@ -113,7 +127,34 @@ export class AlarmsHistoryComponent implements OnInit, AfterViewInit {
       );
     }
 
+    /* actualiza tabla */
     this.dataSource.data = filtrados;
+
+    /* 🔄 vuelve a la primera página y re-conecta paginator */
+    if (this.paginator) {
+      this.dataSource.paginator = this.paginator;
+      this.paginator.firstPage();
+    }
+  }
+
+  /* ─────────── CRUD ─────────── */
+
+  agregarAlarma(): void {
+    const ref = this.dialog.open(AlarmsHistoryAddDialogComponent, {
+      width: "600px",
+    });
+
+    ref.afterClosed().subscribe((payload: AlarmPayload | undefined) => {
+      if (!payload) return; // cancelado
+
+      this.dataService.createAlarm(payload).subscribe({
+        next: (nueva) => {
+          this.fullData.unshift(nueva);
+          this.aplicarFiltro();
+        },
+        error: () => alert("Error al crear la alarma"),
+      });
+    });
   }
 
   exportar(): void {

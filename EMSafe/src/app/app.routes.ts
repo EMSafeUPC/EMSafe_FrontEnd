@@ -23,12 +23,12 @@ export const routes: Routes = [
     {
         path: 'devices/history',
         loadComponent: () => import('./public/pages/devices/devices-history/devices-history.component').then(m => m.DevicesHistoryComponent),
-        canActivate: [AuthGuard]
+        // canActivate: [AuthGuard]
     },
     {
         path: 'devices/management',
         loadComponent: () => import('./public/pages/devices/devices-management/devices-management.component').then(m => m.DevicesManagementComponent),
-        canActivate: [AuthGuard]
+        // canActivate: [AuthGuard]
     },
     {
         path: 'alarms/history',

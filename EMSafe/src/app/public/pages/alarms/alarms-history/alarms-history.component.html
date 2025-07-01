@@ -2,15 +2,28 @@
   <!-- Header con título y botón Exportar -->
   <div class="header-row">
     <h1>{{ "ALARM_HISTORY.TITLE" | translate }}</h1>
-    <button
-      mat-flat-button
-      color="primary"
-      class="export-btn"
-      (click)="exportar()"
-    >
-      <mat-icon>file_download</mat-icon>
-      {{ "ALARM_HISTORY.EXPORT" | translate }}
-    </button>
+    <div class="btn-group">
+        <button
+        mat-flat-button
+        color="accent"
+        class="add-btn fancy"
+        (click)="agregarAlarma()"
+      >
+        <mat-icon class="icon">add</mat-icon>
+        {{ "ALARM_HISTORY.BUTTON_STRING" | translate }}
+      </button>
+    
+
+      <button
+        mat-flat-button
+        color="primary"
+        class="export-btn"
+        (click)="exportar()"
+      >
+        <mat-icon>file_download</mat-icon>
+        {{ "ALARM_HISTORY.EXPORT" | translate }}
+      </button>
+    </div>
   </div>
 
   <!-- Filtros superiores: buscador y Rango de fechas -->
