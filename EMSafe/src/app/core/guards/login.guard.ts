@@ -9,8 +9,8 @@ export class LoginGuardService {
     constructor(private authService: AuthService, private router: Router) {}
 
     canActivate(): boolean {
-        // Si el usuario ya está autenticado, redirigir al dashboard
-        if (this.authService.isLoggedIn() && !this.authService.isTokenExpired()) {
+        // isLoggedIn() ya verifica si el token expiró internamente
+        if (this.authService.isLoggedIn()) {
             this.router.navigate(['/dashboard']);
             return false;
         }
