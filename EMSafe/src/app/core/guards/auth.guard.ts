@@ -9,12 +9,13 @@ export class AuthGuardService {
     constructor(private authService: AuthService, private router: Router) {}
 
     canActivate(): boolean {
-        if (this.authService.isLoggedIn() && !this.authService.isTokenExpired()) {
+        // isLoggedIn() ya verifica si el token expiró internamente
+        if (this.authService.isLoggedIn()) {
             return true;
         }
 
-        // Redirigir al login si no está autenticado
-        this.router.navigate(['/login']);
+        // Si no está autenticado, limpiar sesión y redirigir al login
+        this.authService.logout();
         return false;
     }
 }
