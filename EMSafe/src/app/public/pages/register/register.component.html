@@ -10,20 +10,67 @@
         </div>
 
         <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="register-form">
+            <!-- Username Field -->
             <div class="form-field">
                 <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>{{ 'REGISTER.NAME' | translate }}</mat-label>
+                    <mat-label>{{ 'REGISTER.USERNAME' | translate }}</mat-label>
                     <input
                             matInput
-                            formControlName="name"
+                            formControlName="username"
                             type="text"
-                            autocomplete="name"
-                            [placeholder]="'REGISTER.NAME_PLACEHOLDER' | translate">
-                    <mat-icon matPrefix>person</mat-icon>
-                    <mat-error>{{ 'REGISTER.NAME_REQUIRED' | translate }}</mat-error>
+                            autocomplete="username"
+                            [placeholder]="'REGISTER.USERNAME_PLACEHOLDER' | translate">
+                    <mat-icon matPrefix>account_circle</mat-icon>
+                    <mat-error *ngIf="username && username.hasError('required')">
+                        {{ 'REGISTER.USERNAME_REQUIRED' | translate }}
+                    </mat-error>
+                    <mat-error *ngIf="username && username.hasError('minlength')">
+                        {{ 'REGISTER.USERNAME_MIN_LENGTH' | translate }}
+                    </mat-error>
                 </mat-form-field>
             </div>
 
+            <!-- First Name Field -->
+            <div class="form-field">
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>{{ 'REGISTER.FIRST_NAME' | translate }}</mat-label>
+                    <input
+                            matInput
+                            formControlName="firstName"
+                            type="text"
+                            autocomplete="given-name"
+                            [placeholder]="'REGISTER.FIRST_NAME_PLACEHOLDER' | translate">
+                    <mat-icon matPrefix>person</mat-icon>
+                    <mat-error *ngIf="firstName && firstName.hasError('required')">
+                        {{ 'REGISTER.FIRST_NAME_REQUIRED' | translate }}
+                    </mat-error>
+                    <mat-error *ngIf="firstName && firstName.hasError('minlength')">
+                        {{ 'REGISTER.FIRST_NAME_MIN_LENGTH' | translate }}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <!-- Last Name Field -->
+            <div class="form-field">
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>{{ 'REGISTER.LAST_NAME' | translate }}</mat-label>
+                    <input
+                            matInput
+                            formControlName="lastName"
+                            type="text"
+                            autocomplete="family-name"
+                            [placeholder]="'REGISTER.LAST_NAME_PLACEHOLDER' | translate">
+                    <mat-icon matPrefix>person_outline</mat-icon>
+                    <mat-error *ngIf="lastName && lastName.hasError('required')">
+                        {{ 'REGISTER.LAST_NAME_REQUIRED' | translate }}
+                    </mat-error>
+                    <mat-error *ngIf="lastName && lastName.hasError('minlength')">
+                        {{ 'REGISTER.LAST_NAME_MIN_LENGTH' | translate }}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <!-- Email Field -->
             <div class="form-field">
                 <mat-form-field appearance="outline" class="full-width">
                     <mat-label>{{ 'REGISTER.EMAIL' | translate }}</mat-label>
@@ -34,10 +81,16 @@
                             autocomplete="email"
                             [placeholder]="'REGISTER.EMAIL_PLACEHOLDER' | translate">
                     <mat-icon matPrefix>email</mat-icon>
-                    <mat-error>{{ 'REGISTER.EMAIL_REQUIRED' | translate }}</mat-error>
+                    <mat-error *ngIf="email && email.hasError('required')">
+                        {{ 'REGISTER.EMAIL_REQUIRED' | translate }}
+                    </mat-error>
+                    <mat-error *ngIf="email && email.hasError('email')">
+                        {{ 'REGISTER.EMAIL_INVALID' | translate }}
+                    </mat-error>
                 </mat-form-field>
             </div>
 
+            <!-- Password Field -->
             <div class="form-field">
                 <mat-form-field appearance="outline" class="full-width">
                     <mat-label>{{ 'REGISTER.PASSWORD' | translate }}</mat-label>
@@ -55,10 +108,16 @@
                             (click)="hidePassword = !hidePassword">
                         <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
                     </button>
-                    <mat-error>{{ 'REGISTER.PASSWORD_REQUIRED' | translate }}</mat-error>
+                    <mat-error *ngIf="password && password.hasError('required')">
+                        {{ 'REGISTER.PASSWORD_REQUIRED' | translate }}
+                    </mat-error>
+                    <mat-error *ngIf="password && password.hasError('minlength')">
+                        {{ 'REGISTER.PASSWORD_MIN_LENGTH' | translate }}
+                    </mat-error>
                 </mat-form-field>
             </div>
 
+            <!-- Confirm Password Field -->
             <div class="form-field">
                 <mat-form-field appearance="outline" class="full-width">
                     <mat-label>{{ 'REGISTER.CONFIRM_PASSWORD' | translate }}</mat-label>
@@ -76,13 +135,18 @@
                             (click)="hideConfirmPassword = !hideConfirmPassword">
                         <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
                     </button>
-                    <mat-error>{{ 'REGISTER.CONFIRM_PASSWORD_REQUIRED' | translate }}</mat-error>
+                    <mat-error *ngIf="confirmPassword && confirmPassword.hasError('required')">
+                        {{ 'REGISTER.CONFIRM_PASSWORD_REQUIRED' | translate }}
+                    </mat-error>
+                    <mat-error *ngIf="registerForm.hasError('passwordMismatch') && confirmPassword && confirmPassword.touched">
+                        {{ 'REGISTER.PASSWORD_MISMATCH' | translate }}
+                    </mat-error>
                 </mat-form-field>
             </div>
 
             <div *ngIf="errorMessage" class="error-message">
                 <mat-icon>error</mat-icon>
-                <span>{{ errorMessage }}</span>
+                <span>{{ errorMessage | translate }}</span>
             </div>
 
             <div class="login-link">
@@ -97,7 +161,7 @@
                         mat-flat-button
                         color="primary"
                         type="submit"
-                        [disabled]="isLoading"
+                        [disabled]="registerForm.invalid || isLoading"
                         class="register-button">
                     <mat-spinner *ngIf="isLoading" diameter="20" class="spinner"></mat-spinner>
                     <span *ngIf="!isLoading">{{ 'REGISTER.REGISTER_BUTTON' | translate }}</span>
