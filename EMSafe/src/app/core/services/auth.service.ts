@@ -1,29 +1,48 @@
-import { Injectable } from "@angular/core"
-import { HttpClient } from "@angular/common/http"
-import { BehaviorSubject, type Observable, throwError } from "rxjs"
-import { catchError, map, switchMap } from "rxjs/operators"
-import { isPlatformBrowser } from "@angular/common"
-import { Router } from "@angular/router"
+import { Injectable } from "@angular/core";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { BehaviorSubject, type Observable, throwError } from "rxjs";
+import { catchError, map, tap } from "rxjs/operators";
+import { isPlatformBrowser } from "@angular/common";
+import { Router } from "@angular/router";
 import { PLATFORM_ID, Inject } from '@angular/core';
+import { environment } from "../../environments/environment";
 
+export interface RegisterRequest {
+    username: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+}
 
-interface User {
-    id?: number
-    username: string
-    password?: string
-    name: string
-    email: string
-    role: string
+export interface LoginRequest {
+    username: string;
+    password: string;
+}
+
+export interface AuthResponse {
+    token: string;
+    user: User;
+}
+
+export interface User {
+    id: number;
+    username: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    role: string;
 }
 
 @Injectable({
     providedIn: "root",
 })
 export class AuthService {
-    private currentUserSubject = new BehaviorSubject<User | null>(null)
-    currentUser$ = this.currentUserSubject.asObservable()
-    private apiUrl = "http://localhost:9090" // URL de json-server
-    private isBrowser: boolean
+    private currentUserSubject = new BehaviorSubject<User | null>(null);
+    currentUser$ = this.currentUserSubject.asObservable();
+    private readonly TOKEN_KEY = 'emsafe_token';
+    private readonly USER_KEY = 'emsafe_user';
+    private isBrowser: boolean;
 
     constructor(
         private http: HttpClient,
@@ -32,136 +51,239 @@ export class AuthService {
     ) {
         this.isBrowser = isPlatformBrowser(platformId);
 
-
-    // Verificar si hay un usuario almacenado en localStorage solo si estamos en el navegador
+        // Cargar usuario desde localStorage al inicializar
         if (this.isBrowser) {
-            const storedUser = localStorage.getItem("currentUser")
-            if (storedUser) {
-                try {
-                    const user = JSON.parse(storedUser)
-                    // Eliminar la contraseña del objeto de usuario almacenado
-                    delete user.password
-                    this.currentUserSubject.next(user)
-                } catch (e) {
-                    console.error("Error parsing stored user:", e)
-                    localStorage.removeItem("currentUser")
-                }
+            this.loadUserFromStorage();
+        }
+    }
+
+    /**
+     * Login del usuario
+     */
+    login(username: string, password: string, rememberMe: boolean): Observable<User> {
+        const loginRequest: LoginRequest = { username, password };
+
+        console.log('Enviando login request:', loginRequest);
+
+        return this.http.post<AuthResponse>(`${environment.apiUrl}/api/v1/auth/login`, loginRequest)
+            .pipe(
+                tap(response => {
+                    console.log('Login response:', response);
+                    if (this.isBrowser) {
+                        // Guardar token
+                        if (rememberMe) {
+                            localStorage.setItem(this.TOKEN_KEY, response.token);
+                        } else {
+                            sessionStorage.setItem(this.TOKEN_KEY, response.token);
+                        }
+
+                        // Decodificar token para obtener información del usuario
+                        const user = this.decodeToken(response.token);
+
+                        // Guardar usuario
+                        if (rememberMe) {
+                            localStorage.setItem(this.USER_KEY, JSON.stringify(user));
+                        } else {
+                            sessionStorage.setItem(this.USER_KEY, JSON.stringify(user));
+                        }
+
+                        this.currentUserSubject.next(user);
+                    }
+                }),
+                map(response => this.decodeToken(response.token)),
+                catchError(this.handleError)
+            );
+    }
+
+    /**
+     * Registro de usuario - CORREGIDO para usar la estructura de Swagger
+     */
+    register(registerData: RegisterRequest): Observable<User> {
+        console.log('Enviando register request:', registerData);
+
+        // 🔥 USAR DIRECTAMENTE LOS DATOS SIN MODIFICAR
+        const registerRequest: RegisterRequest = {
+            username: registerData.username,
+            password: registerData.password,
+            firstName: registerData.firstName,
+            lastName: registerData.lastName,
+            email: registerData.email
+        };
+
+        return this.http.post<AuthResponse>(`${environment.apiUrl}/api/v1/auth/register`, registerRequest)
+            .pipe(
+                tap(response => {
+                    console.log('Register response:', response);
+                    if (this.isBrowser) {
+                        // Guardar token temporalmente en sessionStorage
+                        sessionStorage.setItem(this.TOKEN_KEY, response.token);
+
+                        // Decodificar token para obtener información del usuario
+                        const user = this.decodeToken(response.token);
+                        sessionStorage.setItem(this.USER_KEY, JSON.stringify(user));
+
+                        this.currentUserSubject.next(user);
+                    }
+                }),
+                map(response => this.decodeToken(response.token)),
+                catchError(this.handleError)
+            );
+    }
+
+    /**
+     * Logout del usuario
+     */
+    logout(): void {
+        if (this.isBrowser) {
+            // Limpiar almacenamiento
+            localStorage.removeItem(this.TOKEN_KEY);
+            localStorage.removeItem(this.USER_KEY);
+            sessionStorage.removeItem(this.TOKEN_KEY);
+            sessionStorage.removeItem(this.USER_KEY);
+        }
+
+        // Limpiar estado
+        this.currentUserSubject.next(null);
+
+        // Redirigir al login
+        this.router.navigate(['/login']);
+    }
+
+    /**
+     * Verificar si el usuario está logueado
+     */
+    isLoggedIn(): boolean {
+        const token = this.getToken();
+        return token !== null && !this.isTokenExpired();
+    }
+
+    /**
+     * Obtener el token actual
+     */
+    getToken(): string | null {
+        if (!this.isBrowser) return null;
+        return localStorage.getItem(this.TOKEN_KEY) || sessionStorage.getItem(this.TOKEN_KEY);
+    }
+
+    /**
+     * Obtener el usuario actual
+     */
+    getCurrentUser(): User | null {
+        return this.currentUserSubject.value;
+    }
+
+    /**
+     * Verificar si el token ha expirado
+     */
+    isTokenExpired(): boolean {
+        const token = this.getToken();
+        if (!token) return true;
+
+        try {
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            const exp = payload.exp * 1000; // Convertir a millisegundos
+            return Date.now() >= exp;
+        } catch (error) {
+            console.error('Error checking token expiration:', error);
+            return true; // Si no se puede decodificar, considerar expirado
+        }
+    }
+
+    /**
+     * Cargar usuario desde el almacenamiento
+     */
+    private loadUserFromStorage(): void {
+        const userStr = localStorage.getItem(this.USER_KEY) || sessionStorage.getItem(this.USER_KEY);
+        if (userStr && this.isLoggedIn()) {
+            try {
+                const user = JSON.parse(userStr);
+                this.currentUserSubject.next(user);
+            } catch (error) {
+                console.error('Error parsing user from storage:', error);
+                this.logout();
             }
         }
     }
 
-    login(username: string, password: string, rememberMe: boolean): Observable<User> {
-        // En un entorno real, esto sería una llamada a la API con la contraseña hasheada
-        return this.http.get<User[]>(`${this.apiUrl}/users?username=${username}`).pipe(
-            map((users) => {
-                if (users.length === 0) {
-                    throw { status: 401, message: "Invalid credentials" }
-                }
+    /**
+     * Decodificar token JWT (básico, sin validación de firma)
+     */
+    private decodeToken(token: string): User {
+        try {
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            console.log('Token payload:', payload);
 
-                const user = users[0]
-
-                // Verificar la contraseña si existe
-                if (user.password && user.password !== password) {
-                    throw { status: 401, message: "Invalid credentials" }
-                }
-
-                // Crear una copia del usuario sin la contraseña para almacenar
-                const userToStore = { ...user }
-                delete userToStore.password
-
-                // Almacenar el usuario en localStorage si rememberMe está activado y estamos en el navegador
-                if (this.isBrowser) {
-                    if (rememberMe) {
-                        localStorage.setItem("currentUser", JSON.stringify(userToStore))
-                    } else {
-                        sessionStorage.setItem("currentUser", JSON.stringify(userToStore))
-                    }
-                }
-
-                this.currentUserSubject.next(userToStore)
-                return userToStore
-            }),
-            catchError((error) => {
-                return throwError(() => error)
-            }),
-        )
-    }
-
-    logout() {
-        // Elimina token y usuario
-        if (this.isBrowser) {
-            localStorage.removeItem("token")
-            localStorage.removeItem("currentUser")
-            sessionStorage.removeItem("currentUser")
+            // El JWT del backend Spring Boot típicamente contiene información del usuario
+            return {
+                id: payload.userId || payload.id,
+                username: payload.sub || payload.username,
+                firstName: payload.firstName || '',
+                lastName: payload.lastName || '',
+                email: payload.email || payload.sub,
+                role: payload.authorities?.[0]?.authority || payload.role || 'USER'
+            };
+        } catch (error) {
+            console.error('Error decoding token:', error);
+            throw new Error('Invalid token format');
         }
-        this.currentUserSubject.next(null)
     }
 
-    isLoggedIn(): boolean {
-        return this.currentUserSubject.value !== null
+    /**
+     * Obtener datos completos del usuario desde el backend
+     */
+    private loadUserDetails(): void {
+        const currentUser = this.getCurrentUser();
+        if (currentUser && currentUser.username) {
+            // Aquí harías una llamada al backend para obtener los datos completos
+            // this.http.get<User>(`${environment.apiUrl}/api/v1/users/me`)
+            //   .subscribe(userDetails => {
+            //     this.currentUserSubject.next(userDetails);
+            //     // Actualizar también en storage
+            //   });
+        }
     }
 
-    getCurrentUser(): User | null {
-        return this.currentUserSubject.value
-    }
+    /**
+     * Manejo de errores HTTP
+     */
+    private handleError = (error: HttpErrorResponse): Observable<never> => {
+        let errorMessage = 'Ha ocurrido un error inesperado';
 
-    // Método para verificar si el token está expirado (simulado)
-    isTokenExpired(): boolean {
-        // En un entorno real, verificaríamos la expiración del token JWT
-        return false
-    }
+        console.error('Full error object:', error);
 
-    register(registerData: { name: string; email: string; password: string }): Observable<User> {
-        // Verificar si ya existe un usuario con el mismo email
-        return this.http.get<User[]>(`${this.apiUrl}/users?email=${registerData.email}`).pipe(
-            switchMap((existingUsersByEmail) => {
-                if (existingUsersByEmail.length > 0) {
-                    throw { status: 409, message: "REGISTER.EMAIL_EXISTS" }
-                }
+        if (error.error instanceof ErrorEvent) {
+            // Error del lado del cliente
+            errorMessage = `Error: ${error.error.message}`;
+        } else {
+            // Error del lado del servidor
+            switch (error.status) {
+                case 0:
+                    errorMessage = 'No se puede conectar con el servidor. Verifica que esté ejecutándose.';
+                    break;
+                case 400:
+                    errorMessage = 'Datos inválidos';
+                    break;
+                case 401:
+                    errorMessage = 'Credenciales incorrectas';
+                    break;
+                case 403:
+                    errorMessage = 'Acceso denegado';
+                    break;
+                case 404:
+                    errorMessage = 'Servicio no encontrado';
+                    break;
+                case 409:
+                    errorMessage = 'El usuario ya existe';
+                    break;
+                case 500:
+                    errorMessage = 'Error interno del servidor';
+                    break;
+                default:
+                    errorMessage = `Error ${error.status}: ${error.message}`;
+            }
+        }
 
-                // Verificar si ya existe un usuario con el mismo name (username)
-                return this.http.get<User[]>(`${this.apiUrl}/users?username=${registerData.name}`)
-            }),
-            switchMap((existingUsersByName) => {
-                if (existingUsersByName.length > 0) {
-                    throw { status: 409, message: "REGISTER.NAME_EXISTS" }
-                }
-
-                // Crear el nuevo usuario usando el name como username
-                const newUser: User = {
-                    username: registerData.name, // Usar el name como username
-                    name: registerData.name,
-                    email: registerData.email,
-                    password: registerData.password, // In production, this should be hashed
-                    role: "user", // Default role
-                }
-
-                console.log('Creating new user:', newUser);
-                return this.http.post<User>(`${this.apiUrl}/users`, newUser)
-            }),
-            map((createdUser) => {
-                console.log('User created successfully:', createdUser);
-                // Remove password from response
-                const userToReturn = { ...createdUser }
-                delete userToReturn.password
-                return userToReturn
-            }),
-            catchError((error) => {
-                console.error("Registration error:", error)
-
-                // Handle different types of errors
-                if (error.status === 409) {
-                    return throwError(() => ({
-                        status: 409,
-                        error: { message: error.message },
-                    }))
-                }
-
-                return throwError(() => ({
-                    status: 500,
-                    error: { message: "REGISTER.ERROR_MESSAGE" },
-                }))
-            }),
-        )
-    }
+        console.error('Auth Error:', error);
+        return throwError(() => ({ ...error, message: errorMessage }));
+    };
 }
