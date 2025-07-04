@@ -100,14 +100,18 @@
   },
   "DASHBOARD": {
     "TITLE": "Panel de Control",
+    "LOADING": "Cargando...",
+    "RETRY": "Reintentar",
     "LAST_UPDATED": "Última actualización",
+    "TOTAL_DEVICES": "Total de Dispositivos",
+    "DEVICES_REGISTERED": "dispositivos registrados",
     "ACTIVE_DEVICES": "Dispositivos Activos",
-    "INACTIVE_DEVICES": "Dispositivos Inactivos",
+    "INACTIVE_DEVICES": "dispositivos inactivos",
     "ACTIVE_ALARMS": "Alertas Activas",
     "AVG_RADIATION": "Nivel Promedio",
     "MAX_RADIATION": "Radiación Máxima",
     "BATTERY_AVG": "Batería Promedio",
-    "LOW_BATTERY_DEVICES": "Dispositivos con Batería Baja",
+    "LOW_BATTERY_DEVICES": "dispositivos con batería baja",
     "RADIATION_LEVELS": "Niveles de Radiación",
     "MONITORING_DESCRIPTION": "Monitoreo de niveles promedio en las últimas 24 horas",
     "RADIATION_TRENDS": "Tendencias de Radiación",
@@ -119,6 +123,9 @@
     "ALL_DEVICES": "Todos los Dispositivos",
     "ALL_ALARMS": "Todas las Alarmas",
     "CURRENT_READING": "Lectura Actual",
+    "LAST_READING": "Última Lectura",
+    "FREQUENCY": "Frecuencia",
+    "LOCATION": "Ubicación",
     "BATTERY": "Batería",
     "NEXT_MAINTENANCE": "Próximo Mantenimiento",
     "THRESHOLD": "Umbral",
@@ -126,7 +133,10 @@
     "HISTORY": "Historial",
     "SINCE_YESTERDAY": "desde ayer",
     "CRITICAL": "crítico",
-    "WARNING": "advertencia"
+    "WARNING": "advertencia",
+    "NO_ACTIVE_ALARMS": "No hay alarmas activas",
+    "NO_DEVICES": "No se encontraron dispositivos",
+    "NO_ALARMS": "No se encontraron alarmas"
   },
   "STATUS": {
     "ACTIVE": "Activo",
@@ -138,12 +148,18 @@
     "LEVEL": {
       "INFO": "Información",
       "WARNING": "Advertencia",
-      "CRITICAL": "Crítico"
+      "CRITICAL": "Crítico",
+      "UNKNOWN": "Desconocido"
     },
     "TYPE": {
       "RADIATION_THRESHOLD": "Umbral de Radiación",
+      "TEMPERATURE_THRESHOLD": "Umbral de Temperatura",
+      "HUMIDITY_THRESHOLD": "Umbral de Humedad",
+      "BATTERY_LOW": "Batería Baja",
       "SYSTEM": "Sistema",
-      "CONNECTIVITY": "Conectividad"
+      "CONNECTIVITY": "Conectividad",
+      "ASDA": "Alerta ASDA",
+      "UNKNOWN": "Desconocido"
     },
     "THRESHOLD": "Umbral",
     "ACKNOWLEDGED_BY": "Reconocido por",
