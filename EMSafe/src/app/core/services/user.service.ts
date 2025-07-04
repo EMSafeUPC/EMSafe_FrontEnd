@@ -43,6 +43,32 @@ export class UserService {
             );
     }
 
+    getUserName(): Observable<{ username: string }> {
+        return this.http.get<{ username: string }>(`${this.apiUrl}/api/v1/profile/username`)
+            .pipe(catchError(this.handleError));
+    }
+
+    getFullName(): Observable<{ fullName: string }> {
+        return this.http.get<{ fullName: string }>(`${this.apiUrl}/api/v1/profile/name`)
+            .pipe(catchError(this.handleError));
+    }
+
+    getEmail(): Observable<{ email: string }> {
+        return this.http.get<{ email: string }>(`${this.apiUrl}/api/v1/profile/email`)
+            .pipe(catchError(this.handleError));
+    }
+
+    changePassword(newPassword: string, confirmPassword: string): Observable<any> {
+        return this.http.put(`${this.apiUrl}/api/v1/profile/change-password`, {
+            newPassword,
+            confirmPassword
+        }).pipe(
+            catchError(this.handleError)
+        );
+    }
+
+
+
     /**
      * Actualizar preferencias de usuario
      */
@@ -56,17 +82,7 @@ export class UserService {
     /**
      * Cambiar contraseña
      */
-    changePassword(userId: number, currentPassword: string, newPassword: string): Observable<any> {
-        const passwordChangeRequest: PasswordChangeRequest = {
-            currentPassword,
-            newPassword
-        };
 
-        return this.http.put(`${this.apiUrl}/api/v1/users/${userId}/password`, passwordChangeRequest)
-            .pipe(
-                catchError(this.handleError)
-            );
-    }
 
     /**
      * Obtener perfil de usuario

@@ -82,18 +82,42 @@ export class ProfileComponent implements OnInit {
   }
 
   loadUserData(): void {
-    // Obtener datos del usuario actual
     this.user = this.authService.getCurrentUser();
 
-    if (this.user) {
-      // Cargar datos en el formulario de información personal
-      this.personalInfoForm.patchValue({
-        name: this.user.name,
-        email: this.user.email,
-        username: this.user.username
-      });
+    if (!this.user) {
+      this.showErrorMessage('PROFILE.USER_NOT_FOUND');
+      return;
     }
+
+    this.userService.getFullName().subscribe({
+      next: (res) => {
+        if (res?.fullName) {
+          const [firstName, ...lastNameParts] = res.fullName.split(' ');
+          const lastName = lastNameParts.join(' ');
+          this.personalInfoForm.patchValue({ name: `${firstName} ${lastName}` });
+        } else {
+          this.showErrorMessage('PROFILE.ERROR_LOADING_NAME');
+        }
+      },
+      error: () => this.showErrorMessage('PROFILE.ERROR_LOADING_NAME')
+    });
+
+
+    this.userService.getEmail().subscribe({
+      next: (res) => {
+        this.personalInfoForm.patchValue({ email: res.email });
+      },
+      error: () => this.showErrorMessage('PROFILE.ERROR_LOADING_EMAIL')
+    });
+
+    this.userService.getUserName().subscribe({
+      next: (res) => {
+        this.personalInfoForm.patchValue({ username: res.username });
+      },
+      error: () => this.showErrorMessage('PROFILE.ERROR_LOADING_USERNAME')
+    });
   }
+
 
   savePersonalInfo(): void {
     if (this.personalInfoForm.invalid) {
@@ -130,41 +154,28 @@ export class ProfileComponent implements OnInit {
   }
 
   changePassword(): void {
-    if (this.passwordForm.invalid) {
-      return;
-    }
+    if (this.passwordForm.invalid) return;
 
     this.changingPassword = true;
-    const formData = this.passwordForm.value;
+    const { newPassword, confirmPassword } = this.passwordForm.value;
 
-    // Simulamos una llamada a la API con un timeout
-    setTimeout(() => {
-      // En un entorno real, aquí se enviaría la solicitud de cambio de contraseña al servidor
-      this.userService.changePassword(
-          this.user.id,
-          formData.currentPassword,
-          formData.newPassword
-      ).subscribe({
-        next: () => {
-          this.changingPassword = false;
-          this.passwordForm.reset();
-          this.hideCurrentPassword = true;
-          this.hideNewPassword = true;
-          this.hideConfirmPassword = true;
-          this.showSuccessMessage('PROFILE.PASSWORD_CHANGED');
-        },
-        error: (error) => {
-          this.changingPassword = false;
-
-          if (error.status === 401) {
-            this.showErrorMessage('PROFILE.CURRENT_PASSWORD_INCORRECT');
-          } else {
-            this.showErrorMessage('PROFILE.ERROR_CHANGING_PASSWORD');
-          }
-        }
-      });
-    }, 1500);
+    this.userService.changePassword(newPassword, confirmPassword).subscribe({
+      next: () => {
+        this.changingPassword = false;
+        this.passwordForm.reset();
+        this.hideCurrentPassword = true;
+        this.hideNewPassword = true;
+        this.hideConfirmPassword = true;
+        this.showSuccessMessage('PROFILE.PASSWORD_CHANGED');
+      },
+      error: (error) => {
+        this.changingPassword = false;
+        this.showErrorMessage('PROFILE.ERROR_CHANGING_PASSWORD');
+      }
+    });
   }
+
+
 
   showSuccessMessage(messageKey: string): void {
     this.translateService.get(messageKey).subscribe((message: string) => {

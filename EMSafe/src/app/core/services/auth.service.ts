@@ -110,6 +110,7 @@ export class AuthService {
             email: registerData.email
         };
 
+
         return this.http.post<AuthResponse>(`${environment.apiUrl}/api/v1/auth/register`, registerRequest)
             .pipe(
                 tap(response => {
