@@ -100,7 +100,11 @@
   },
   "DASHBOARD": {
     "TITLE": "Dashboard",
+    "LOADING": "Loading...",
+    "RETRY": "Retry",
     "LAST_UPDATED": "Last updated",
+    "TOTAL_DEVICES": "Total Devices",
+    "DEVICES_REGISTERED": "devices registered",
     "ACTIVE_DEVICES": "Active Devices",
     "INACTIVE_DEVICES": "inactive devices",
     "ACTIVE_ALARMS": "Active Alerts",
@@ -119,6 +123,9 @@
     "ALL_DEVICES": "All Devices",
     "ALL_ALARMS": "All Alarms",
     "CURRENT_READING": "Current Reading",
+    "LAST_READING": "Last Reading",
+    "FREQUENCY": "Frequency",
+    "LOCATION": "Location",
     "BATTERY": "Battery",
     "NEXT_MAINTENANCE": "Next Maintenance",
     "THRESHOLD": "Threshold",
@@ -126,7 +133,10 @@
     "HISTORY": "History",
     "SINCE_YESTERDAY": "since yesterday",
     "CRITICAL": "critical",
-    "WARNING": "warning"
+    "WARNING": "warning",
+    "NO_ACTIVE_ALARMS": "No active alarms",
+    "NO_DEVICES": "No devices found",
+    "NO_ALARMS": "No alarms found"
   },
   "STATUS": {
     "ACTIVE": "Active",
@@ -138,12 +148,18 @@
     "LEVEL": {
       "INFO": "Information",
       "WARNING": "Warning",
-      "CRITICAL": "Critical"
+      "CRITICAL": "Critical",
+      "UNKNOWN": "Unknown"
     },
     "TYPE": {
       "RADIATION_THRESHOLD": "Radiation Threshold",
+      "TEMPERATURE_THRESHOLD": "Temperature Threshold",
+      "HUMIDITY_THRESHOLD": "Humidity Threshold",
+      "BATTERY_LOW": "Low Battery",
       "SYSTEM": "System",
-      "CONNECTIVITY": "Connectivity"
+      "CONNECTIVITY": "Connectivity",
+      "ASDA": "ASDA Alert",
+      "UNKNOWN": "Unknown"
     },
     "THRESHOLD": "Threshold",
     "ACKNOWLEDGED_BY": "Acknowledged by",
