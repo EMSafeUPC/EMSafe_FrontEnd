@@ -1,36 +1,78 @@
 <div class="title">
     <h1>{{ 'DEVICE_MANAGEMENT.TITLE' | translate }}</h1>
-    <button mat-raised-button color="primary" class="add-button">
+    <button mat-raised-button color="primary" class="add-button" (click)="toggleForm()">
         <mat-icon>add</mat-icon>
         {{ 'DEVICE_MANAGEMENT.ADD_BOTTOM' | translate }}
     </button>
 </div>
 
-<div class="card-container">
-    <div class="device-card" *ngFor="let item of devicesDataSource">
-        <div class="card-header">
-            <h3>{{ item.dispositivo }}</h3>
-            <span class="estado-indicador" [ngClass]="item.estado"></span>
-        </div>
+<!-- Formulario para crear nuevo dispositivo -->
+<div *ngIf="showForm" class="create-form">
+    <h3>Nuevo dispositivo</h3>
+    <form (ngSubmit)="createDevice()" #deviceForm="ngForm">
 
-        <div class="card-body">
-            <div><strong>ID:</strong> {{ item.id }}</div>
-            <div><strong>Ubicación:</strong> {{ item.ubicacion }}</div>
-            <div><strong>Última lectura:</strong> {{ item.nivel }} µSv/h</div>
-            <div><strong>Fecha:</strong> {{ item.fecha | date: 'dd/MM/yyyy' }}</div>
-            <div><strong>Estado:</strong> {{ item.estado | titlecase }}</div>
-        </div>
+        <mat-form-field appearance="outline">
+            <mat-label>Nombre</mat-label>
+            <input matInput required [(ngModel)]="newDevice.name" name="name">
+        </mat-form-field>
 
-        <div class="card-footer">
-            <button mat-raised-button color="warn" class="delete-button" (click)="deleteDevice(item)">
-                <mat-icon>delete</mat-icon> {{ 'DEVICE_MANAGEMENT.DELETE_BOTTOM' | translate }}
-            </button>
+        <mat-form-field appearance="outline">
+            <mat-label>Ubicación</mat-label>
+            <input matInput required [(ngModel)]="newDevice.location" name="location">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Lectura actual</mat-label>
+            <input matInput type="number" required [(ngModel)]="newDevice.currentReading" name="currentReading">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Fecha de última lectura</mat-label>
+            <input matInput type="date" required [(ngModel)]="newDevice.lastReadDate" name="lastReadDate">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Estado</mat-label>
+            <mat-select [(ngModel)]="newDevice.status" name="status" required>
+                <mat-option *ngFor="let s of statuses" [value]="s">
+                    {{ s.status }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Tipo</mat-label>
+            <mat-select [(ngModel)]="newDevice.type" name="type" required>
+                <mat-option *ngFor="let t of types" [value]="t">
+                    {{ t.type }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Frecuencia</mat-label>
+            <mat-select [(ngModel)]="newDevice.frequency" name="frequency" required>
+                <mat-option *ngFor="let f of frequencies" [value]="f">
+                    {{ f.frequency }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div class="form-actions">
+            <button mat-raised-button color="primary" type="submit">Crear</button>
+            <button mat-button type="button" (click)="toggleForm()">Cancelar</button>
         </div>
-    </div>
+    </form>
 </div>
 
+<!-- Mensaje y lista de dispositivos -->
+<div *ngIf="loading">Cargando dispositivos...</div>
+<div *ngIf="error">{{ error }}</div>
 
-
-
-
-
+<div class="card-container">
+    <app-device-card
+            *ngFor="let device of devices"
+            [device]="device"
+            (delete)="deleteDevice(device.id!)">
+    </app-device-card>
+</div>

@@ -1,16 +1,18 @@
 <mat-card class="device-card">
     <mat-card-header>
-        <div mat-card-avatar class="device-icon" [ngStyle]="{'background-color': statusColor}">
+        <div mat-card-avatar class="device-icon" [ngStyle]="{ 'background-color': statusColor }">
             <mat-icon>sensors</mat-icon>
         </div>
         <mat-card-title>{{ device?.name || 'Unknown Device' }}</mat-card-title>
-        <mat-card-subtitle>{{ getDeviceType() }} - {{ device?.location || 'Unknown Location' }}</mat-card-subtitle>
+        <mat-card-subtitle>
+            {{ getDeviceType() }} - {{ device?.location || 'Unknown Location' }}
+        </mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
         <div class="reading-container">
-            <div class="reading" [ngStyle]="{'color': readingColor}">
-                {{ device?.current_reading || device?.currentReading || 0 }} μSv/h
+            <div class="reading" [ngStyle]="{ 'color': readingColor }">
+                {{ device?.currentReading || 0 }} μSv/h
             </div>
             <div class="reading-label">
                 {{ 'DASHBOARD.CURRENT_READING' | translate }}
@@ -22,7 +24,7 @@
                 <mat-icon>schedule</mat-icon>
                 <div>
                     <div class="info-label">{{ 'DASHBOARD.LAST_READING' | translate }}</div>
-                    <div class="info-value">{{ getLastReadingTime() }}</div>
+                    <div class="info-value">{{ getLastReadingDate() }}</div>
                 </div>
             </div>
 
@@ -30,7 +32,7 @@
                 <mat-icon>radio</mat-icon>
                 <div>
                     <div class="info-label">{{ 'DASHBOARD.FREQUENCY' | translate }}</div>
-                    <div class="info-value">{{ device?.frequency || 'N/A' }} Hz</div>
+                    <div class="info-value">{{ device?.frequency?.frequency || 'N/A' }} Hz</div>
                 </div>
             </div>
 
@@ -45,8 +47,12 @@
     </mat-card-content>
 
     <mat-card-footer>
-        <div class="status-indicator" [ngStyle]="{'background-color': statusColor}">
+        <div class="status-indicator" [ngStyle]="{ 'background-color': statusColor }">
             {{ getStatusText() }}
         </div>
+        <button mat-raised-button color="warn" class="delete-button" (click)="onDelete()">
+            <mat-icon>delete</mat-icon>
+            {{ 'DEVICE_MANAGEMENT.DELETE_BOTTOM' | translate }}
+        </button>
     </mat-card-footer>
 </mat-card>
