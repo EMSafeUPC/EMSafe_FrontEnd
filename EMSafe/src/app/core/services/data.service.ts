@@ -19,6 +19,39 @@ export class DataService {
     return this.http.get<any[]>(`${this.apiUrl}/api/v1/devices`).pipe(catchError(this.handleError))
   }
 
+  // Crear dispositivo
+  createDevice(device: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/api/v1/devices`, device)
+        .pipe(catchError(this.handleError));
+  }
+
+  // Obtener todos los dispositivos
+  updateDevice(id: number, device: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/api/v1/devices/${id}`, device)
+        .pipe(catchError(this.handleError));
+  }
+
+  // Eliminar dispositivo
+  deleteDevice(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/api/v1/devices/${id}`)
+        .pipe(catchError(this.handleError));
+  }
+
+  getDeviceStatuses(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/api/v1/device-catalogs/statuses`)
+        .pipe(catchError(this.handleError));
+  }
+
+  getDeviceTypes(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/api/v1/device-catalogs/types`)
+        .pipe(catchError(this.handleError));
+  }
+
+  getDeviceFrequencies(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/api/v1/device-catalogs/frequencies`)
+        .pipe(catchError(this.handleError));
+  }
+
   // ==================== ALARMAS (MANTENIDO + AGREGADOS) ====================
 
   // Obtener todas las alarmas
