@@ -3,16 +3,16 @@
         <div mat-card-avatar class="device-icon" [ngStyle]="{ 'background-color': statusColor }">
             <mat-icon>sensors</mat-icon>
         </div>
-        <mat-card-title>{{ device?.name || 'Unknown Device' }}</mat-card-title>
+        <mat-card-title>{{ device.name || 'Unknown Device' }}</mat-card-title>
         <mat-card-subtitle>
-            {{ getDeviceType() }} - {{ device?.location || 'Unknown Location' }}
+            {{ getDeviceType() }} - {{ device.location || 'Unknown Location' }}
         </mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
         <div class="reading-container">
             <div class="reading" [ngStyle]="{ 'color': readingColor }">
-                {{ device?.currentReading || 0 }} μSv/h
+                {{ device.currentReading || 0 }} μSv/h
             </div>
             <div class="reading-label">
                 {{ 'DASHBOARD.CURRENT_READING' | translate }}
@@ -32,7 +32,7 @@
                 <mat-icon>radio</mat-icon>
                 <div>
                     <div class="info-label">{{ 'DASHBOARD.FREQUENCY' | translate }}</div>
-                    <div class="info-value">{{ device?.frequency?.frequency || 'N/A' }} Hz</div>
+                    <div class="info-value">{{ device.frequency.frequency || 'N/A' }} Hz</div>
                 </div>
             </div>
 
@@ -40,7 +40,7 @@
                 <mat-icon>place</mat-icon>
                 <div>
                     <div class="info-label">{{ 'DASHBOARD.LOCATION' | translate }}</div>
-                    <div class="info-value">{{ device?.location || 'Unknown' }}</div>
+                    <div class="info-value">{{ device.location || 'Unknown' }}</div>
                 </div>
             </div>
         </div>

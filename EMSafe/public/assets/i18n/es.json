@@ -91,7 +91,7 @@
     "LOGOUT": "Cerrar sesión",
     "ERROR": {
       "INVALID_CREDENTIALS": "Usuario o contraseña incorrectos",
-      "ACCOUNT_LOCKED": "Tu cuenta ha sido bloqueada. Contacta al administrador.",
+      "ACCOUNT_LOCKED": "Tu cuenta se ha modificado recientemente.",
       "GENERAL": "Ocurrió un error. Por favor, intenta más tarde.",
       "CONNECTION": "No se puede conectar con el servidor. Verifica que esté ejecutándose."
     },

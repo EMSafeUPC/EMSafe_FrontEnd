@@ -31,8 +31,6 @@ import { MatSelectModule } from '@angular/material/select';
         MatInputModule,
         MatSelectModule,
         FormsModule,
-        DatePipe,
-        TitleCasePipe,
         DeviceCardComponent
     ]
 })

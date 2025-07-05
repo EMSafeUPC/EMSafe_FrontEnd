@@ -115,19 +115,19 @@ export class SettingsComponent implements OnInit {
       {
         id: 1,
         device: 'Windows PC',
-        location: 'Madrid, Spain',
+        location: 'Lima, Peru',
         time: new Date('2024-05-10T08:30:15Z')
       },
       {
         id: 2,
         device: 'iPhone',
-        location: 'Barcelona, Spain',
+        location: 'Lima, Peru',
         time: new Date('2024-05-08T14:22:30Z')
       },
       {
         id: 3,
         device: 'Android Tablet',
-        location: 'Valencia, Spain',
+        location: 'Lima, Peru',
         time: new Date('2024-05-05T19:45:12Z')
       }
     ];
@@ -140,14 +140,14 @@ export class SettingsComponent implements OnInit {
         id: 1,
         device: 'Windows PC',
         browser: 'Chrome 124.0.6367.87',
-        location: 'Madrid, Spain',
+        location: 'Lima, Peru',
         current: true
       },
       {
         id: 2,
         device: 'iPhone',
         browser: 'Safari 17.4',
-        location: 'Barcelona, Spain',
+        location: 'Lima, Peru',
         current: false
       }
     ];
