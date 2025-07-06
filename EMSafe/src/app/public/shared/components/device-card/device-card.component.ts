@@ -1,73 +1,62 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { TranslateModule } from '@ngx-translate/core';
+import {Component, Input} from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { MatCardModule } from "@angular/material/card";
+import { MatIconModule } from "@angular/material/icon";
+import { MatButtonModule } from "@angular/material/button";
+import { MatTooltipModule } from "@angular/material/tooltip";
+import { TranslateModule } from "@ngx-translate/core";
+import { Device } from "../../../pages/interfaces/device.interface";
+import { EventEmitter, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-device-card',
+  selector: "app-device-card",
   standalone: true,
   imports: [
     CommonModule,
     MatCardModule,
     MatIconModule,
     MatButtonModule,
-    MatProgressBarModule,
     MatTooltipModule,
     TranslateModule
   ],
-  templateUrl: './device-card.component.html',
-  styleUrls: ['./device-card.component.css']
+  templateUrl: "./device-card.component.html",
+  styleUrls: ["./device-card.component.css"]
 })
-export class DeviceCardComponent implements OnInit {
-  @Input() device: any;
-  statusColor: string = '';
-  readingColor: string = '';
+export class DeviceCardComponent {
+  @Input() device!: Device;
+  @Output() delete = new EventEmitter<number>();
 
-  ngOnInit(): void {
-    this.setStatusColor();
-    this.setReadingColor();
-  }
-
-  setStatusColor(): void {
-    switch (this.device.status) {
-      case 'active':
-        this.statusColor = 'green';
-        break;
-      case 'maintenance':
-        this.statusColor = 'orange';
-        break;
-      case 'inactive':
-        this.statusColor = 'gray';
-        break;
-      case 'alert':
-        this.statusColor = 'red';
-        break;
-      default:
-        this.statusColor = 'blue';
+  get statusColor(): string {
+    const status = this.device?.status?.status?.toLowerCase();
+    switch (status) {
+      case "normal": return "#4CAF50";
+      case "advertencia": return "#FF9800";
+      case "crítico": return "#F44336";
+      default: return "#2196F3";
     }
   }
 
-  setReadingColor(): void {
-    if (this.device.currentReading >= this.device.threshold) {
-      this.readingColor = 'red';
-    } else if (this.device.currentReading >= this.device.threshold * 0.8) {
-      this.readingColor = 'orange';
-    } else {
-      this.readingColor = 'green';
-    }
+  get readingColor(): string {
+    const reading = this.device?.currentReading || 0;
+    if (reading >= 1.0) return "#F44336";
+    if (reading >= 0.8) return "#FF9800";
+    return "#4CAF50";
   }
 
-  getBatteryColor(): string {
-    if (this.device.batteryLevel < 20) {
-      return 'red';
-    } else if (this.device.batteryLevel < 50) {
-      return 'orange';
-    } else {
-      return 'green';
-    }
+  getStatusText(): string {
+    return this.device?.status?.status || "Desconocido";
+  }
+
+  getDeviceType(): string {
+    return this.device?.type?.type || "Tipo desconocido";
+  }
+
+  getLastReadingDate(): string {
+    if (!this.device?.lastReadDate) return "Sin fecha";
+    return new Date(this.device.lastReadDate).toLocaleDateString();
+  }
+
+  onDelete(): void {
+    this.delete.emit(this.device.id);
   }
 }

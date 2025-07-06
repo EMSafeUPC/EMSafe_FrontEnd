@@ -1,5 +1,5 @@
 import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
@@ -34,15 +34,22 @@ import { UserService } from '../../../core/services/user.service';
 export class ProfileComponent implements OnInit {
   user: any = null;
   profileImage: string | null = null;
-  personalInfoForm!: FormGroup;
   passwordForm!: FormGroup;
+
+  // Datos del perfil
+  profileData = {
+    name: '',
+    email: '',
+    username: '',
+    fullName: ''
+  };
 
   hideCurrentPassword = true;
   hideNewPassword = true;
   hideConfirmPassword = true;
 
-  savingPersonalInfo = false;
   changingPassword = false;
+  loadingProfile = true;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -54,19 +61,12 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.initForms();
+    this.initPasswordForm();
     this.loadUserData();
   }
 
-  initForms(): void {
-    // Formulario de información personal
-    this.personalInfoForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      username: [{ value: '', disabled: true }]
-    });
-
-    // Formulario de cambio de contraseña
+  initPasswordForm(): void {
+    // Solo formulario de cambio de contraseña
     this.passwordForm = this.formBuilder.group({
       currentPassword: ['', Validators.required],
       newPassword: ['', [Validators.required, Validators.minLength(8)]],
@@ -82,88 +82,105 @@ export class ProfileComponent implements OnInit {
   }
 
   loadUserData(): void {
-    // Obtener datos del usuario actual
     this.user = this.authService.getCurrentUser();
 
-    if (this.user) {
-      // Cargar datos en el formulario de información personal
-      this.personalInfoForm.patchValue({
-        name: this.user.name,
-        email: this.user.email,
-        username: this.user.username
-      });
-    }
-  }
-
-  savePersonalInfo(): void {
-    if (this.personalInfoForm.invalid) {
+    if (!this.user) {
+      this.showErrorMessage('PROFILE.USER_NOT_FOUND');
+      this.loadingProfile = false;
       return;
     }
 
-    this.savingPersonalInfo = true;
-    const formData = this.personalInfoForm.value;
+    // Usar datos del usuario autenticado como base
+    this.profileData.username = this.user.username || '';
+    this.profileData.email = this.user.email || '';
+    this.profileData.name = `${this.user.firstName || ''} ${this.user.lastName || ''}`.trim();
 
-    // Simulamos una llamada a la API con un timeout
-    setTimeout(() => {
-      // Actualizar datos del usuario
-      if (this.user) {
-        this.user.name = formData.name;
-        this.user.email = formData.email;
+    this.loadingProfile = true;
 
-        // En un entorno real, aquí se enviarían los datos al servidor
-        this.userService.updateUserProfile(this.user.id, formData)
-            .subscribe({
-              next: (updatedUser) => {
-                this.savingPersonalInfo = false;
-                this.showSuccessMessage('PROFILE.PERSONAL_INFO_SAVED');
-              },
-              error: (error) => {
-                this.savingPersonalInfo = false;
-                this.showErrorMessage('PROFILE.ERROR_SAVING');
-              }
-            });
-      } else {
-        this.savingPersonalInfo = false;
-        this.showErrorMessage('PROFILE.USER_NOT_FOUND');
+    // Intentar cargar datos adicionales del backend
+    this.loadAdditionalProfileData();
+  }
+
+  private loadAdditionalProfileData(): void {
+    let completedRequests = 0;
+    const totalRequests = 3;
+
+    const checkCompletion = () => {
+      completedRequests++;
+      if (completedRequests >= totalRequests) {
+        this.loadingProfile = false;
       }
-    }, 1500);
+    };
+
+    // Cargar nombre completo
+    this.userService.getFullName().subscribe({
+      next: (res) => {
+        console.log('Full name response:', res);
+        if (res?.fullName) {
+          this.profileData.fullName = res.fullName;
+          this.profileData.name = res.fullName;
+        }
+        checkCompletion();
+      },
+      error: (error) => {
+        console.error('Error loading full name:', error);
+        checkCompletion();
+      }
+    });
+
+    // Cargar email
+    this.userService.getEmail().subscribe({
+      next: (res) => {
+        console.log('Email response:', res);
+        if (res?.email) {
+          this.profileData.email = res.email;
+        }
+        checkCompletion();
+      },
+      error: (error) => {
+        console.error('Error loading email:', error);
+        checkCompletion();
+      }
+    });
+
+    // Cargar username
+    this.userService.getUserName().subscribe({
+      next: (res) => {
+        console.log('Username response:', res);
+        if (res?.username) {
+          this.profileData.username = res.username;
+        }
+        checkCompletion();
+      },
+      error: (error) => {
+        console.error('Error loading username:', error);
+        checkCompletion();
+      }
+    });
   }
 
   changePassword(): void {
-    if (this.passwordForm.invalid) {
-      return;
-    }
+    if (this.passwordForm.invalid) return;
 
     this.changingPassword = true;
-    const formData = this.passwordForm.value;
+    const { newPassword, confirmPassword } = this.passwordForm.value;
 
-    // Simulamos una llamada a la API con un timeout
-    setTimeout(() => {
-      // En un entorno real, aquí se enviaría la solicitud de cambio de contraseña al servidor
-      this.userService.changePassword(
-          this.user.id,
-          formData.currentPassword,
-          formData.newPassword
-      ).subscribe({
-        next: () => {
-          this.changingPassword = false;
-          this.passwordForm.reset();
-          this.hideCurrentPassword = true;
-          this.hideNewPassword = true;
-          this.hideConfirmPassword = true;
-          this.showSuccessMessage('PROFILE.PASSWORD_CHANGED');
-        },
-        error: (error) => {
-          this.changingPassword = false;
-
-          if (error.status === 401) {
-            this.showErrorMessage('PROFILE.CURRENT_PASSWORD_INCORRECT');
-          } else {
-            this.showErrorMessage('PROFILE.ERROR_CHANGING_PASSWORD');
-          }
-        }
-      });
-    }, 1500);
+    this.userService.changePassword(newPassword, confirmPassword).subscribe({
+      next: (response) => {
+        console.log('Password change response:', response);
+        this.changingPassword = false;
+        this.passwordForm.reset();
+        this.hideCurrentPassword = true;
+        this.hideNewPassword = true;
+        this.hideConfirmPassword = true;
+        this.showSuccessMessage('PROFILE.PASSWORD_CHANGED');
+      },
+      error: (error) => {
+        console.error('Error changing password:', error);
+        this.changingPassword = false;
+        this.showErrorMessage('PROFILE.ERROR_CHANGING_PASSWORD');
+      }
+    });
   }
 
   showSuccessMessage(messageKey: string): void {

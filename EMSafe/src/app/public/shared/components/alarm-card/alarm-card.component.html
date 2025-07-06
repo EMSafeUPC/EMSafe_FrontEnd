@@ -1,18 +1,18 @@
-<mat-card class="alarm-card" [ngClass]="{'acknowledged': alarm.acknowledged, 'resolved': alarm.resolved}">
+<mat-card class="alarm-card" [ngClass]="{'acknowledged': alarm?.acknowledged, 'resolved': alarm?.resolved}">
     <div class="alarm-indicator" [ngStyle]="{'background-color': levelColor}"></div>
 
     <mat-card-header>
         <div mat-card-avatar class="alarm-icon" [ngStyle]="{'background-color': levelColor}">
             <mat-icon>{{ typeIcon }}</mat-icon>
         </div>
-        <mat-card-title>{{ alarm.deviceName }}</mat-card-title>
+        <mat-card-title>{{ alarm?.deviceName || alarm?.device_name || ('Device ' + alarm?.device_id) }}</mat-card-title>
         <mat-card-subtitle>
             <mat-chip-set>
                 <mat-chip [ngStyle]="{'background-color': levelColor, 'color': 'white'}">
-                    {{ 'ALARM.LEVEL.' + alarm.level.toUpperCase() | translate }}
+                    {{ 'ALARM.LEVEL.' + (alarm?.level || 'unknown').toUpperCase() | translate }}
                 </mat-chip>
                 <mat-chip>
-                    {{ 'ALARM.TYPE.' + alarm.type.toUpperCase() | translate }}
+                    {{ getAlarmTypeTranslation(alarm?.type) }}
                 </mat-chip>
             </mat-chip-set>
         </mat-card-subtitle>
@@ -22,52 +22,42 @@
         <div class="alarm-details">
             <div class="time-ago">
                 <mat-icon>access_time</mat-icon>
-                {{ getTimeAgo(alarm.timestamp) }}
+                {{ getTimeAgo(alarm?.timestamp || alarm?.created_at) }}
             </div>
 
-            <div *ngIf="alarm.type === 'radiation_threshold'" class="reading-info">
+            <div *ngIf="alarm?.type === 'radiation_threshold'" class="reading-info">
                 <div class="reading-value">
-                    {{ alarm.reading }} {{ alarm.unit }}
+                    {{ alarm?.reading || alarm?.value }} {{ alarm?.unit || 'μSv/h' }}
                 </div>
                 <div class="threshold-info">
-                    {{ 'ALARM.THRESHOLD' | translate }}: {{ alarm.threshold }} {{ alarm.unit }}
+                    {{ 'ALARM.THRESHOLD' | translate }}: {{ alarm?.threshold }} {{ alarm?.unit || 'μSv/h' }}
                 </div>
             </div>
 
             <mat-divider></mat-divider>
 
             <div class="status-info">
-                <div class="status-item" *ngIf="alarm.acknowledged">
+                <div class="status-item" *ngIf="alarm?.acknowledged">
                     <mat-icon>check_circle</mat-icon>
                     <div>
                         <div class="status-label">{{ 'ALARM.ACKNOWLEDGED_BY' | translate }}</div>
-                        <div class="status-value">{{ alarm.acknowledgedBy }} ({{ alarm.acknowledgedAt | date:'short' }})</div>
+                        <div class="status-value">{{ alarm?.acknowledged_by || alarm?.acknowledgedBy }} ({{ (alarm?.acknowledged_at || alarm?.acknowledgedAt) | date:'short' }})</div>
                     </div>
                 </div>
 
-                <div class="status-item" *ngIf="alarm.resolved">
+                <div class="status-item" *ngIf="alarm?.resolved">
                     <mat-icon>task_alt</mat-icon>
                     <div>
                         <div class="status-label">{{ 'ALARM.RESOLVED_AT' | translate }}</div>
-                        <div class="status-value">{{ alarm.resolvedAt | date:'short' }}</div>
+                        <div class="status-value">{{ (alarm?.resolved_at || alarm?.resolvedAt) | date:'short' }}</div>
                     </div>
                 </div>
 
-                <div class="notes" *ngIf="alarm.notes">
+                <div class="notes" *ngIf="alarm?.notes">
                     <mat-icon>note</mat-icon>
-                    <div>{{ alarm.notes }}</div>
+                    <div>{{ alarm?.notes }}</div>
                 </div>
             </div>
         </div>
     </mat-card-content>
-
-    <mat-card-actions>
-        <button mat-button color="primary" *ngIf="!alarm.acknowledged">
-            {{ 'ALARM.ACKNOWLEDGE' | translate }}
-        </button>
-        <button mat-button color="accent" *ngIf="alarm.acknowledged && !alarm.resolved">
-            {{ 'ALARM.RESOLVE' | translate }}
-        </button>
-        <button mat-button>{{ 'ALARM.DETAILS' | translate }}</button>
-    </mat-card-actions>
 </mat-card>

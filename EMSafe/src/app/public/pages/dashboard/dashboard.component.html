@@ -1,136 +1,178 @@
 <div class="dashboard-container">
-    <div class="dashboard-header">
-        <h1>{{ 'DASHBOARD.TITLE' | translate }}</h1>
-        <div class="last-updated">
-            {{ 'DASHBOARD.LAST_UPDATED' | translate }}: {{ lastUpdated }}
-        </div>
+    <!-- Loading Spinner -->
+    <div *ngIf="isLoading" class="loading-container">
+        <mat-spinner></mat-spinner>
+        <p>{{ 'DASHBOARD.LOADING' | translate }}</p>
     </div>
 
-    <!-- Tarjetas de estadísticas -->
-    <div class="stats-cards">
-        <div class="stat-card">
-            <div class="stat-card-header">
-                <span>{{ 'DASHBOARD.ACTIVE_DEVICES' | translate }}</span>
-                <mat-icon class="stat-icon active">sensors</mat-icon>
-            </div>
-            <div class="stat-card-value">{{ getActiveDevicesCount() }}/{{ devices.length }}</div>
-            <div class="stat-card-footer">
-                {{ devices.length - getActiveDevicesCount() }} {{ 'DASHBOARD.INACTIVE_DEVICES' | translate }}
-            </div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-card-header">
-                <span>{{ 'DASHBOARD.AVG_RADIATION' | translate }}</span>
-                <mat-icon class="stat-icon info">speed</mat-icon>
-            </div>
-            <div class="stat-card-value">{{ getLatestStats().averageRadiation || 0 }} μSv/h</div>
-            <div class="stat-card-footer">
-        <span [class.positive]="radiationTrend >= 0" [class.negative]="radiationTrend < 0">
-          {{ radiationTrend > 0 ? '+' : '' }}{{ radiationTrend }}% {{ 'DASHBOARD.SINCE_YESTERDAY' | translate }}
-        </span>
-            </div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-card-header">
-                <span>{{ 'DASHBOARD.ACTIVE_ALARMS' | translate }}</span>
-                <mat-icon class="stat-icon warning">warning</mat-icon>
-            </div>
-            <div class="stat-card-value">{{ activeAlarms.length }}</div>
-            <div class="stat-card-footer">
-                {{ getCriticalAlarmsCount() }} {{ 'DASHBOARD.CRITICAL' | translate }},
-                {{ activeAlarms.length - getCriticalAlarmsCount() }} {{ 'DASHBOARD.WARNING' | translate }}
-            </div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-card-header">
-                <span>{{ 'DASHBOARD.BATTERY_AVG' | translate }}</span>
-                <mat-icon class="stat-icon battery">battery_std</mat-icon>
-            </div>
-            <div class="stat-card-value">{{ getAverageBatteryLevel() }}%</div>
-            <div class="stat-card-footer">
-                {{ getLowBatteryDevicesCount() }} {{ 'DASHBOARD.LOW_BATTERY_DEVICES' | translate }}
-            </div>
-        </div>
+    <!-- Error State -->
+    <div *ngIf="error && !isLoading" class="error-container">
+        <mat-icon class="error-icon">error</mat-icon>
+        <p>{{ error }}</p>
+        <button mat-raised-button color="primary" (click)="refreshData()">
+            {{ 'DASHBOARD.RETRY' | translate }}
+        </button>
     </div>
 
-    <!-- Gráfico de radiación -->
-    <div class="chart-container">
-        <div class="chart-header">
-            <h2>{{ 'DASHBOARD.RADIATION_LEVELS' | translate }} (24h)</h2>
-            <p>{{ 'DASHBOARD.MONITORING_DESCRIPTION' | translate }}</p>
-        </div>
-        <div class="chart-content">
-            <app-stats-card
-                    [data]="dailyStats"
-                    chartType="line"
-                    chartLabel="{{ 'DASHBOARD.AVG_RADIATION' | translate }}"
-                    [chartColors]="['rgba(0, 188, 212, 1)']"
-            ></app-stats-card>
-        </div>
-    </div>
-
-    <!-- Secciones inferiores -->
-    <div class="dashboard-sections">
-        <div class="section-card">
-            <div class="section-header">
-                <h2>{{ 'DASHBOARD.RECENT_ALERTS' | translate }}</h2>
-                <p>{{ 'DASHBOARD.RECENT_ALERTS_DESCRIPTION' | translate }}</p>
+    <!-- Dashboard Content -->
+    <div *ngIf="!isLoading && !error">
+        <div class="dashboard-header">
+            <h1>{{ 'DASHBOARD.TITLE' | translate }}</h1>
+            <div class="header-actions">
+                <div class="last-updated">
+                    {{ 'DASHBOARD.LAST_UPDATED' | translate }}: {{ lastUpdated }}
+                </div>
+                <button
+                        mat-icon-button
+                        (click)="toggleAutoRefresh()"
+                        [matTooltip]="autoRefreshEnabled ? 'Desactivar actualización automática' : 'Activar actualización automática'"
+                        [color]="autoRefreshEnabled ? 'primary' : 'basic'">
+                    <mat-icon>{{ autoRefreshEnabled ? 'pause' : 'play_arrow' }}</mat-icon>
+                </button>
+                <button mat-icon-button (click)="refreshData()" matTooltip="Actualizar datos">
+                    <mat-icon>refresh</mat-icon>
+                </button>
             </div>
-            <div class="section-content">
-                <div *ngFor="let alarm of activeAlarms.slice(0, 3)" class="alert-item">
-                    <div class="alert-icon" [ngClass]="{'critical': alarm.level === 'critical', 'warning': alarm.level === 'warning'}">
-                        <mat-icon>{{ alarm.level === 'critical' ? 'error' : 'warning' }}</mat-icon>
+        </div>
+
+        <!-- Debug info -->
+        <div *ngIf="devices.length === 0 && alarms.length === 0" class="debug-info">
+            <p>Debug: Devices: {{ devices.length }}, Alarms: {{ alarms.length }}</p>
+            <p>API URL: {{ getApiUrl() }}</p>
+        </div>
+
+        <!-- Tarjetas de estadísticas -->
+        <div class="stats-cards">
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <span>{{ 'DASHBOARD.TOTAL_DEVICES' | translate }}</span>
+                    <mat-icon class="stat-icon active">sensors</mat-icon>
+                </div>
+                <div class="stat-card-value">{{ devices.length }}</div>
+                <div class="stat-card-footer">
+                    {{ devices.length }} {{ 'DASHBOARD.DEVICES_REGISTERED' | translate }}
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <span>{{ 'DASHBOARD.AVG_RADIATION' | translate }}</span>
+                    <mat-icon class="stat-icon info">speed</mat-icon>
+                </div>
+                <div class="stat-card-value">{{ getLatestStats().averageRadiation || 0 }} μSv/h</div>
+                <div class="stat-card-footer">
+                    <span [class.positive]="radiationTrend >= 0" [class.negative]="radiationTrend < 0">
+                        {{ radiationTrend > 0 ? '+' : '' }}{{ radiationTrend }}% {{ 'DASHBOARD.SINCE_YESTERDAY' | translate }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <span>{{ 'DASHBOARD.ACTIVE_ALARMS' | translate }}</span>
+                    <mat-icon class="stat-icon warning">warning</mat-icon>
+                </div>
+                <div class="stat-card-value">{{ activeAlarms.length }}</div>
+                <div class="stat-card-footer">
+                    {{ getCriticalAlarmsCount() }} {{ 'DASHBOARD.CRITICAL' | translate }},
+                    {{ activeAlarms.length - getCriticalAlarmsCount() }} {{ 'DASHBOARD.WARNING' | translate }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Gráfico de radiación -->
+        <div class="chart-container">
+            <div class="chart-header">
+                <h2>{{ 'DASHBOARD.RADIATION_LEVELS' | translate }} (7d)</h2>
+                <p>{{ 'DASHBOARD.MONITORING_DESCRIPTION' | translate }}</p>
+            </div>
+            <div class="chart-content">
+                <app-stats-card
+                        [data]="dailyStats"
+                        chartType="line"
+                        [chartLabel]="'Radiación Promedio'"
+                        [chartColors]="['rgba(0, 188, 212, 1)']"
+                ></app-stats-card>
+            </div>
+        </div>
+
+        <!-- Secciones inferiores -->
+        <div class="dashboard-sections">
+            <div class="section-card">
+                <div class="section-header">
+                    <h2>{{ 'DASHBOARD.RECENT_ALERTS' | translate }}</h2>
+                    <p>{{ 'DASHBOARD.RECENT_ALERTS_DESCRIPTION' | translate }}</p>
+                </div>
+                <div class="section-content">
+                    <div *ngFor="let alarm of activeAlarms.slice(0, 3)" class="alert-item">
+                        <div class="alert-icon" [ngClass]="{'critical': alarm.level === 'critical', 'warning': alarm.level === 'warning'}">
+                            <mat-icon>{{ alarm.level === 'critical' ? 'error' : 'warning' }}</mat-icon>
+                        </div>
+                        <div class="alert-details">
+                            <div class="alert-title">{{ 'ALARM.LEVEL.' + (alarm.level || 'unknown').toUpperCase() | translate }}</div>
+                            <div class="alert-description">{{ alarm.deviceName || alarm.device_name || ('Device ' + alarm.device_id) }} - {{ alarm.reading || alarm.value }} {{ alarm.unit || 'μSv/h' }}</div>
+                        </div>
                     </div>
-                    <div class="alert-details">
-                        <div class="alert-title">{{ 'ALARM.LEVEL.' + alarm.level.toUpperCase() | translate }}</div>
-                        <div class="alert-description">{{ alarm.deviceName }} - {{ alarm.reading }} {{ alarm.unit }}</div>
+                    <div *ngIf="activeAlarms.length === 0" class="no-data">
+                        <mat-icon>check_circle</mat-icon>
+                        <p>{{ 'DASHBOARD.NO_ACTIVE_ALARMS' | translate }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-header">
+                    <h2>{{ 'DASHBOARD.RECENT_DEVICES' | translate }}</h2>
+                    <p>{{ 'DASHBOARD.DEVICE_STATUS_DESCRIPTION' | translate }}</p>
+                </div>
+                <div class="section-content">
+                    <div *ngFor="let device of devices.slice(0, 3)" class="device-item">
+                        <div class="device-status" [ngClass]="{'active': device.status === 'active', 'maintenance': device.status === 'maintenance', 'inactive': device.status === 'inactive', 'alert': device.status === 'alert'}"></div>
+                        <div class="device-details">
+                            <div class="device-name">{{ device.name }}</div>
+                            <div class="device-reading">{{ device.currentReading || device.current_reading }} {{ device.unit || 'μSv/h' }}</div>
+                        </div>
+                    </div>
+                    <div *ngIf="devices.length === 0" class="no-data">
+                        <mat-icon>devices</mat-icon>
+                        <p>{{ 'DASHBOARD.NO_DEVICES' | translate }}</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="section-card">
-            <div class="section-header">
-                <h2>{{ 'DASHBOARD.RECENT_DEVICES' | translate }}</h2>
-                <p>{{ 'DASHBOARD.DEVICE_STATUS_DESCRIPTION' | translate }}</p>
-            </div>
-            <div class="section-content">
-                <div *ngFor="let device of devices.slice(0, 3)" class="device-item">
-                    <div class="device-status" [ngClass]="{'active': device.status === 'active', 'maintenance': device.status === 'maintenance', 'inactive': device.status === 'inactive', 'alert': device.status === 'alert'}"></div>
-                    <div class="device-details">
-                        <div class="device-name">{{ device.name }}</div>
-                        <div class="device-reading">{{ device.currentReading }} {{ device.unit }}</div>
+        <!-- Pestañas para todos los dispositivos y alarmas -->
+        <mat-tab-group animationDuration="0ms" class="dashboard-tabs">
+            <mat-tab label="{{ 'DASHBOARD.ALL_DEVICES' | translate }} ({{ devices.length }})">
+                <div class="tab-content">
+                    <div class="cards-grid" *ngIf="devices.length > 0">
+                        <app-device-card
+                                *ngFor="let device of devices"
+                                [device]="device"
+                        ></app-device-card>
+                    </div>
+                    <div *ngIf="devices.length === 0" class="no-data">
+                        <mat-icon>devices</mat-icon>
+                        <p>{{ 'DASHBOARD.NO_DEVICES' | translate }}</p>
                     </div>
                 </div>
-            </div>
-        </div>
+            </mat-tab>
+
+            <mat-tab label="{{ 'DASHBOARD.ALL_ALARMS' | translate }} ({{ alarms.length }})">
+                <div class="tab-content">
+                    <div class="cards-grid" *ngIf="alarms.length > 0">
+                        <app-alarm-card
+                                *ngFor="let alarm of alarms"
+                                [alarm]="alarm"
+                                [showActions]="false"
+                        ></app-alarm-card>
+                    </div>
+                    <div *ngIf="alarms.length === 0" class="no-data">
+                        <mat-icon>notifications</mat-icon>
+                        <p>{{ 'DASHBOARD.NO_ALARMS' | translate }}</p>
+                    </div>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
     </div>
-
-    <!-- Pestañas para todos los dispositivos y alarmas -->
-    <mat-tab-group animationDuration="0ms" class="dashboard-tabs">
-        <mat-tab label="{{ 'DASHBOARD.ALL_DEVICES' | translate }}">
-            <div class="tab-content">
-                <div class="cards-grid">
-                    <app-device-card
-                            *ngFor="let device of devices"
-                            [device]="device"
-                    ></app-device-card>
-                </div>
-            </div>
-        </mat-tab>
-
-        <mat-tab label="{{ 'DASHBOARD.ALL_ALARMS' | translate }}">
-            <div class="tab-content">
-                <div class="cards-grid">
-                    <app-alarm-card
-                            *ngFor="let alarm of alarms"
-                            [alarm]="alarm"
-                    ></app-alarm-card>
-                </div>
-            </div>
-        </mat-tab>
-    </mat-tab-group>
 </div>

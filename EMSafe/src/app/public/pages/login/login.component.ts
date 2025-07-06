@@ -63,6 +63,8 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     this.checkLoginStatus();
+
+    // Suscribirse a cambios en el estado de autenticación
     this.authService.currentUser$.subscribe(user => {
       this.isLoggedIn = !!user;
       this.currentUser = user;
@@ -71,14 +73,13 @@ export class LoginComponent implements OnInit {
 
   initForm() {
     this.loginForm = this.formBuilder.group({
-      username: ['', [Validators.required]],
-      password: ['', [Validators.required]],
+      username: ['', [Validators.required]], // 🔥 QUITAR VALIDACIÓN DE EMAIL
+      password: ['', [Validators.required, Validators.minLength(6)]],
       rememberMe: [false]
     });
   }
 
   checkLoginStatus(): void {
-    // Verificar si el usuario ya está logueado
     this.isLoggedIn = this.authService.isLoggedIn();
     if (this.isLoggedIn) {
       this.currentUser = this.authService.getCurrentUser();
@@ -87,6 +88,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     if (this.loginForm.invalid) {
+      this.markFormGroupTouched();
       return;
     }
 
@@ -95,48 +97,58 @@ export class LoginComponent implements OnInit {
 
     const { username, password, rememberMe } = this.loginForm.value;
 
-    // Solo ejecutamos la lógica de login en el navegador
-    if (this.isBrowser) {
-      // Simulamos una llamada a la API con un timeout
-      setTimeout(() => {
-        this.authService.login(username, password, rememberMe)
-            .subscribe({
-              next: (user) => {
-                this.isLoggedIn = true;
-                this.currentUser = user;
-                this.isLoading = false;
-                // No redirigimos automáticamente, mostramos el estado de sesión iniciada
-              },
-              error: (error) => {
-                this.isLoading = false;
+    console.log('Intentando login con:', { username, password: '***', rememberMe });
 
-                // Manejo de diferentes tipos de errores
-                if (error.status === 401) {
-                  this.errorMessage = 'LOGIN.ERROR.INVALID_CREDENTIALS';
-                } else if (error.status === 403) {
-                  this.errorMessage = 'LOGIN.ERROR.ACCOUNT_LOCKED';
-                } else {
-                  this.errorMessage = 'LOGIN.ERROR.GENERAL';
-                }
-              }
-            });
-      }, 1500); // Simulamos un retraso de 1.5 segundos para mostrar el spinner
-    }
+    this.authService.login(username, password, rememberMe)
+        .subscribe({
+          next: (user) => {
+            this.isLoggedIn = true;
+            this.currentUser = user;
+            this.isLoading = false;
+            console.log('Login exitoso:', user);
+          },
+          error: (error) => {
+            this.isLoading = false;
+            console.error('Error de login:', error);
+
+            // Manejo de diferentes tipos de errores
+            if (error.status === 401) {
+              this.errorMessage = 'LOGIN.ERROR.INVALID_CREDENTIALS';
+            } else if (error.status === 403) {
+              this.errorMessage = 'LOGIN.ERROR.ACCOUNT_LOCKED';
+            } else if (error.status === 0) {
+              this.errorMessage = 'LOGIN.ERROR.CONNECTION';
+            } else {
+              this.errorMessage = 'LOGIN.ERROR.GENERAL';
+            }
+          }
+        });
   }
 
   logout(): void {
     this.loggingOut = true;
 
-    // Simulamos un pequeño retraso para mostrar el spinner
     setTimeout(() => {
       this.authService.logout();
       this.isLoggedIn = false;
       this.currentUser = null;
       this.loggingOut = false;
+      this.loginForm.reset();
     }, 1000);
   }
 
   goToDashboard(): void {
     this.router.navigate(['/dashboard']);
   }
+
+  private markFormGroupTouched(): void {
+    Object.keys(this.loginForm.controls).forEach(key => {
+      const control = this.loginForm.get(key);
+      control?.markAsTouched();
+    });
+  }
+
+  // Getters para validación en el template
+  get username() { return this.loginForm.get('username'); }
+  get password() { return this.loginForm.get('password'); }
 }
