@@ -1,13 +1,13 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
+import {
+  SharedResizeObserver
+} from "./chunk-RENL6C3L.js";
 import "./chunk-IEKDUPL3.js";
 import {
   CdkPortal,
   CdkPortalOutlet,
   TemplatePortal
 } from "./chunk-T5CD2SAX.js";
-import {
-  SharedResizeObserver
-} from "./chunk-RENL6C3L.js";
 import {
   CdkScrollable,
   ViewportRuler

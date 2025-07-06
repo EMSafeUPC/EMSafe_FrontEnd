@@ -1,2 +1,20 @@
-/node_modules
+# Angular build outputs
+/dist/
+/dist-*/
+
+/# Firebase local config y caché
+.firebase/
+/.firebaserc
+
+# Caché de Angular y Vite
+.angular/cache/
+
+# Logs de debugging
+pglite-debug.log
+
+# Dependencias instaladas
+/node_modules/
 .vscode
+
+# Archivos de entorno (si los estuvieras usando)
+/src/environments/*.local.ts
