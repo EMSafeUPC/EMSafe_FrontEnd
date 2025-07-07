@@ -80,12 +80,13 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   private async loadLeafletAndInitMap(): Promise<void> {
     try {
       this.L = await import('leaflet');
+      console.log('Leaflet cargado:', this.L);
 
       delete (this.L.Icon.Default.prototype as any)._getIconUrl;
       this.L.Icon.Default.mergeOptions({
-        iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
-        iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
-        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+        iconRetinaUrl: 'assets/images/marker-icon-2x.png',
+        iconUrl: 'assets/images/marker-icon.png',
+        shadowUrl: 'assets/images/marker-shadow.png',
       });
 
       this.initializeMap();
